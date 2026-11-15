@@ -1304,9 +1304,19 @@ function helpView(){
 
 /* ---------- Renewal: the owner sends a ready-made request (email + WhatsApp) ---------- */
 function renewMessage(){
- var l=D.licence||{},s=D.settings;
- return 'Hello, please renew WashBook for 1 year.\n\nShop: '+s.shopName+' ('+SHOP+')\nOwner: '+D.user.name+(s.ownerPhone?'\nPhone: '+s.ownerPhone:'')+
-  '\nValid till: '+(l.expiry?fmtDay(String(l.expiry).slice(0,10)):'—')+'\n\nPlease send me the payment details. Thank you.';
+ var l=D.licence||{},s=D.settings,mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+ var exp=l.expiry?String(l.expiry).slice(0,10):'',from=exp&&exp>D.today?exp:D.today;
+ var till=(+from.slice(0,4)+1)+from.slice(4);                       // one year after the current end date (or today, if already ended)
+ var name=D.user.name&&!/^owner$/i.test(D.user.name)?D.user.name:'';
+ var L=['WashBook – Renewal Request','','Dear WashBook Team,','','Please renew my WashBook app for 1 year.','',
+  'Shop name: '+s.shopName,'Shop code: '+SHOP];
+ if(name)L.push('Owner: '+name);
+ if(s.ownerPhone)L.push('Mobile: '+s.ownerPhone);
+ L.push('Valid till: '+(exp?fmtDay(exp):'—'),'Renew till: '+fmtDay(till),'',
+  'Kindly send me the amount and the payment details (UPI or bank).','','Thank you,');
+ if(name)L.push(name);
+ L.push(s.shopName);
+ return L.join('\n');
 }
 function renewView(){
  var h=header(t('renewal')),l=D.licence||{},days=l.days;
