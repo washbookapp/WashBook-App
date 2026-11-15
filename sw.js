@@ -1,6 +1,6 @@
 // WashBook website: keeps the app on the phone so it opens even with weak internet.
 // Updates are picked up whenever the phone has internet; data always goes to Google.
-var CACHE = 'washbook-v42';
+var CACHE = 'washbook-v43';
 var FILES = ['./', 'index.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'favicon.png', 'apple-touch-icon.png'];
 
 self.addEventListener('install', function (e) {
