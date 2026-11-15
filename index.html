@@ -1,0 +1,1717 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WashBook</title>
+<meta name="theme-color" content="#087FA3">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="WashBook">
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Telugu:wght@400;500;600;700&display=swap">
+<style>
+/* ================= WashBook design system (v2) =================
+   All colours, type, spacing, radius and shadows live here.
+   Screens use these tokens; nothing else should hard-code a value. */
+:root{
+  /* brand: one place to change a shop's colour */
+  --primary:#087FA3; --primary-600:#066A89; --primary-700:#05566F; --primary-deep:#05566F; --primary-50:#E8F4F8; --primary-100:#CDE7F0;
+  --navy:#102D3A;
+  /* text */
+  --text:#102D3A; --text-2:#4B6371; --text-3:#5F737E;
+  /* surfaces */
+  --bg:#F3F7F9; --surface:#FFFFFF; --surface-2:#F7FAFB; --border:#E9EFF3; --border-strong:#D3DFE5;
+  /* status */
+  --success:#16A36A; --success-600:#0B7A4E; --success-50:#E8F6EF;
+  --warning:#C2410C; --warning-50:#FEF0E6;
+  --danger:#C62F2A; --danger-50:#FDECEB;
+  --wa:#0F7F42;                                  /* WhatsApp button (white text passes contrast) */
+  /* payment methods: the same colour everywhere */
+  --pay-cash:var(--success-600); --pay-upi:var(--primary); --pay-card:var(--navy); --pay-later:var(--warning);
+  /* type */
+  --font:"Inter","Noto Sans Telugu","Nirmala UI",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --fs-amount:28px; --fs-title:22px; --fs-section:17px; --fs-btn:16px; --fs-body:15px; --fs-label:13px; --fs-caption:12px;
+  --fw-regular:400; --fw-medium:500; --fw-semibold:600; --fw-bold:700;
+  --lh:1.45; --lh-tight:1.2;
+  /* 8px grid */
+  --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:24px; --sp-6:32px;
+  /* shape */
+  --r-sm:8px; --r-btn:12px; --r-card:16px; --r-pill:999px;
+  --sh-1:0 1px 2px rgba(16,45,58,.04),0 1px 3px rgba(16,45,58,.06);
+  --sh-2:0 4px 14px rgba(16,45,58,.08);
+  --sh-3:0 12px 32px rgba(16,45,58,.18);
+  --h-control:50px; --tap:48px;
+  /* older names, kept so every existing screen keeps working */
+  --ink:var(--text); --muted:var(--text-2); --line:var(--border); --sunk:#EBF2F5; --on:#FFFFFF;
+  --wash:var(--primary); --good:var(--success-600); --good-bg:var(--success-50); --bad:var(--danger); --bad-bg:var(--danger-50); --warn:var(--warning); --warn-bg:var(--warning-50);
+  --cust:#1C8556; --exp:#B86E12; --close:#5040A8;   /* home tiles: replaced in phase 2 */
+  --logo-bg:#DDF0F6; --logo-drop:#2A9CC6; --logo-win:#CFEAF5;
+}
+@media (prefers-color-scheme: dark){:root{
+  --primary:#2C9EC4; --primary-600:#2590B4; --primary-700:#9FD3E6; --primary-deep:#0B5C78; --primary-50:#10303B; --primary-100:#164452;
+  --navy:#C9DCE4;
+  --text:#E6F0F4; --text-2:#9DB2BC; --text-3:#7B919C;
+  --bg:#0A171D; --surface:#12232B; --surface-2:#0F1E25; --border:#1E3640; --border-strong:#2A4753;
+  --success:#3CC489; --success-600:#1E9E66; --success-50:#10301F;
+  --warning:#F08A4B; --warning-50:#3A2414; --danger:#F06E62; --danger-50:#3D1B18; --wa:#1B9A52;
+  --pay-card:#4E6B7A;
+  --sh-1:none; --sh-2:0 4px 14px rgba(0,0,0,.35); --sh-3:0 12px 32px rgba(0,0,0,.5);
+  --sunk:#0F2027; --cust:#2EA06C; --exp:#D08A2A; --close:#7565CC; --logo-bg:#14313B; --logo-drop:#4FB8DE; --logo-win:#9FD3E6; color-scheme:dark}}
+
+/* ---------- base ---------- */
+html{-webkit-text-size-adjust:100%}
+body{font-size:var(--fs-body);font-weight:var(--fw-regular);line-height:var(--lh);-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+html[lang="te"] body{line-height:1.6}                       /* Telugu needs room above and below */
+html[lang="te"] .btn,html[lang="te"] .big{line-height:1.4}
+h1{font-size:var(--fs-title);font-weight:var(--fw-bold);line-height:var(--lh-tight);letter-spacing:-.01em}
+h2{font-size:var(--fs-section);font-weight:var(--fw-semibold);color:var(--text);text-transform:none;letter-spacing:0}
+
+/* ---------- icons (Lucide, inline sprite) ---------- */
+.ico{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-4px}
+.ico.sm{width:16px;height:16px;vertical-align:-3px}.ico.lg{width:24px;height:24px}.ico.xl{width:32px;height:32px}.ico.xxl{width:44px;height:44px;stroke-width:1.75}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--sp-2);min-height:var(--h-control);padding:var(--sp-2) var(--sp-5);
+  border-radius:var(--r-btn);border:1px solid transparent;font-size:var(--fs-btn);font-weight:var(--fw-semibold);line-height:var(--lh-tight);
+  text-decoration:none;text-align:center;cursor:pointer;transition:transform .08s ease,background-color .15s ease,box-shadow .15s ease;color:var(--text);background:var(--surface)}
+.btn:active{transform:scale(.98)}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-success{background:var(--success-600);color:#fff}
+.btn-wa{background:var(--wa);color:#fff}
+.btn-navy{background:var(--navy);color:var(--surface)}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-outline{background:var(--surface);border-color:var(--border-strong);color:var(--text)}
+.btn-soft{background:var(--primary-50);color:var(--primary-700)}
+.btn-ghost{background:transparent;color:var(--primary);padding-left:var(--sp-2);padding-right:var(--sp-2)}
+.btn-block{display:flex;width:100%}
+.btn-sm{min-height:36px;padding:0 var(--sp-3);font-size:14px;border-radius:10px}
+.btn-icon{width:var(--tap);min-height:var(--tap);padding:0}
+
+/* ---------- cards & lists ---------- */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);box-shadow:var(--sh-1);padding:var(--sp-4)}
+.card-tight{padding:var(--sp-3)}
+.list-card{display:flex;align-items:center;gap:var(--sp-3);padding:var(--sp-3) var(--sp-4);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);box-shadow:var(--sh-1)}
+.section-title{display:flex;align-items:center;justify-content:space-between;font-size:var(--fs-section);font-weight:var(--fw-semibold);color:var(--text);margin:var(--sp-2) 0 0}
+.divider{height:1px;background:var(--border);border:0;margin:0}
+
+/* ---------- form fields ---------- */
+.label{display:block;font-size:var(--fs-label);font-weight:var(--fw-medium);color:var(--text-2);margin-bottom:6px}
+.input{width:100%;height:var(--h-control);padding:0 var(--sp-4);border:1px solid var(--border-strong);border-radius:var(--r-btn);background:var(--surface);
+  font-size:16px;color:var(--text);transition:border-color .15s,box-shadow .15s}
+.input::placeholder{color:var(--text-3)}
+.input:focus,.field:focus,.plate-in:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-100)}
+.input-group{position:relative}.input-group .ico{position:absolute;left:14px;top:50%;margin-top:-10px;color:var(--text-3)}.input-group .input{padding-left:44px}
+
+/* ---------- badges ---------- */
+.badge{display:inline-flex;align-items:center;gap:4px;min-height:22px;padding:0 var(--sp-2);border-radius:var(--r-pill);font-size:var(--fs-caption);font-weight:var(--fw-semibold);line-height:1.2;white-space:nowrap}
+.badge-success{background:var(--success-50);color:var(--success-600)}
+.badge-warning{background:var(--warning-50);color:var(--warning)}
+.badge-danger{background:var(--danger-50);color:var(--danger)}
+.badge-info{background:var(--primary-50);color:var(--primary-700)}
+.badge-neutral{background:var(--sunk);color:var(--text-2)}
+
+/* ---------- feedback ---------- */
+.spinner{width:20px;height:20px;border-radius:50%;border:2.5px solid var(--primary-100);border-top-color:var(--primary);animation:spin .8s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* ================= Layout ================= */
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font);
+  padding:calc(12px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));min-height:100vh;min-height:100dvh}
+body.has-nav{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+body.has-paybar{padding-bottom:calc(196px + env(safe-area-inset-bottom,0px))}
+.app{max-width:480px;margin:0 auto;display:flex;flex-direction:column;gap:var(--sp-4)}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer;-webkit-user-select:none;user-select:none}
+:focus-visible{outline:3px solid var(--primary-100);outline-offset:2px}
+.num{font-variant-numeric:tabular-nums}
+.ico.xs{width:14px;height:14px;vertical-align:-2px}
+.ico.spin{animation:spin 1s linear infinite}
+.main{flex:1;min-width:0}
+.sub{display:block;font-size:var(--fs-label);color:var(--text-2);overflow-wrap:anywhere;line-height:1.4}
+.sub .ico{margin-right:4px}
+.sub.warn{color:var(--warning);font-weight:var(--fw-medium)}.sub.good{color:var(--success-600);font-weight:var(--fw-medium)}
+.plate{font-weight:var(--fw-bold);letter-spacing:.02em;overflow-wrap:anywhere}
+.hint{font-size:var(--fs-label);color:var(--text-2);text-align:center;margin:0}
+.label .opt,.label .req{font-weight:var(--fw-regular);color:var(--text-3)}.label .req{color:var(--danger)}
+.center{display:flex;flex-direction:column;align-items:center;gap:var(--sp-3);padding:48px 0;color:var(--text-2);font-weight:var(--fw-medium)}
+.spinner.sm{width:14px;height:14px;border-width:2px;vertical-align:-2px;margin-right:6px}
+
+/* ================= Header ================= */
+.top{display:flex;align-items:center;gap:var(--sp-2);min-height:44px}
+.hd{gap:var(--sp-3)}
+.hd-brand{flex:1;min-width:0;display:flex;align-items:center;gap:var(--sp-3)}
+.hd-txt{min-width:0;display:flex;flex-direction:column}
+.hd-name,.brandbtn{font-size:var(--fs-section);font-weight:var(--fw-bold);line-height:1.25;overflow-wrap:anywhere}
+.hd-date{font-size:var(--fs-caption);color:var(--text-2)}
+.hd-act{display:flex;align-items:center;gap:var(--sp-2);margin-left:auto;flex:none}
+.brandbtn{border:0;background:transparent;padding:0;display:flex;align-items:center;gap:4px;text-align:left;color:inherit}
+.brandbtn .car{color:var(--text-2);transition:transform .15s}.brandbtn[aria-expanded="true"] .car{transform:rotate(180deg)}
+.back{display:inline-flex;align-items:center;gap:4px;min-height:40px;padding:0 var(--sp-3) 0 var(--sp-2);border:1px solid var(--border);background:var(--surface);border-radius:var(--r-btn);font-size:var(--fs-label);font-weight:var(--fw-semibold);color:var(--text);box-shadow:var(--sh-1)}
+.ptitle{margin:0}
+.lang{flex:none;min-width:40px;height:36px;padding:0 10px;border-radius:var(--r-pill);border:1px solid var(--border);background:var(--surface);font-size:13px;font-weight:var(--fw-semibold);line-height:1;box-shadow:var(--sh-1)}
+.sync{flex:none;display:inline-flex;align-items:center;justify-content:center;gap:2px;height:36px;min-width:36px;padding:0 10px;border:0;border-radius:var(--r-pill);background:var(--success-50);color:var(--success-600);font-size:13px;font-weight:var(--fw-semibold)}
+.sync.wait{background:var(--warning-50);color:var(--warning)}.sync.off{background:var(--danger-50);color:var(--danger)}
+.bmenu{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);box-shadow:var(--sh-2);overflow:hidden;margin-top:calc(-1 * var(--sp-2))}
+.bm-row{display:flex;align-items:center;gap:var(--sp-3);width:100%;padding:var(--sp-3) var(--sp-4);border:0;border-top:1px solid var(--border);background:transparent;text-align:left}
+.bm-row:first-child{border-top:0}.bm-row.here{background:var(--primary-50)}
+.bm-ic{width:36px;height:36px;border-radius:10px;background:var(--sunk);color:var(--text-2);display:grid;place-items:center;flex:none}
+.bname{display:block;font-weight:var(--fw-semibold)}.tick{color:var(--primary)}
+.btot{font-weight:var(--fw-semibold);background:var(--surface-2);justify-content:space-between}
+
+/* ================= Brand mark (logo) ================= */
+.bmark{--s:40px;position:relative;flex:none;width:var(--s);height:var(--s);border-radius:calc(var(--s) * .28);display:grid;place-items:center;overflow:hidden;
+  background:linear-gradient(140deg,var(--primary) 0%,var(--primary-deep) 100%);color:#fff;box-shadow:0 2px 6px rgba(16,45,58,.18)}
+.bmark b{font-size:calc(var(--s) * .4);font-weight:var(--fw-bold);letter-spacing:.02em;line-height:1}
+.bmark .bm-drop{position:absolute;right:calc(var(--s) * .08);bottom:calc(var(--s) * .06);opacity:.55;display:flex}
+.bmark .bm-drop .ico{width:calc(var(--s) * .26);height:calc(var(--s) * .26)}
+.bmark img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:var(--surface)}
+.bmark.bm-car{background:var(--logo-bg);box-shadow:none}.bmark.bm-car .logo{display:block;max-width:none}
+
+/* ================= Banners, empty states, confirm ================= */
+.banner{display:flex;align-items:flex-start;gap:var(--sp-2);border-radius:var(--r-btn);padding:var(--sp-3);font-size:var(--fs-label);font-weight:var(--fw-medium);line-height:1.45}
+.banner>.ico{flex:none;margin-top:1px}.banner>span{flex:1;min-width:0}
+.b-good{background:var(--success-50);color:var(--success-600)}.b-bad{background:var(--danger-50);color:var(--danger)}.b-warn{background:var(--warning-50);color:var(--warning)}
+.duebar{align-items:center}.duebar .btn{flex:none}
+.empty{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding:var(--sp-5) var(--sp-4);background:var(--surface);border:1px dashed var(--border-strong);border-radius:var(--r-card);color:var(--text-2);font-size:var(--fs-label)}
+.empty b{color:var(--text);font-size:var(--fs-body);font-weight:var(--fw-semibold)}
+.empty-ic{width:64px;height:64px;border-radius:50%;background:var(--primary-50);color:var(--primary);display:grid;place-items:center;margin-bottom:4px}
+.confirm{display:flex;align-items:center;gap:var(--sp-2);flex-wrap:wrap;padding:var(--sp-3);margin-top:-4px;background:var(--danger-50);color:var(--danger);border-radius:0 0 var(--r-card) var(--r-card);font-size:var(--fs-label);font-weight:var(--fw-semibold)}
+.confirm>span{flex:1;min-width:140px;display:flex;align-items:center;gap:6px}
+.confirm.go{background:var(--success-50);color:var(--success-600);border-radius:var(--r-btn);margin-top:0}
+
+/* ================= 1. PIN ================= */
+body.is-login{background:radial-gradient(120% 60% at 50% -10%,var(--primary-100) 0%,var(--bg) 60%) var(--bg) no-repeat}
+.login{display:flex;flex-direction:column;align-items:center;gap:var(--sp-4);min-height:calc(100dvh - 48px);padding-bottom:var(--sp-2)}
+.lg-top{align-self:stretch;display:flex;justify-content:flex-end}
+.lg-brand{display:flex;flex-direction:column;align-items:center;gap:var(--sp-2);margin-top:var(--sp-3)}
+.lg-brand .bmark{box-shadow:0 10px 24px rgba(16,45,58,.18)}
+.lg-shop{font-size:var(--fs-title);font-weight:var(--fw-bold);text-align:center;line-height:1.25;margin-top:var(--sp-2)}
+.lg-app{font-size:var(--fs-caption);font-weight:var(--fw-semibold);letter-spacing:.12em;text-transform:uppercase;color:var(--text-3)}
+.lg-prompt{display:flex;align-items:center;gap:6px;font-weight:var(--fw-medium);color:var(--text-2);margin-top:var(--sp-2)}
+.pindots{display:flex;gap:20px;height:18px}
+.pindots span{width:16px;height:16px;border-radius:50%;border:2px solid var(--border-strong);background:var(--surface);transition:background .12s,border-color .12s,transform .12s}
+.pindots span.on{background:var(--primary);border-color:var(--primary);transform:scale(1.08)}
+.pindots.bad span{border-color:var(--danger)}
+.shake{animation:shake .38s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+.err{min-height:22px;display:flex;align-items:center;justify-content:center;gap:6px;color:var(--danger);font-size:var(--fs-label);font-weight:var(--fw-semibold);text-align:center}
+.pad{display:grid;grid-template-columns:repeat(3,76px);gap:14px 24px}
+.pad button{width:76px;height:76px;border-radius:50%;border:1px solid var(--border);background:var(--surface);font-size:28px;font-weight:var(--fw-medium);color:var(--text);box-shadow:var(--sh-1);display:grid;place-items:center;transition:transform .08s,background .12s}
+.pad button:active{transform:scale(.94);background:var(--primary-50)}
+.pad .del{background:transparent;border-color:transparent;box-shadow:none;color:var(--text-2)}
+.pad .okk{background:var(--primary);border-color:var(--primary);color:#fff;box-shadow:0 6px 16px rgba(8,127,163,.3)}
+.lg-ver{margin-top:auto;font-size:11px;color:var(--text-3)}
+.lg-pick{display:flex;flex-direction:column;gap:var(--sp-3);width:100%;max-width:300px}
+.lg-pick .lg-brand{margin-bottom:var(--sp-4)}
+.lg-pick .label{margin:0}
+
+/* ================= 5/6. Dashboard ================= */
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-3)}
+.kpis.three{grid-template-columns:repeat(3,1fr)}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);box-shadow:var(--sh-1);padding:var(--sp-4);display:flex;flex-direction:column;gap:2px;min-width:0}
+.kpi-ic{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--primary-50);color:var(--primary);margin-bottom:var(--sp-2)}
+.kpi-ic.k-rev{background:var(--success-50);color:var(--success-600)}
+.kpi-lb{font-size:var(--fs-label);color:var(--text-2);font-weight:var(--fw-medium);line-height:1.35}
+.kpi-v{font-size:var(--fs-amount);font-weight:var(--fw-bold);line-height:1.15;letter-spacing:-.01em;overflow-wrap:anywhere}
+.qa{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-3)}
+.qa-card{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-height:118px;padding:var(--sp-4);text-align:left;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);box-shadow:var(--sh-1);color:var(--text);transition:transform .08s,box-shadow .15s}
+.qa-card:active{transform:scale(.98)}
+.qa-card:disabled{opacity:.5;cursor:not-allowed}
+.qa-ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--primary-50);color:var(--primary);margin-bottom:auto}
+.qa-lb{font-size:var(--fs-btn);font-weight:var(--fw-semibold);line-height:1.3;margin-top:var(--sp-3)}
+.qa-sub{font-size:var(--fs-caption);color:var(--text-2)}
+.qa-primary{background:linear-gradient(150deg,var(--primary) 0%,var(--primary-deep) 100%);border-color:transparent;color:#fff;box-shadow:0 8px 20px rgba(8,127,163,.25)}
+.qa-primary .qa-ic{background:rgba(255,255,255,.18);color:#fff}.qa-primary .qa-sub{color:rgba(255,255,255,.85)}
+.sec{display:flex;align-items:center;gap:var(--sp-2);margin-top:var(--sp-1)}
+.sec h2{margin:0;flex:1}
+.sec-n{min-width:24px;height:24px;padding:0 8px;border-radius:var(--r-pill);background:var(--sunk);color:var(--text-2);font-size:var(--fs-caption);font-weight:var(--fw-semibold);display:inline-grid;place-items:center}
+.cards{display:flex;flex-direction:column;gap:var(--sp-2)}
+.txw{display:flex;flex-direction:column}
+.tx{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:var(--sp-3);width:100%;padding:var(--sp-3);text-align:left;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);box-shadow:var(--sh-1);color:var(--text)}
+.avatar{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;flex:none;background:var(--primary-50);color:var(--primary)}
+.avatar.sm{width:36px;height:36px;border-radius:10px}
+.tx-main{min-width:0;display:flex;flex-direction:column;gap:1px}
+.tx-main .plate{font-size:var(--fs-body)}
+.tx-sub{font-size:var(--fs-caption);color:var(--text-2);overflow-wrap:anywhere}
+.tx-svc{font-size:var(--fs-label);color:var(--text);overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.tx-side{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.tx-amt{font-size:var(--fs-btn);font-weight:var(--fw-bold)}
+.pay{display:inline-flex;align-items:center;gap:4px;min-height:22px;padding:0 var(--sp-2);border-radius:var(--r-pill);font-size:var(--fs-caption);font-weight:var(--fw-semibold);white-space:nowrap}
+.p-cash{background:var(--success-50);color:var(--pay-cash)}.p-upi{background:var(--primary-50);color:var(--primary-700)}.p-card{background:var(--sunk);color:var(--pay-card)}.p-credit{background:var(--warning-50);color:var(--pay-later)}
+/* manager home */
+.mhello{font-size:var(--fs-title);font-weight:var(--fw-bold);line-height:1.25}
+.mbig{display:flex;align-items:center;gap:var(--sp-4);width:100%;min-height:132px;padding:var(--sp-5);border:0;border-radius:20px;text-align:left;color:#fff;
+  background:linear-gradient(150deg,var(--primary) 0%,var(--primary-deep) 100%);box-shadow:0 10px 24px rgba(8,127,163,.28)}
+.mbig:active{transform:scale(.98)}.mbig:disabled{opacity:.5}
+.mic{width:64px;height:64px;border-radius:18px;background:rgba(255,255,255,.18);display:grid;place-items:center;flex:none}
+.mtx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.mlb{font-size:24px;font-weight:var(--fw-bold);line-height:1.2}.msub{font-size:var(--fs-label);opacity:.9}
+.mcount{flex-direction:row;align-items:center;gap:var(--sp-3)}
+.mcount .kpi-ic{margin:0}.mcount .kpi-lb{flex:1}.mcount .kpi-v{font-size:26px}
+
+/* ================= 2/3. New wash ================= */
+.wsec{display:flex;flex-direction:column;gap:var(--sp-3)}
+.wsec-h{display:flex;align-items:center;justify-content:space-between;gap:var(--sp-2)}
+.wsec-t{display:flex;align-items:center;gap:6px;font-size:var(--fs-label);font-weight:var(--fw-semibold);color:var(--text-2);text-transform:uppercase;letter-spacing:.06em}
+html[lang="te"] .wsec-t{text-transform:none;letter-spacing:0;font-size:var(--fs-body)}
+.input-group.ig-lg .ico{margin-top:-10px;left:16px}
+.input-group.ig-lg .plate-in{padding-left:48px}
+.plate-in{width:100%;height:56px;padding:0 var(--sp-4);border:1px solid var(--border-strong);border-radius:var(--r-btn);background:var(--surface);font-size:20px;font-weight:var(--fw-bold);letter-spacing:.04em;text-transform:uppercase;color:var(--text);transition:border-color .15s,box-shadow .15s}
+.plate-in::placeholder{text-transform:none;letter-spacing:0;font-weight:var(--fw-regular);font-size:16px;color:var(--text-3)}
+.input.up{text-transform:uppercase;font-weight:var(--fw-semibold);letter-spacing:.03em}
+.input.up::placeholder{text-transform:none;font-weight:var(--fw-regular);letter-spacing:0}
+.input.area{height:auto;min-height:104px;padding:var(--sp-3) var(--sp-4);line-height:1.5;resize:vertical}
+.picked{display:flex;align-items:flex-start;gap:var(--sp-3)}
+.picked .main{display:flex;flex-direction:column;gap:2px}
+.pk-plate{font-size:20px}
+.btn-icon.x{flex:none;width:40px;min-height:40px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text-2);display:grid;place-items:center}
+.phonebox{display:flex;flex-direction:column}
+.phonebox .input{font-size:18px;font-weight:var(--fw-semibold);letter-spacing:.02em}
+.phonebox.bad .input{border-color:var(--danger)}
+.field-err{font-size:var(--fs-caption);color:var(--danger);margin-top:4px}
+.match{display:flex;align-items:center;gap:var(--sp-3);width:100%;padding:var(--sp-3);border:1px solid var(--border);background:var(--surface-2);border-radius:var(--r-btn);text-align:left;color:var(--text)}
+.match .main{display:flex;flex-direction:column}
+.newveh{display:flex;align-items:center;gap:var(--sp-3);flex-wrap:wrap;padding:var(--sp-3);border:1px dashed var(--primary);background:var(--primary-50);border-radius:var(--r-btn)}
+.nv-ic{width:36px;height:36px;border-radius:10px;background:var(--surface);color:var(--primary);display:grid;place-items:center;flex:none}
+.nv-txt{flex:1;min-width:120px;display:flex;flex-direction:column}
+.nv-txt b{font-size:var(--fs-section);letter-spacing:.03em}
+.addf{display:flex;flex-direction:column;gap:var(--sp-3)}
+.addf .bad .input{border-color:var(--danger)}
+.hint.left{text-align:left;display:flex;align-items:center;gap:6px;color:var(--warning);font-weight:var(--fw-medium)}
+.dots{display:flex;gap:4px;margin-top:4px}
+.dot{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--primary)}.dot.on{background:var(--primary)}
+.vcat{font-size:var(--fs-label);font-weight:var(--fw-semibold);color:var(--text-2);margin:var(--sp-1) 0 calc(-1 * var(--sp-2))}
+.vgrid{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-2)}
+.vbtn{display:flex;align-items:center;gap:var(--sp-3);min-height:64px;padding:var(--sp-2) var(--sp-3);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-btn);box-shadow:var(--sh-1);text-align:left;color:var(--text)}
+.vbtn:active{transform:scale(.98);border-color:var(--primary)}
+.vic{width:40px;height:40px;border-radius:10px;background:var(--primary-50);color:var(--primary);display:grid;place-items:center;flex:none}
+.vn{font-size:var(--fs-label);font-weight:var(--fw-semibold);line-height:1.3;min-width:0;overflow-wrap:anywhere}
+.vchosen{display:flex;align-items:center;gap:var(--sp-3);padding:var(--sp-3);background:var(--surface);border:1px solid var(--primary);border-radius:var(--r-card);box-shadow:0 0 0 3px var(--primary-50)}
+.vc-txt{flex:1;min-width:0;display:flex;flex-direction:column}.vc-txt b{font-weight:var(--fw-semibold);overflow-wrap:anywhere}
+.svc{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-2)}
+.svcb{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-height:112px;padding:var(--sp-3);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);box-shadow:var(--sh-1);text-align:left;color:var(--text);transition:background .12s,border-color .12s}
+.svc-top{display:flex;align-items:center;justify-content:space-between;width:100%;margin-bottom:var(--sp-1)}
+.svc-ic{width:36px;height:36px;border-radius:10px;background:var(--sunk);color:var(--text-2);display:grid;place-items:center}
+.svc-tick{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--border-strong);display:grid;place-items:center;color:transparent;transition:all .12s}
+.svcb .n{font-size:var(--fs-label);font-weight:var(--fw-semibold);line-height:1.3}
+.svcb .p{font-size:var(--fs-btn);font-weight:var(--fw-bold);margin-top:auto}
+.svcb[aria-pressed="true"]{background:var(--primary-50);border-color:var(--primary);box-shadow:0 0 0 1px var(--primary)}
+.svcb[aria-pressed="true"] .svc-ic{background:var(--primary);color:#fff}
+.svcb[aria-pressed="true"] .svc-tick{background:var(--primary);border-color:var(--primary);color:#fff}
+.paybar{position:fixed;left:0;right:0;bottom:0;z-index:15;background:var(--surface);border-top:1px solid var(--border);box-shadow:0 -8px 24px rgba(16,45,58,.08);
+  padding:var(--sp-3) max(16px,env(safe-area-inset-right,0px)) calc(var(--sp-3) + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.paybar>*{max-width:480px;margin-left:auto;margin-right:auto}
+.total{display:flex;align-items:baseline;justify-content:space-between;gap:var(--sp-2)}
+.pb-n{font-size:var(--fs-label);font-weight:var(--fw-medium);color:var(--text-2)}
+.total b{font-size:var(--fs-amount);font-weight:var(--fw-bold);line-height:1.1}
+.total s{font-size:var(--fs-btn);color:var(--text-3);font-weight:var(--fw-medium)}
+.pb-hint{font-size:var(--fs-caption);color:var(--warning);margin:2px auto var(--sp-2);min-height:16px}
+.pb-hint.ok{color:var(--text-2)}
+.paybtns{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--sp-2)}
+.pb{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:64px;padding:var(--sp-2) 2px;border-radius:var(--r-btn);border:0;color:#fff;font-size:var(--fs-label);font-weight:var(--fw-semibold);line-height:1.2;transition:transform .08s,opacity .15s}
+.pb:active{transform:scale(.96)}
+.pb:disabled{opacity:.3;cursor:not-allowed;transform:none}
+.pb-cash{background:var(--pay-cash)}.pb-upi{background:var(--pay-upi)}.pb-card{background:var(--pay-card);color:var(--surface)}.pb-credit{background:var(--pay-later)}
+
+/* ================= 4. Invoice ================= */
+.okstrip{display:flex;align-items:center;gap:var(--sp-3);padding:var(--sp-3);background:var(--success-50);border-radius:var(--r-card);color:var(--success-600);animation:pop .35s ease-out}
+.okstrip b{display:block;font-weight:var(--fw-semibold)}
+.ok-ic{width:36px;height:36px;border-radius:50%;background:var(--success-600);color:#fff;display:grid;place-items:center;flex:none;animation:pop .45s ease-out}
+@keyframes pop{0%{transform:scale(.8);opacity:0}70%{transform:scale(1.04);opacity:1}100%{transform:scale(1)}}
+.bill{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);box-shadow:var(--sh-2);padding:var(--sp-5) var(--sp-4);display:flex;flex-direction:column;gap:var(--sp-4);position:relative;overflow:hidden}
+.bill::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:var(--primary)}
+.bill-head{display:flex;align-items:center;gap:var(--sp-3)}
+.bh-txt{flex:1;min-width:0}
+.bill-shop{font-size:var(--fs-section);font-weight:var(--fw-bold);line-height:1.25;overflow-wrap:anywhere}
+.bill-tag{flex:none;font-size:var(--fs-caption);font-weight:var(--fw-semibold);letter-spacing:.1em;text-transform:uppercase;color:var(--primary);background:var(--primary-50);padding:4px 10px;border-radius:var(--r-pill)}
+html[lang="te"] .bill-tag{letter-spacing:0}
+.bill-meta{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-3);padding:var(--sp-3);background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r-btn)}
+.bill-meta>div,.bill-sec>div{display:flex;flex-direction:column;min-width:0}
+.bill-meta .label,.bill-sec .label{margin:0 0 2px;font-size:var(--fs-caption);display:flex;align-items:center;gap:4px}
+.bill-meta b{font-size:var(--fs-label);font-weight:var(--fw-semibold)}
+.bill-sec{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-3)}
+.bill-sec b{font-size:var(--fs-body);font-weight:var(--fw-semibold);overflow-wrap:anywhere}
+.bill-items{display:flex;flex-direction:column}
+.bi{display:flex;justify-content:space-between;gap:var(--sp-3);padding:10px 0;border-bottom:1px solid var(--border);font-size:var(--fs-label)}
+.bi-h{font-size:var(--fs-caption);font-weight:var(--fw-semibold);color:var(--text-2);text-transform:uppercase;letter-spacing:.06em;padding-top:0}
+html[lang="te"] .bi-h{text-transform:none;letter-spacing:0}
+.bi.good{color:var(--success-600);font-weight:var(--fw-semibold)}
+.bi.tot{align-items:baseline;border:0;padding:var(--sp-3) var(--sp-4);margin:0 calc(-1 * var(--sp-4));background:var(--primary-50);font-size:var(--fs-section);font-weight:var(--fw-semibold)}
+.bi.tot .num{font-size:var(--fs-amount);font-weight:var(--fw-bold);color:var(--text)}
+.bill-pay{display:flex;align-items:center;gap:var(--sp-2);flex-wrap:wrap}
+.bill-pay .badge{min-height:28px;padding:0 12px;font-size:var(--fs-label)}
+.bill-thanks{text-align:center;color:var(--text-2);font-size:var(--fs-label);padding-top:var(--sp-3);border-top:1px dashed var(--border-strong)}
+.rewards{border:1px solid var(--border);border-radius:var(--r-btn);padding:var(--sp-3);display:flex;flex-direction:column;gap:var(--sp-2)}
+.rw-h{display:flex;align-items:center;gap:6px;font-size:var(--fs-label)}.rw-h b{flex:1}.rw-h .ico{color:var(--warning)}
+.rw-bar{display:flex;gap:4px}.rw-bar span{flex:1;height:8px;border-radius:var(--r-pill);background:var(--sunk);display:grid;place-items:center}
+.rw-bar span.on{background:var(--success)}.rw-bar span.gift{height:20px;margin-top:-6px;background:var(--warning-50);color:var(--warning)}
+.rw-msg{font-size:var(--fs-label);font-weight:var(--fw-semibold);color:var(--success-600)}
+.actions{display:flex;flex-direction:column;gap:var(--sp-2)}
+.stepn{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.2);font-size:12px;font-weight:var(--fw-bold);display:grid;place-items:center;flex:none}
+
+/* ================= 7. Daily report ================= */
+.daynav{display:flex;align-items:center;gap:var(--sp-2);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);box-shadow:var(--sh-1);padding:var(--sp-2)}
+.dn-btn{flex:none;width:48px;min-height:48px;border:0;border-radius:10px;background:var(--sunk);color:var(--text);display:grid;place-items:center}
+.dn-btn:disabled{opacity:.35;cursor:not-allowed}
+.dn-mid{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;gap:6px;text-align:center;font-size:var(--fs-label)}
+.dn-mid b{font-weight:var(--fw-semibold)}.dn-mid .ico{color:var(--text-2);flex:none}
+.dash-total{display:flex;flex-direction:column;gap:2px;padding:var(--sp-5);border-radius:20px;color:#fff;background:linear-gradient(150deg,var(--primary) 0%,var(--primary-deep) 100%);box-shadow:0 10px 24px rgba(8,127,163,.25)}
+.dt-lb{font-size:var(--fs-label);font-weight:var(--fw-medium);opacity:.9}
+.dash-total b{font-size:34px;font-weight:var(--fw-bold);line-height:1.15;letter-spacing:-.01em}
+.dt-sub{display:flex;align-items:center;gap:6px;font-size:var(--fs-label);opacity:.9;margin-top:var(--sp-1)}
+.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-3)}
+.dtile{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);box-shadow:var(--sh-1);padding:var(--sp-4);display:flex;flex-direction:column;gap:2px;overflow:hidden}
+.dtile::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--c)}
+.dt-ic{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;margin-bottom:var(--sp-2);color:var(--c);background:var(--cb)}
+.dlb{font-size:var(--fs-label);color:var(--text-2);font-weight:var(--fw-medium)}
+.dtile b{font-size:22px;font-weight:var(--fw-bold);line-height:1.2}
+.dcnt{font-size:var(--fs-caption);color:var(--text-3)}
+.d-cash{--c:var(--pay-cash);--cb:var(--success-50)}.d-upi{--c:var(--pay-upi);--cb:var(--primary-50)}.d-card{--c:var(--pay-card);--cb:var(--sunk)}.d-credit{--c:var(--pay-later);--cb:var(--warning-50)}
+.list{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);box-shadow:var(--sh-1);overflow:hidden}
+.list.cards{background:transparent;border:0;box-shadow:none;overflow:visible}
+.row{display:flex;align-items:center;gap:var(--sp-3);padding:var(--sp-3) var(--sp-4);border-top:1px solid var(--border);font-size:var(--fs-label)}
+.row:first-child{border-top:0}
+.row .main b{font-weight:var(--fw-semibold)}
+.r-ic{width:32px;height:32px;border-radius:8px;background:var(--sunk);color:var(--text-2);display:grid;place-items:center;flex:none}
+.amt{font-weight:var(--fw-semibold);text-align:right;flex:none}
+.row.hl{background:var(--surface-2)}
+.row.hl .main,.row.hl .amt{font-size:var(--fs-btn);font-weight:var(--fw-bold)}
+.row.hl .r-ic{background:var(--success-50);color:var(--success-600)}
+.trow{padding:var(--sp-3) var(--sp-4);border-top:1px solid var(--border);display:flex;flex-direction:column;gap:4px}
+.trow:first-child{border-top:0}
+.tr-h{display:flex;align-items:baseline;gap:var(--sp-2)}.tr-h .plate{font-size:var(--fs-body)}.tr-h .sub{flex:1}
+.tr-tot{font-weight:var(--fw-bold)}
+.tr-i{display:flex;justify-content:space-between;gap:var(--sp-2);font-size:var(--fs-caption);color:var(--text-2)}
+.tr-i.good{color:var(--success-600)}
+.tr-f{display:flex;align-items:center;gap:var(--sp-2);margin-top:2px}.tr-f .sub{font-size:var(--fs-caption)}
+
+/* ================= 8. Customers ================= */
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;background:var(--sunk);border-radius:14px}
+.seg button{display:flex;align-items:center;justify-content:center;gap:6px;min-height:44px;border:0;background:transparent;border-radius:10px;font-size:var(--fs-label);font-weight:var(--fw-semibold);color:var(--text-2)}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--text);box-shadow:var(--sh-1)}
+.seg-n{font-size:var(--fs-caption);color:var(--text-3)}
+.cnt{min-width:20px;height:20px;padding:0 6px;border-radius:var(--r-pill);background:var(--warning);color:#fff;font-size:11px;display:inline-grid;place-items:center}
+.chips{display:flex;flex-wrap:wrap;gap:var(--sp-2)}
+.chips.scroll{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:0 16px}
+.chips.scroll::-webkit-scrollbar{display:none}
+.chips button{flex:none;min-height:36px;padding:0 14px;border:1px solid var(--border-strong);background:var(--surface);border-radius:var(--r-pill);font-size:var(--fs-label);font-weight:var(--fw-medium);color:var(--text-2)}
+.chips button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:var(--surface)}
+.ccard{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);box-shadow:var(--sh-1);overflow:hidden}
+.ccard.here{border-color:var(--primary)}
+.cc-main{display:flex;align-items:center;gap:var(--sp-3);width:100%;padding:var(--sp-3);border:0;background:transparent;text-align:left;color:var(--text)}
+div.cc-main{align-items:center}
+.cc-main .main{display:flex;flex-direction:column;gap:1px}
+.cc-main .plate{font-size:var(--fs-body)}
+.cc-side{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.visits{display:flex;flex-direction:column;align-items:center;min-width:52px;padding:6px 8px;border-radius:10px;background:var(--primary-50);color:var(--primary-700);font-size:11px;line-height:1.2;text-align:center}
+.visits b{font-size:18px;font-weight:var(--fw-bold)}
+.cc-due{display:flex;align-items:center;justify-content:space-between;gap:var(--sp-2);padding:var(--sp-2) var(--sp-3);border-top:1px solid var(--border);background:var(--surface-2)}
+.bdg{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.wa{flex:none}.wa.done{color:var(--text-2)}
+.sendq{display:flex;flex-direction:column;gap:var(--sp-3);border-color:var(--wa)}
+.sq-top{display:flex;justify-content:space-between;align-items:center}.sq-top b{display:flex;align-items:center;gap:6px}
+.sq-bar{height:6px;border-radius:var(--r-pill);background:var(--sunk);overflow:hidden}.sq-bar span{display:block;height:100%;background:var(--wa)}
+.sq-btns{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-2)}
+.sendq .plate{font-size:var(--fs-section)}
+.cats{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-2)}
+.cats button{display:flex;align-items:center;gap:var(--sp-2);min-height:56px;padding:var(--sp-2) var(--sp-3);border:1px solid var(--border);background:var(--surface);border-radius:var(--r-btn);font-size:var(--fs-label);font-weight:var(--fw-semibold);text-align:left;box-shadow:var(--sh-1)}
+.cats button[aria-pressed="true"]{background:var(--primary-50);border-color:var(--primary);box-shadow:0 0 0 1px var(--primary)}
+.cats .ic{font-size:22px}
+
+/* ================= More ================= */
+.profile{display:flex;align-items:center;gap:var(--sp-3)}
+.profile .main{display:flex;flex-direction:column}.profile b{font-size:var(--fs-section);font-weight:var(--fw-semibold)}
+.pf-av{width:48px;height:48px;border-radius:50%;background:var(--navy);color:var(--surface);display:grid;place-items:center;font-size:20px;font-weight:var(--fw-bold);flex:none}
+.menu{padding:0;overflow:hidden}
+.mrow{display:flex;align-items:center;gap:var(--sp-3);width:100%;min-height:56px;padding:var(--sp-2) var(--sp-4);border:0;border-top:1px solid var(--border);background:transparent;text-align:left;color:var(--text);text-decoration:none;font-size:var(--fs-body);font-weight:var(--fw-medium)}
+.mrow:first-child{border-top:0}
+.mrow .main{display:flex;flex-direction:column}
+.mr-ic{width:36px;height:36px;border-radius:10px;background:var(--sunk);color:var(--text-2);display:grid;place-items:center;flex:none}
+.mr-val{font-size:var(--fs-label);color:var(--text-2)}
+.mr-go{color:var(--text-3)}
+.mrow.danger{color:var(--danger)}.mrow.danger .mr-ic{background:var(--danger-50);color:var(--danger)}
+.foot{display:flex;justify-content:center}
+.foot .who{display:inline-flex;align-items:center;gap:6px;font-size:var(--fs-caption);color:var(--text-3)}
+.ver{text-align:center;font-size:11px;color:var(--text-3);margin-top:calc(-1 * var(--sp-3))}
+
+/* ================= Bottom navigation ================= */
+.bnav{position:fixed;left:0;right:0;bottom:0;z-index:15;display:grid;grid-auto-flow:column;grid-auto-columns:1fr;align-items:end;
+  background:var(--surface);border-top:1px solid var(--border);box-shadow:0 -6px 20px rgba(16,45,58,.06);
+  padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
+.bn{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:2px;min-height:52px;padding:4px 2px;border:0;background:transparent;color:var(--text-3);font-size:11px;font-weight:var(--fw-medium);line-height:1.2}
+.bn.on{color:var(--primary)}
+.bn.on .bn-lb{font-weight:var(--fw-semibold)}
+.bn-lb{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bn-main{color:var(--text)}
+.bn-fab{width:56px;height:56px;margin-top:-28px;border-radius:18px;display:grid;place-items:center;color:#fff;background:linear-gradient(150deg,var(--primary) 0%,var(--primary-deep) 100%);box-shadow:0 8px 18px rgba(8,127,163,.35);border:4px solid var(--surface)}
+.bn:disabled{opacity:.4}
+@media (min-width:520px){.bnav,.paybar{left:50%;right:auto;width:480px;transform:translateX(-50%);border-left:1px solid var(--border);border-right:1px solid var(--border);border-radius:20px 20px 0 0}}
+
+/* ================= Toast ================= */
+.toast{position:fixed;left:50%;transform:translateX(-50%);top:calc(12px + env(safe-area-inset-top,0px));z-index:30;max-width:90vw;display:flex;align-items:center;gap:var(--sp-2);
+  background:var(--navy);color:var(--surface);font-size:var(--fs-label);font-weight:var(--fw-semibold);padding:var(--sp-3) var(--sp-4);border-radius:var(--r-btn);box-shadow:var(--sh-3);animation:toastin .18s ease-out;text-align:left}
+.toast .ico{color:var(--success)}
+.toast.bad{background:var(--danger);color:#fff}.toast.bad .ico{color:#fff}
+@keyframes toastin{from{opacity:0;transform:translate(-50%,-8px)}to{opacity:1;transform:translate(-50%,0)}}
+[hidden]{display:none!important}
+
+
+/* ================= 4.1: payment confirmation, help, renewal ================= */
+body.has-paybar{padding-bottom:calc(260px + env(safe-area-inset-bottom,0px))}
+.pb{border:2px solid transparent}
+.pb.sel{box-shadow:0 0 0 3px var(--surface),0 0 0 5px var(--c,var(--primary));transform:translateY(-2px)}
+.pb-cash{--c:var(--pay-cash)}.pb-upi{--c:var(--pay-upi)}.pb-card{--c:var(--pay-card)}.pb-credit{--c:var(--pay-later)}
+.paybtns:has(.sel) .pb:not(.sel):not(:disabled){opacity:.55}
+.payok{margin-top:var(--sp-3);min-height:54px;background:var(--success-600);color:#fff;font-size:var(--fs-btn)}
+.payok.later{background:var(--warning)}
+.payok:disabled{background:var(--sunk);color:var(--text-3);opacity:1}
+.lead{margin:calc(-1 * var(--sp-2)) 0 0;color:var(--text-2);font-size:var(--fs-label)}
+.help{display:flex;flex-direction:column;gap:var(--sp-3)}
+.help-h{display:flex;align-items:center;gap:var(--sp-3)}.help-h b{font-size:var(--fs-section);font-weight:var(--fw-semibold)}
+.steps{margin:0;padding:0;list-style:none;counter-reset:st;display:flex;flex-direction:column;gap:var(--sp-2)}
+.steps li{counter-increment:st;display:grid;grid-template-columns:28px 1fr;gap:var(--sp-2);align-items:start;font-size:var(--fs-body);line-height:1.5}
+.steps li::before{content:counter(st);width:26px;height:26px;border-radius:50%;background:var(--primary-50);color:var(--primary-700);font-size:13px;font-weight:var(--fw-bold);display:grid;place-items:center}
+.renew-st{display:flex;align-items:center;gap:var(--sp-3)}.renew-st b{font-size:var(--fs-section)}
+.msgprev{background:var(--surface-2)}
+.msgprev pre{margin:0;white-space:pre-wrap;font:inherit;font-size:var(--fs-body);line-height:1.55;color:var(--text)}
+.licb{align-items:center;flex-wrap:wrap}.licb .btn{flex:none}
+
+/* ================= Touch areas: every control reacts to at least 48 x 48 px ================= */
+.lang,.sync,.back,.btn-sm,.chips button,.btn-icon.x,.brandbtn,.seg button{position:relative}
+.lang::after,.sync::after,.back::after,.btn-sm::after,.chips button::after,.btn-icon.x::after,.brandbtn::after{content:"";position:absolute;inset:-6px}
+.back{min-height:44px}.seg button{min-height:48px}
+
+/* ================= Small phones ================= */
+@media (max-width:360px){
+  .pad{grid-template-columns:repeat(3,68px);gap:12px 18px}.pad button{width:68px;height:68px}
+  .kpi-v{font-size:22px}.qa-card{min-height:108px;padding:var(--sp-3)}
+  .paybtns{gap:6px}.pb{min-height:58px;font-size:12px}
+}
+</style>
+</head>
+<body>
+<!-- Lucide icons (ISC licence), built by tools/build-icons.js -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true"><symbol id="i-house" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" /><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></symbol><symbol id="i-car-front" viewBox="0 0 24 24"><path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8" /><path d="M7 14h.01" /><path d="M17 14h.01" /><rect width="18" height="8" x="3" y="10" rx="2" /><path d="M5 18v2" /><path d="M19 18v2" /></symbol><symbol id="i-car" viewBox="0 0 24 24"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2" /><circle cx="7" cy="17" r="2" /><path d="M9 17h6" /><circle cx="17" cy="17" r="2" /></symbol><symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><path d="M16 3.128a4 4 0 0 1 0 7.744" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><circle cx="9" cy="7" r="4" /></symbol><symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></symbol><symbol id="i-wallet" viewBox="0 0 24 24"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1" /><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4" /></symbol><symbol id="i-receipt" viewBox="0 0 24 24"><path d="M12 17V7" /><path d="M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8" /><path d="M4 3a1 1 0 0 1 1-1 1.3 1.3 0 0 1 .7.2l.933.6a1.3 1.3 0 0 0 1.4 0l.934-.6a1.3 1.3 0 0 1 1.4 0l.933.6a1.3 1.3 0 0 0 1.4 0l.933-.6a1.3 1.3 0 0 1 1.4 0l.934.6a1.3 1.3 0 0 0 1.4 0l.933-.6A1.3 1.3 0 0 1 19 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1 1.3 1.3 0 0 1-.7-.2l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.934.6a1.3 1.3 0 0 1-1.4 0l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-1.4 0l-.934-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-.7.2 1 1 0 0 1-1-1z" /></symbol><symbol id="i-calendar-check" viewBox="0 0 24 24"><path d="M8 2v3" /><path d="M16 2v3" /><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M3 9h18" /><path d="m9 15 2 2 4-4" /></symbol><symbol id="i-banknote" viewBox="0 0 24 24"><rect width="20" height="12" x="2" y="6" rx="2" /><circle cx="12" cy="12" r="2" /><path d="M6 12h.01M18 12h.01" /></symbol><symbol id="i-smartphone" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2" ry="2" /><path d="M12 18h.01" /></symbol><symbol id="i-credit-card" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2" /><line x1="2" x2="22" y1="10" y2="10" /><path d="M6 14h2" /></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></symbol><symbol id="i-message-circle" viewBox="0 0 24 24"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" /></symbol><symbol id="i-file-text" viewBox="0 0 24 24"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /><path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="M10 9H8" /><path d="M16 13H8" /><path d="M16 17H8" /></symbol><symbol id="i-file-down" viewBox="0 0 24 24"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /><path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="M12 18v-6" /><path d="m9 15 3 3 3-3" /></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5" /></symbol><symbol id="i-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="m16 9-5.5 5.5L8 12" /></symbol><symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6" /></symbol><symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6" /></symbol><symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" /></symbol><symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7" /><path d="M19 12H5" /></symbol><symbol id="i-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34" /><circle cx="11" cy="11" r="8" /></symbol><symbol id="i-phone" viewBox="0 0 24 24"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /></symbol><symbol id="i-log-out" viewBox="0 0 24 24"><path d="m16 17 5-5-5-5" /><path d="M21 12H9" /><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /></symbol><symbol id="i-refresh-cw" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" /><path d="M21 3v5h-5" /><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" /><path d="M8 16H3v5" /></symbol><symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" /></symbol><symbol id="i-cloud-off" viewBox="0 0 24 24"><path d="M10.94 5.274A7 7 0 0 1 15.71 10h1.79a4.5 4.5 0 0 1 4.222 6.057" /><path d="M18.796 18.81A4.5 4.5 0 0 1 17.5 19H9A7 7 0 0 1 5.79 5.78" /><path d="m2 2 20 20" /></symbol><symbol id="i-delete" viewBox="0 0 24 24"><path d="M10 5a2 2 0 0 0-1.344.519l-6.328 5.74a1 1 0 0 0 0 1.481l6.328 5.741A2 2 0 0 0 10 19h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2z" /><path d="m12 9 6 6" /><path d="m18 9-6 6" /></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14" /><path d="M12 5v14" /></symbol><symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></symbol><symbol id="i-trash-2" viewBox="0 0 24 24"><path d="M10 11v6" /><path d="M14 11v6" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" /><path d="M3 6h18" /><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></symbol><symbol id="i-gift" viewBox="0 0 24 24"><path d="M12 7v14" /><path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" /><path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" /><rect x="3" y="7" width="18" height="4" rx="1" /></symbol><symbol id="i-star" viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></symbol><symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" /><path d="M20 2v4" /><path d="M22 4h-4" /><circle cx="4" cy="20" r="2" /></symbol><symbol id="i-droplets" viewBox="0 0 24 24"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z" /><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97" /></symbol><symbol id="i-spray-can" viewBox="0 0 24 24"><path d="M3 3h.01" /><path d="M7 5h.01" /><path d="M11 7h.01" /><path d="M3 7h.01" /><path d="M7 9h.01" /><path d="M3 11h.01" /><rect width="4" height="4" x="15" y="5" /><path d="m19 9 2 2v10c0 .6-.4 1-1 1h-6c-.6 0-1-.4-1-1V11l2-2" /><path d="m13 14 8-2" /><path d="m13 19 8-2" /></symbol><symbol id="i-brush" viewBox="0 0 24 24"><path d="m11 10 3 3" /><path d="M6.5 21A3.5 3.5 0 1 0 3 17.5a2.62 2.62 0 0 1-.708 1.792A1 1 0 0 0 3 21z" /><path d="M9.969 17.031 21.378 5.624a1 1 0 0 0-3.002-3.002L6.967 14.031" /></symbol><symbol id="i-bubbles" viewBox="0 0 24 24"><path d="M7.001 15.085A1.5 1.5 0 0 1 9 16.5" /><circle cx="18.5" cy="8.5" r="3.5" /><circle cx="7.5" cy="16.5" r="5.5" /><circle cx="7.5" cy="4.5" r="2.5" /></symbol><symbol id="i-shower-head" viewBox="0 0 24 24"><path d="m4 4 2.5 2.5" /><path d="M13.5 6.5a4.95 4.95 0 0 0-7 7" /><path d="M15 5 5 15" /><path d="M14 17v.01" /><path d="M10 16v.01" /><path d="M13 13v.01" /><path d="M16 10v.01" /><path d="M11 20v.01" /><path d="M17 14v.01" /><path d="M20 11v.01" /></symbol><symbol id="i-wind" viewBox="0 0 24 24"><path d="M12.8 19.6A2 2 0 1 0 14 16H2" /><path d="M17.5 8a2.5 2.5 0 1 1 2 4H2" /><path d="M9.8 4.4A2 2 0 1 1 11 8H2" /></symbol><symbol id="i-bike" viewBox="0 0 24 24"><circle cx="18.5" cy="17.5" r="3.5" /><circle cx="5.5" cy="17.5" r="3.5" /><circle cx="15" cy="5" r="1" /><path d="M12 17.5V14l-3-3 4-3 2 3h2" /></symbol><symbol id="i-motorbike" viewBox="0 0 24 24"><path d="m18 14-1-3" /><path d="m3 9 6 2a2 2 0 0 1 2-2h2a2 2 0 0 1 1.99 1.81" /><path d="M8 17h3a1 1 0 0 0 1-1 6 6 0 0 1 6-6 1 1 0 0 0 1-1v-.75A5 5 0 0 0 17 5" /><circle cx="19" cy="17" r="3" /><circle cx="5" cy="17" r="3" /></symbol><symbol id="i-scooter" viewBox="0 0 24 24"><path d="M21 4h-3.5l2 11.05" /><path d="M6.95 17h5.142c.523 0 .95-.406 1.063-.916a6.5 6.5 0 0 1 5.345-5.009" /><circle cx="19.5" cy="17.5" r="2.5" /><circle cx="4.5" cy="17.5" r="2.5" /></symbol><symbol id="i-truck" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2" /><path d="M15 18H9" /><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14" /><circle cx="17" cy="18" r="2" /><circle cx="7" cy="18" r="2" /></symbol><symbol id="i-bus" viewBox="0 0 24 24"><path d="M8 6v6" /><path d="M15 6v6" /><path d="M2 12h19.6" /><path d="M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3" /><circle cx="7" cy="18" r="2" /><path d="M9 18h5" /><circle cx="16" cy="18" r="2" /></symbol><symbol id="i-tractor" viewBox="0 0 24 24"><path d="m10 11 11 .9a1 1 0 0 1 .8 1.1l-.665 4.158a1 1 0 0 1-.988.842H20" /><path d="M16 18h-5" /><path d="M18 5a1 1 0 0 0-1 1v5.573" /><path d="M3 4h8.129a1 1 0 0 1 .99.863L13 11.246" /><path d="M4 11V4" /><path d="M7 15h.01" /><path d="M8 10.1V4" /><circle cx="18" cy="18" r="2" /><circle cx="7" cy="15" r="5" /></symbol><symbol id="i-van" viewBox="0 0 24 24"><path d="M13 6v5a1 1 0 0 0 1 1h6.102a1 1 0 0 1 .712.298l.898.91a1 1 0 0 1 .288.702V17a1 1 0 0 1-1 1h-3" /><path d="M5 18H3a1 1 0 0 1-1-1V8a2 2 0 0 1 2-2h12c1.1 0 2.1.8 2.4 1.8l1.176 4.2" /><path d="M9 18h5" /><circle cx="16" cy="18" r="2" /><circle cx="7" cy="18" r="2" /></symbol><symbol id="i-caravan" viewBox="0 0 24 24"><path d="M18 19V9a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v8a2 2 0 0 0 2 2h2" /><path d="M2 9h3a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2" /><path d="M22 17v1a1 1 0 0 1-1 1H10v-9a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v9" /><circle cx="8" cy="19" r="2" /></symbol><symbol id="i-store" viewBox="0 0 24 24"><path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5" /><path d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244" /><path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05" /></symbol><symbol id="i-circle-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></symbol><symbol id="i-loader-circle" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-6.219-8.56" /></symbol><symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></symbol><symbol id="i-languages" viewBox="0 0 24 24"><path d="m5 8 6 6" /><path d="m4 14 6-6 2-3" /><path d="M2 5h12" /><path d="M7 2h1" /><path d="m22 22-5-10-5 10" /><path d="M14 18h6" /></symbol><symbol id="i-chart-column" viewBox="0 0 24 24"><path d="M3 3v16a2 2 0 0 0 2 2h16" /><path d="M18 17V9" /><path d="M13 17V5" /><path d="M8 17v-3" /></symbol><symbol id="i-ellipsis" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></symbol><symbol id="i-settings" viewBox="0 0 24 24"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" /><circle cx="12" cy="12" r="3" /></symbol><symbol id="i-hourglass" viewBox="0 0 24 24"><path d="M5 22h14" /><path d="M5 2h14" /><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22" /><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2" /></symbol><symbol id="i-triangle-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /><path d="M12 9v4" /><path d="M12 17h.01" /></symbol><symbol id="i-share-2" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" /><line x1="8.59" x2="15.42" y1="13.51" y2="17.49" /><line x1="15.41" x2="8.59" y1="6.51" y2="10.49" /></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><path d="M8 2v3" /><path d="M16 2v3" /><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M3 9h18" /></symbol><symbol id="i-list" viewBox="0 0 24 24"><path d="M3 5h.01" /><path d="M3 12h.01" /><path d="M3 19h.01" /><path d="M8 5h13" /><path d="M8 12h13" /><path d="M8 19h13" /></symbol><symbol id="i-filter" viewBox="0 0 24 24"><path d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z" /></symbol><symbol id="i-trending-up" viewBox="0 0 24 24"><path d="M16 7h6v6" /><path d="m22 7-8.5 8.5-5-5L2 17" /></symbol><symbol id="i-badge-indian-rupee" viewBox="0 0 24 24"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" /><path d="M8 8h8" /><path d="M8 12h8" /><path d="m13 17-5-1h1a4 4 0 0 0 0-8" /></symbol><symbol id="i-indian-rupee" viewBox="0 0 24 24"><path d="m14 20-8-8h4c5.333 0 5.333-8 0-8" /><path d="M6 4h12" /><path d="M6 8h12" /></symbol><symbol id="i-undo-2" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5" /><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11" /></symbol><symbol id="i-history" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /><path d="M12 7v5l4 2" /></symbol><symbol id="i-tag" viewBox="0 0 24 24"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" /><circle cx="7.5" cy="7.5" r=".5" fill="currentColor" /></symbol><symbol id="i-hand-coins" viewBox="0 0 24 24"><path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17" /><path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9" /><path d="m2 16 6 6" /><circle cx="16" cy="9" r="2.9" /><circle cx="6" cy="5" r="3" /></symbol><symbol id="i-package" viewBox="0 0 24 24"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z" /><path d="M12 22V12" /><polyline points="3.29 7 12 12 20.71 7" /><path d="m7.5 4.27 9 5.15" /></symbol><symbol id="i-fuel" viewBox="0 0 24 24"><path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 4 0v-6.998a2 2 0 0 0-.59-1.42L18 5" /><path d="M14 21V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v16" /><path d="M2 21h13" /><path d="M3 9h11" /></symbol><symbol id="i-zap" viewBox="0 0 24 24"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z" /></symbol><symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z" /></symbol><symbol id="i-shopping-bag" viewBox="0 0 24 24"><path d="M16 10a4 4 0 0 1-8 0" /><path d="M3.103 6.034h17.794" /><path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z" /></symbol><symbol id="i-utensils" viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" /><path d="M7 2v20" /><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7" /></symbol><symbol id="i-armchair" viewBox="0 0 24 24"><path d="M19 9V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v3" /><path d="M3 16a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V11a2 2 0 0 0-4 0z" /><path d="M5 18v2" /><path d="M19 18v2" /></symbol><symbol id="i-user-plus" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><line x1="19" x2="19" y1="8" y2="14" /><line x1="22" x2="16" y1="11" y2="11" /></symbol><symbol id="i-user-check" viewBox="0 0 24 24"><path d="m16 11 2 2 4-4" /><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /></symbol><symbol id="i-calendar-days" viewBox="0 0 24 24"><path d="M8 2v3" /><path d="M16 2v3" /><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M3 9h18" /><path d="M8 13h.01" /><path d="M12 13h.01" /><path d="M16 13h.01" /><path d="M8 17h.01" /><path d="M12 17h.01" /><path d="M16 17h.01" /></symbol><symbol id="i-circle-dot" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="12" cy="12" r="10" /></symbol><symbol id="i-circle-plus" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M8 12h8" /><path d="M12 8v8" /></symbol><symbol id="i-circle-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" /><path d="M12 17h.01" /></symbol><symbol id="i-send" viewBox="0 0 24 24"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" /><path d="m21.854 2.147-10.94 10.939" /></symbol><symbol id="i-auto" viewBox="0 0 24 24"><path d="M4 16V9a4 4 0 0 1 4-4h6l4.5 6H20a1 1 0 0 1 1 1v4"/><path d="M9 5v6h9.5"/><path d="M4 13h3"/><circle cx="7" cy="17" r="2"/><circle cx="18" cy="17" r="2"/><path d="M9 17h7"/></symbol></svg>
+<div class="app" id="app"><div class="center">…</div></div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+/* ============ Fixed lists ============ */
+var CATS=[
+ {id:'soap',ic:'🧴',en:'Soap / shampoo',te:'సబ్బు / షాంపూ'},
+ {id:'water',ic:'💧',en:'Water',te:'నీళ్లు'},
+ {id:'power',ic:'⚡',en:'Electricity',te:'కరెంట్'},
+ {id:'food',ic:'🍵',en:'Tea / food',te:'టీ / భోజనం'},
+ {id:'staff',ic:'👷',en:'Staff advance',te:'స్టాఫ్ అడ్వాన్స్'},
+ {id:'other',ic:'📦',en:'Other',te:'ఇతరం'}
+];
+var T={
+ en:{wash:'New Wash',cust:'Customers',exp:'Expense',close:'Close Day',today:'Today',cars:'Vehicles',sales:'Sales',cashBox:'Cash in box',
+  recent:"Today's washes",back:'← Back',plateQ:'Vehicle number or phone',plateHint:'Type vehicle number or phone',newCust:'New customer',name:'Name (optional)',phone:'Phone',
+  plate:'Vehicle number',visits:'visits',freeNow:'This wash is FREE (loyalty reward)',pickSvc:'Choose service',total:'Total',payHow:'Tap how the customer paid',
+  cash:'Cash',upi:'UPI',card:'Card',credit:'Later',saved:'Saved ✓',search:'Search vehicle number or phone',due:'Due',noWash:'No washes yet today',
+  expTitle:'Add expense',amount:'Amount (₹)',save:'Save',cashSales:'Cash sales',cardSales:'Card sales',creditSales:'Pay later',expenses:'Expenses',
+  opening:'Morning change money',collected:'Old dues collected',expected:'Cash should be',count:'Count the cash in the box',counted:'You counted',
+  match:'Cash matches ✓',short:'Cash is SHORT',extra:'Cash is EXTRA',saveClose:'Close day & save',closedAt:'Day closed by {by} at {at}',
+  copy:'Copy report',copied:'Copied ✓',sendOwner:'Send report to owner on WhatsApp',
+  lastFree:'Next wash free',nVisits:'visits',noMatch:'Not found',
+  lastVisit:'Last visit',d0:'Today',d1:'Yesterday',dN:'{n} days ago',mN:'{n} months ago',m1:'1 month ago',never:'New customer',
+  all:'All',away:'Not coming',awayFor:'Not come for',mo:'months',offer:'Offer message',sendWa:'Send on WhatsApp',
+  awayCount:'{n} customers have not come for {m} months',
+  offerDefault:'Hello {name}! We miss you at our car wash 🚗 Come back this week and get 20% OFF any wash. Show this message.',
+  enterPin:'Enter your PIN',wrongPin:'Wrong PIN. Try again',loading:'Loading…',switchUser:'Change worker',refresh:'Refresh',
+  synced:'✓ Saved',waiting:'⏳ {n} to send',offline:'⚠ No internet · {n}',
+  collect:'Collect',collectQ:'Received {amt} cash?',yes:'Yes',no:'No',delQ:'Delete this entry?',askOwner:'Only the owner can delete this now',
+  shopCode:'Enter your shop code',open:'Open',
+  invoice:'Invoice',customer:'Customer',vehicle:'Vehicle',freeWash:'Loyalty – free wash',thanks:'Thank you! Please visit again 🙏',sendInvoice:'Send invoice on WhatsApp',done:'Done',sendPdf:'Download / share PDF',pdfHint:'Choose WhatsApp, then this customer\'s chat',pdfSaved:'PDF saved – send it from your files',
+  cashHand:'Cash in hand',byVehicle:'By vehicle type',shareSum:'Share on WhatsApp',
+  sendAll:'Send to all',sendHow:'Tap the green button, press Send in WhatsApp, then come back here for the next customer.',skip:'Skip',stop:'Stop',close2:'Close',sentAll:'Done. Offer sent to {n} customers.',allSent:'Everyone in this list has been sent the offer.',offerSentOn:'Offer sent {d}',sendAgain:'Send again',
+  mobileReq:'Mobile number',needPhone:'Enter the customer\'s 10-digit mobile number',logout:'Logout',
+  optional:'optional',
+  hello:'Hello, {n}',tapToAdd:'Tap to add a vehicle',vehToday:'Vehicles today',lockedPin:'Locked. Enter your PIN',
+  blindHint:'Count the cash in the box and save. The owner checks it.',ownerChecks:'The owner will check the cash.',countedBy:'Counted by {by} at {at}',
+  oldServer:'Apps Script is still on the old version ({v}). In Apps Script: Deploy → Manage deployments → Edit → Version: New version → Deploy.',
+  pickVeh:'Choose vehicle type',change:'Change',otherVeh:'Other services',
+  newVeh:'New vehicle',nameShort:'name',needVeh:'Type the vehicle number above',noSvc:'No services are ON. Owner: in your Google Sheet, Services tab, set Active to Yes for the services you offer.',
+  branches:'Branches',allBranches:'All branches',todayAll:'Today, all branches',closed:'Day closed',notClosed:'Not closed yet',here:'You are here',lic_warn:'Renew soon',lic_grace:'Expired',lic_expired:'Read-only',lic_suspended:'Switched off',total:'Total',
+  oldDue:'Old due',setup:'This shop is not set up yet. Contact support.',error:'Could not save',del:'Delete',
+  licWarn:'Subscription ends in {n} days. Call {who} {phone} to renew.',
+  licGrace:'Subscription has ended. The app stops saving in {n} days. Call {who} {phone} to renew.',
+  licExpired:'Subscription has ended. You can look, but not add new entries. Call {who} {phone} to renew.',
+  suspended:'This app is switched off. Call {who} {phone}.',badLink:'This app link is not correct.',
+  locked:'🔒 Renew to save',lockedChip:'🔒 {n} waiting',
+  navHome:'Home',navReports:'Reports',navMore:'More',dayReport:'Daily report',vehWashed:'Vehicles washed',revenue:"Today's revenue",
+  comeBack:'Come-back list',nToCall:'{n} not coming',nCust:'{n} customers',startWash:'Start a wash',emptyHint:'Tap New Wash to add the first vehicle',
+  custSec:'Customer',vehSec:'Vehicle type',svcSec:'Services',existing:'Existing',nSel:'{n} selected',nSvc:'{n} services selected',selectSvc:'Select services',
+  nameLbl:'Customer name',paidVia:'Paid · {m}',pendingLater:'Pending · pay later',service:'Service',amountH:'Amount',invNo:'Invoice no.',dateTime:'Date & time',
+  washSaved:'Wash saved',collections:'Total collections',payBreak:'Payment breakdown',adjust:'Cash summary',transactions:'Transactions',noTx:'No washes on this day',
+  moreTitle:'More',language:'Language',refreshData:'Refresh data',owner:'Owner',manager:'Manager',allTypes:'All',help:'Help & renewal',noAway:'Everyone has come recently',
+  rewards:'WashBook Rewards',rewardsDone:'{k} / {n} washes',rewardsMore:'Complete {k} more washes to get your next wash FREE!',rewardsNext:'Your next wash is FREE!',
+  needNet:'Needs internet to load this day',updated:'Up to date',newCustAll:'New customer: fill in all the details below.',needPlate:'Type the vehicle number',needName:'Type the customer\'s name',needDetails:'Fill in the new customer\'s details',noNet:'No internet. Try again later.',
+  renewal:'Renewal',helpT:'Help',helpLead:'Simple steps for everyday work. Tap the language button at the top to read in Telugu.',validTill:'till {d}',validTillL:'App valid till',
+  renewMsgT:'Your request',renewSend:'Send renewal request',renewHow:'Tapping the button emails your request to WashBook and opens WhatsApp with the same message. Press Send in WhatsApp.',
+  renewSent:'Request sent. WashBook will contact you with the payment details.',renewFail:'Email not sent (no internet). Send the WhatsApp message, or try again later.',renewLimit:'You already sent 3 requests today. WashBook will contact you.',
+  daysLeft:'{n} days left',active:'Active',
+  pickPay:'Choose how the customer paid',moneyCheck:'Check you received {amt} by {m}, then tap the green button',laterCheck:'The customer will pay later. Tap the button to save.',
+  gotPaid:'Payment received {amt} · Save',saveLater:'Save as pay later · {amt} due',saveFree:'Save free wash'},
+ te:{wash:'కొత్త వాష్',cust:'కస్టమర్లు',exp:'ఖర్చు',close:'రోజు ముగింపు',today:'ఈరోజు',cars:'వాహనాలు',sales:'అమ్మకాలు',cashBox:'పెట్టెలో నగదు',
+  recent:'ఈరోజు వాష్‌లు',back:'← వెనక్కి',plateQ:'వాహనం నంబర్ లేదా ఫోన్',plateHint:'వాహనం నంబర్ లేదా ఫోన్ టైప్ చేయండి',newCust:'కొత్త కస్టమర్',name:'పేరు (అవసరం లేదు)',phone:'ఫోన్',
+  plate:'వాహనం నంబర్',visits:'సార్లు',freeNow:'ఈ వాష్ ఉచితం (లాయల్టీ)',pickSvc:'సర్వీస్ ఎంచుకోండి',total:'మొత్తం',payHow:'కస్టమర్ ఎలా చెల్లించారో నొక్కండి',
+  cash:'నగదు',upi:'UPI',card:'కార్డు',credit:'తర్వాత',saved:'సేవ్ అయింది ✓',search:'వాహనం నంబర్ లేదా ఫోన్ వెతకండి',due:'బాకీ',noWash:'ఈరోజు ఇంకా వాష్‌లు లేవు',
+  expTitle:'ఖర్చు రాయండి',amount:'మొత్తం (₹ రూపాయలు)',save:'సేవ్ చేయండి',cashSales:'నగదు అమ్మకాలు',cardSales:'కార్డు అమ్మకాలు',creditSales:'తర్వాత చెల్లింపు',expenses:'ఖర్చులు',
+  opening:'ఉదయం చిల్లర',collected:'వసూలైన పాత బాకీ',expected:'ఉండాల్సిన నగదు',count:'పెట్టెలో నగదు లెక్కించండి',counted:'మీరు లెక్కించింది',
+  match:'నగదు సరిపోయింది ✓',short:'నగదు తక్కువ ఉంది',extra:'నగదు ఎక్కువ ఉంది',saveClose:'రోజు ముగించి సేవ్ చేయండి',closedAt:'{by} {at}కి రోజు ముగించారు',
+  copy:'రిపోర్ట్ కాపీ చేయండి',copied:'కాపీ అయింది ✓',sendOwner:'ఓనర్‌కి వాట్సాప్‌లో రిపోర్ట్ పంపండి',
+  lastFree:'తదుపరి వాష్ ఉచితం',nVisits:'సార్లు వచ్చారు',noMatch:'దొరకలేదు',
+  lastVisit:'చివరిసారి వచ్చింది',d0:'ఈరోజు',d1:'నిన్న',dN:'{n} రోజుల క్రితం',mN:'{n} నెలల క్రితం',m1:'1 నెల క్రితం',never:'కొత్త కస్టమర్',
+  all:'అందరూ',away:'రావడం లేదు',awayFor:'ఇన్ని నెలలుగా రాలేదు',mo:'నెలలు',offer:'ఆఫర్ మెసేజ్',sendWa:'వాట్సాప్‌లో పంపండి',
+  awayCount:'{n} కస్టమర్లు {m} నెలలుగా రాలేదు',
+  offerDefault:'నమస్తే {name} గారు! 🚗 చాలా రోజులైంది మీరు మా కార్ వాష్‌కి రాలేదు. ఈ వారం వస్తే ఏ వాష్ మీదైనా 20% తగ్గింపు. ఈ మెసేజ్ చూపించండి.',
+  enterPin:'మీ PIN నమోదు చేయండి',wrongPin:'PIN తప్పు. మళ్ళీ ప్రయత్నించండి',loading:'లోడ్ అవుతోంది…',switchUser:'వర్కర్ మార్చు',refresh:'రిఫ్రెష్',
+  synced:'✓ సేవ్',waiting:'⏳ {n} పంపాలి',offline:'⚠ ఇంటర్నెట్ లేదు · {n}',
+  collect:'వసూలు',collectQ:'{amt} నగదు అందిందా?',yes:'అవును',no:'కాదు',delQ:'ఈ ఎంట్రీ తొలగించాలా?',askOwner:'ఇప్పుడు ఓనర్ మాత్రమే తొలగించగలరు',
+  shopCode:'మీ షాప్ కోడ్ నమోదు చేయండి',open:'తెరవండి',
+  invoice:'ఇన్వాయిస్',customer:'కస్టమర్',vehicle:'వాహనం',freeWash:'లాయల్టీ – ఉచిత వాష్',thanks:'ధన్యవాదాలు! మళ్ళీ రండి 🙏',sendInvoice:'వాట్సాప్‌లో ఇన్వాయిస్ పంపండి',done:'పూర్తయింది',sendPdf:'PDF డౌన్‌లోడ్ / షేర్',pdfHint:'వాట్సాప్ ఎంచుకుని, ఈ కస్టమర్ చాట్ ఎంచుకోండి',pdfSaved:'PDF సేవ్ అయింది – ఫైల్స్ నుండి పంపండి',
+  cashHand:'చేతిలో నగదు',byVehicle:'వాహనం రకం వారీగా',shareSum:'వాట్సాప్‌లో పంపండి',
+  sendAll:'అందరికీ పంపండి',sendHow:'ఆకుపచ్చ బటన్ నొక్కి, వాట్సాప్‌లో Send నొక్కి, తర్వాతి కస్టమర్ కోసం ఇక్కడికి తిరిగి రండి.',skip:'దాటవేయి',stop:'ఆపండి',close2:'మూసివేయి',sentAll:'అయిపోయింది. {n} కస్టమర్లకు ఆఫర్ పంపారు.',allSent:'ఈ లిస్ట్‌లో అందరికీ ఆఫర్ పంపారు.',offerSentOn:'ఆఫర్ పంపారు {d}',sendAgain:'మళ్ళీ పంపండి',
+  mobileReq:'మొబైల్ నంబర్',needPhone:'కస్టమర్ 10 అంకెల మొబైల్ నంబర్ నమోదు చేయండి',logout:'లాగ్ అవుట్',
+  optional:'ఐచ్ఛికం',
+  hello:'నమస్తే, {n}',tapToAdd:'వాహనం జోడించడానికి నొక్కండి',vehToday:'ఈరోజు వాహనాలు',lockedPin:'లాక్ అయింది. మీ PIN నమోదు చేయండి',
+  blindHint:'పెట్టెలో నగదు లెక్కించి సేవ్ చేయండి. ఓనర్ చెక్ చేస్తారు.',ownerChecks:'ఓనర్ నగదు చెక్ చేస్తారు.',countedBy:'{by} {at}కి లెక్కించారు',
+  oldServer:'Apps Script ఇంకా పాత వెర్షన్‌లో ఉంది ({v}). Apps Script లో: Deploy → Manage deployments → Edit → Version: New version → Deploy.',
+  pickVeh:'వాహనం రకం ఎంచుకోండి',change:'మార్చు',otherVeh:'ఇతర సర్వీసులు',
+  newVeh:'కొత్త వాహనం',nameShort:'పేరు',needVeh:'పైన వాహనం నంబర్ టైప్ చేయండి',noSvc:'ఏ సర్వీస్ ON లో లేదు. ఓనర్: Google Sheet లో Services ట్యాబ్‌లో, మీ సర్వీసులకు Active = Yes పెట్టండి.',
+  branches:'బ్రాంచ్‌లు',allBranches:'అన్ని బ్రాంచ్‌లు',todayAll:'ఈరోజు, అన్ని బ్రాంచ్‌లు',closed:'రోజు ముగిసింది',notClosed:'ఇంకా ముగియలేదు',here:'మీరు ఇక్కడ ఉన్నారు',lic_warn:'త్వరలో రెన్యూ',lic_grace:'గడువు ముగిసింది',lic_expired:'చూడటానికి మాత్రమే',lic_suspended:'ఆపివేయబడింది',total:'మొత్తం',
+  oldDue:'పాత బాకీ',setup:'ఈ షాప్ ఇంకా సెటప్ కాలేదు. సపోర్ట్‌ను సంప్రదించండి.',error:'సేవ్ కాలేదు',del:'తొలగించు',
+  licWarn:'సబ్‌స్క్రిప్షన్ {n} రోజుల్లో ముగుస్తుంది. రెన్యూ కోసం {who} {phone}కి కాల్ చేయండి.',
+  licGrace:'సబ్‌స్క్రిప్షన్ ముగిసింది. {n} రోజుల తర్వాత యాప్ సేవ్ చేయదు. రెన్యూ కోసం {who} {phone}కి కాల్ చేయండి.',
+  licExpired:'సబ్‌స్క్రిప్షన్ ముగిసింది. చూడవచ్చు, కానీ కొత్తవి రాయలేరు. రెన్యూ కోసం {who} {phone}కి కాల్ చేయండి.',
+  suspended:'ఈ యాప్ ఆపివేయబడింది. {who} {phone}కి కాల్ చేయండి.',badLink:'ఈ యాప్ లింక్ సరైనది కాదు.',
+  locked:'🔒 రెన్యూ చేయండి',lockedChip:'🔒 {n} ఆగాయి',
+  navHome:'హోమ్',navReports:'రిపోర్ట్స్',navMore:'మరిన్ని',dayReport:'రోజు రిపోర్ట్',vehWashed:'వాష్ అయిన వాహనాలు',revenue:'ఈరోజు ఆదాయం',
+  comeBack:'తిరిగి రాని వారు',nToCall:'{n} మంది రావడం లేదు',nCust:'{n} కస్టమర్లు',startWash:'వాష్ మొదలుపెట్టండి',emptyHint:'మొదటి వాహనం కోసం కొత్త వాష్ నొక్కండి',
+  custSec:'కస్టమర్',vehSec:'వాహనం రకం',svcSec:'సేవలు',existing:'పాత కస్టమర్',nSel:'{n} ఎంచుకున్నారు',nSvc:'{n} సేవలు ఎంచుకున్నారు',selectSvc:'సేవలు ఎంచుకోండి',
+  nameLbl:'కస్టమర్ పేరు',paidVia:'చెల్లించారు · {m}',pendingLater:'బాకీ · తర్వాత చెల్లింపు',service:'సేవ',amountH:'మొత్తం',invNo:'ఇన్వాయిస్ నం.',dateTime:'తేదీ & సమయం',
+  washSaved:'వాష్ సేవ్ అయింది',collections:'మొత్తం వసూళ్లు',payBreak:'చెల్లింపుల వివరాలు',adjust:'నగదు వివరాలు',transactions:'లావాదేవీలు',noTx:'ఈ రోజు వాష్‌లు లేవు',
+  moreTitle:'మరిన్ని',language:'భాష',refreshData:'డేటా రిఫ్రెష్',owner:'యజమాని',manager:'మేనేజర్',allTypes:'అన్నీ',help:'సహాయం & రెన్యూవల్',noAway:'అందరూ ఇటీవల వచ్చారు',
+  rewards:'వాష్‌బుక్ రివార్డ్స్',rewardsDone:'{k} / {n} వాష్‌లు',rewardsMore:'ఇంకా {k} వాష్‌లు పూర్తి చేస్తే తదుపరి వాష్ ఉచితం!',rewardsNext:'మీ తదుపరి వాష్ ఉచితం!',
+  needNet:'ఈ రోజు చూడటానికి ఇంటర్నెట్ కావాలి',updated:'అప్‌డేట్ అయింది',newCustAll:'కొత్త కస్టమర్: కింద అన్ని వివరాలు నింపండి.',needPlate:'వాహనం నంబర్ టైప్ చేయండి',needName:'కస్టమర్ పేరు టైప్ చేయండి',needDetails:'కొత్త కస్టమర్ వివరాలు నింపండి',noNet:'ఇంటర్నెట్ లేదు. తర్వాత మళ్ళీ ప్రయత్నించండి.',
+  renewal:'రెన్యూవల్',helpT:'సహాయం',helpLead:'రోజువారీ పనికి సులభమైన దశలు. ఇంగ్లీష్‌లో చదవడానికి పైన భాష బటన్ నొక్కండి.',validTill:'{d} వరకు',validTillL:'యాప్ చెల్లుబాటు',
+  renewMsgT:'మీ అభ్యర్థన',renewSend:'రెన్యూవల్ అభ్యర్థన పంపండి',renewHow:'బటన్ నొక్కితే మీ అభ్యర్థన వాష్‌బుక్‌కి ఈమెయిల్‌గా వెళ్తుంది, అదే సందేశంతో వాట్సాప్ తెరుచుకుంటుంది. వాట్సాప్‌లో పంపు నొక్కండి.',
+  renewSent:'అభ్యర్థన పంపబడింది. చెల్లింపు వివరాలతో వాష్‌బుక్ మిమ్మల్ని సంప్రదిస్తుంది.',renewFail:'ఈమెయిల్ వెళ్ళలేదు (ఇంటర్నెట్ లేదు). వాట్సాప్ సందేశం పంపండి, లేదా తర్వాత మళ్ళీ ప్రయత్నించండి.',renewLimit:'ఈరోజు ఇప్పటికే 3 అభ్యర్థనలు పంపారు. వాష్‌బుక్ మిమ్మల్ని సంప్రదిస్తుంది.',
+  daysLeft:'{n} రోజులు మిగిలాయి',active:'చెల్లుబాటులో ఉంది',
+  pickPay:'కస్టమర్ ఎలా చెల్లించారో ఎంచుకోండి',moneyCheck:'{m} ద్వారా {amt} అందిందో సరిచూసి, ఆకుపచ్చ బటన్ నొక్కండి',laterCheck:'కస్టమర్ తర్వాత చెల్లిస్తారు. సేవ్ చేయడానికి బటన్ నొక్కండి.',
+  gotPaid:'డబ్బు అందింది {amt} · సేవ్',saveLater:'తర్వాత చెల్లింపుగా సేవ్ · {amt} బాకీ',saveFree:'ఉచిత వాష్ సేవ్'}
+};
+
+/* ============ Shop + storage (this phone only) ============ */
+/* =========================================================
+   Paste your Apps Script Web app URL (ends in /exec) here.
+   ========================================================= */
+var APP_URL='https://script.google.com/macros/s/AKfycbwW24Q07XEZu6LPLIUu4K8tEw_HjYYRxjsZoBzhzycrCetpC5A2r-YpENNc2BB6FWz12A/exec';
+var APP_VERSION='4.2';   // must match APP_VERSION in Code.gs
+
+function cleanCode(c){return String(c||'').toUpperCase().replace(/[^A-Z0-9]/g,'')}
+var SHOP=(function(){
+ var c=cleanCode(new URLSearchParams(location.search).get('shop'));
+ try{if(c)localStorage.setItem('washbook_shop',c);else c=localStorage.getItem('washbook_shop')||''}catch(e){}
+ return c;
+})();
+var LS={
+ key:function(k){return 'wk_'+SHOP+'_'+k},
+ get:function(k,d){try{var v=localStorage.getItem(LS.key(k));return v==null?d:JSON.parse(v)}catch(e){return d}},
+ set:function(k,v){try{localStorage.setItem(LS.key(k),JSON.stringify(v))}catch(e){}},
+ del:function(k){try{localStorage.removeItem(LS.key(k))}catch(e){}}
+};
+var lang=LS.get('lang','te'), token=LS.get('token',null), D=LS.get('data',null), Q=LS.get('queue',[]);
+var view='home', ui={}, net='ok', busy=false, pinErr='', fatal='';
+
+/* ============ Small helpers ============ */
+function t(k){return (T[lang]&&T[lang][k])||T.en[k]||k}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function rs(n){n=Number(n||0);return (n<0?'−':'')+'₹'+Math.abs(n).toLocaleString('en-IN')}
+/* Indian Standard Time on every phone (IST = UTC+05:30, no daylight saving), whatever the phone's own time zone */
+function istNow(){var d=new Date(Date.now()+330*60000);return {date:d.toISOString().slice(0,10),hm:d.toISOString().slice(11,16)}}
+function istToday(){return istNow().date}
+function nowHM(){return istNow().hm}
+/* a new day in India: yesterday's saved lists are cleared at once, then today's are fetched */
+function checkDay(){
+ if(!D||!D.today||D.today===istToday())return false;
+ D.today=istToday();D.washes=[];D.expenses=[];D.payments=[];D.close=null;saveData();
+ if(view==='home'||view==='close')render();
+ refresh(true);
+ return true;
+}
+function newId(p){return p+Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
+function saveData(){LS.set('data',D)}
+function saveQ(){LS.set('queue',Q)}
+function cust(id){for(var i=0;i<D.customers.length;i++)if(D.customers[i].id===id)return D.customers[i];return null}
+function svc(id){for(var i=0;i<D.services.length;i++)if(D.services[i].id===id)return D.services[i];return null}
+function svcNames(w){
+ var ss=w.svc.map(svc).filter(Boolean);if(!ss.length)return w.names;
+ var v=ss[0].vt?(lang==='te'?ss[0].vtte:ss[0].vt)+' · ':'';
+ return v+ss.map(function(s){return s[lang]}).join(' + ');
+}
+/* services grouped by vehicle type, in the order of the Services sheet */
+function vtGroups(){
+ var out=[],idx={};
+ D.services.forEach(function(s){
+  var k=s.vt||'';
+  if(!(k in idx)){idx[k]=out.length;out.push({key:k,en:k||t('otherVeh'),te:k?(s.vtte||k):t('otherVeh'),ic:k?(s.vic||'🚗'):'🧽',list:[]})}
+  out[idx[k]].list.push(s);
+ });
+ return out;
+}
+function normPlate(s){return String(s||'').toUpperCase().replace(/[^A-Z0-9]/g,'')}
+function isoLocal(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function daysSince(d){if(!d)return null;var base=D&&D.today?D.today:isoLocal(new Date());return Math.round((new Date(base+'T00:00:00')-new Date(d+'T00:00:00'))/864e5)}
+function ago(d){var n=daysSince(d);if(n===null)return t('never');if(n<=0)return t('d0');if(n===1)return t('d1');if(n<30)return t('dN').replace('{n}',n);var m=Math.floor(n/30);return m===1?t('m1'):t('mN').replace('{n}',m)}
+function waNum(p){var d=String(p).replace(/\D/g,'');var cc=(D&&D.settings.countryCode)||'91';if(d.charAt(0)==='0')d=d.slice(1);if(d.length===10)d=cc+d;return d}
+function phoneDigits(p){var d=String(p||'').replace(/\D/g,'');if(d.length===12&&d.slice(0,2)==='91')d=d.slice(2);if(d.length===11&&d.charAt(0)==='0')d=d.slice(1);return d}
+function phoneOk(p){return phoneDigits(p).length===10}
+function isMgr(){return !!(D&&D.user&&D.user.role!=='owner')}
+function isFree(c){var n=D.settings.loyaltyEvery;return n>0&&c.visits%n===n-1}
+function minsAgo(hm){var a=nowHM().split(':'),b=String(hm).split(':');return (+a[0]*60+ +a[1])-(+b[0]*60+ +b[1])}
+function canDelete(e){return D.user.role==='owner'||(e.staff===D.user.name&&minsAgo(e.t)<=15)}
+/* one icon from the Lucide sprite: ic('car-front'), ic('check','sm') */
+function ic(n,c){return '<svg class="ico'+(c?' '+c:'')+'" aria-hidden="true"><use href="#i-'+n+'"/></svg>'}
+function toast(msg,bad){var el=document.getElementById('toast');el.innerHTML=ic(bad?'circle-alert':'circle-check')+'<span>'+esc(String(msg).replace(/\s*✓$/,''))+'</span>';el.className='toast'+(bad?' bad':'');el.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(function(){el.hidden=true},2200)}
+function dots(v){var n=D.settings.loyaltyEvery;if(!n)return '';var k=v%n,h='<div class="dots">';for(var i=0;i<n;i++)h+='<span class="dot '+(i<k?'on':'')+'"></span>';return h+'</div>'}
+function totals(){
+ var s=function(a){return a.reduce(function(x,y){return x+y.amt},0)};
+ var by=function(p){return s(D.washes.filter(function(w){return w.pay===p}))};
+ var cash=by('cash'),upi=by('upi'),card=by('card'),credit=by('credit'),collected=s(D.payments),exp=s(D.expenses),opening=D.settings.openingCash||0;
+ return {cash:cash,upi:upi,card:card,credit:credit,collected:collected,exp:exp,opening:opening,sales:cash+upi+card+credit,
+   expected:opening+cash+collected-exp,cars:D.washes.length};
+}
+/* ============ Server calls + save queue ============ */
+function call(fn){
+ var args=[].slice.call(arguments,1);
+ var ctl=typeof AbortController!=='undefined'?new AbortController():null;
+ var timer=setTimeout(function(){if(ctl)ctl.abort()},45000);
+ return fetch(APP_URL,{method:'POST',body:JSON.stringify({fn:fn,args:args}),redirect:'follow',signal:ctl?ctl.signal:undefined})
+  .then(function(r){return r.text()},function(){throw new Error('network: no connection')})
+  .then(function(txt){
+   clearTimeout(timer);
+   var res;try{res=JSON.parse(txt)}catch(e){throw new Error('network: bad response')}
+   if(!res.ok)throw new Error(res.error||'error');
+   return res.result;
+  },function(e){clearTimeout(timer);throw e});
+}
+function errKind(e){
+ var m=String((e&&e.message)||e);
+ if(m.indexOf('LOGIN')>=0)return 'login';
+ if(m.indexOf('SETUP')>=0)return 'setup';
+ if(m.indexOf('NOPERM')>=0)return 'noperm';
+ if(m.indexOf('SUSPENDED')>=0)return 'suspended';
+ if(m.indexOf('EXPIRED')>=0)return 'expired';
+ if(m.indexOf('NOSHOP')>=0)return 'noshop';
+ if(/network|http|timeout|connection|failed to fetch|offline/i.test(m))return 'net';
+ return 'other';
+}
+function enqueue(op,p){if(readOnly()){toast(t('locked'),true);return}Q.push({op:op,p:p});saveQ();saveData();flush()}
+
+function flush(){
+ if(busy||!token)return syncChip();
+ if(!Q.length){net='ok';return syncChip()}
+ busy=true;syncChip();
+ var job=Q[0];
+ call('api',SHOP,token,job.op,job.p).then(function(res){
+  Q.shift();saveQ();net='ok';busy=false;
+  applyResult(job,res);saveData();
+  if(view==='home'||view==='close')render();
+  flush();
+ },function(e){
+  busy=false;var k=errKind(e);
+  if(k==='login'){return toLogin()}
+  if(k==='setup'){fatal=t('setup');return render()}
+  if(k==='suspended')return stopApp('suspended');
+  if(k==='noshop')return stopApp('noshop');
+  if(k==='expired'){net='locked';if(D&&D.licence)D.licence.state='expired';saveData();render();return}
+  if(k==='net'){net='off';syncChip();clearTimeout(flush.h);flush.h=setTimeout(flush,15000);return}
+  Q.shift();saveQ();
+  toast(k==='noperm'?t('askOwner'):t('error')+': '+String((e&&e.message)||e),true);
+  refresh(true);
+  flush();
+ });
+}
+
+function upsertCustomer(c){
+ if(!c)return;
+ for(var i=0;i<D.customers.length;i++){if(D.customers[i].id===c.id){D.customers[i]=c;return}}
+ D.customers.push(c);
+}
+function remap(oldId,newId){
+ if(!oldId||oldId===newId)return;
+ D.customers=D.customers.filter(function(c){return c.id!==oldId});
+ D.washes.forEach(function(w){if(w.cid===oldId)w.cid=newId});
+ Q.forEach(function(j){
+  if(j.p.customer&&j.p.customer.id===oldId)j.p.customer.id=newId;
+  if(j.p.customerId===oldId)j.p.customerId=newId;
+  if(j.op==='addCustomer'&&j.p.id===oldId)j.p.id=newId;
+ });
+ saveQ();
+}
+function replaceIn(list,item){for(var i=0;i<list.length;i++){if(list[i].id===item.id){list[i]=item;return}}list.push(item)}
+function applyResult(job,res){
+ if(!res||res.dup||res.gone)return;
+ if(job.op==='addCustomer'){remap(job.p.id,res.customer.id);upsertCustomer(res.customer)}
+ if(job.op==='addWash'){remap(job.p.customer.id,res.customer.id);upsertCustomer(res.customer);
+   if(res.wash.date===D.today)replaceIn(D.washes,res.wash)}
+ if(job.op==='collectDue'){upsertCustomer(res.customer);if(res.payment)replaceIn(D.payments,res.payment)}
+ if(job.op==='addExpense'){replaceIn(D.expenses,res.expense)}
+ if(job.op==='markOffer'&&res.customer){upsertCustomer(res.customer)}
+ if(job.op==='deleteEntry'){upsertCustomer(res.customer)}
+ if(job.op==='closeDay'){D.close=res.close}
+}
+
+function refresh(force){
+ if(!token||(busy&&!force)||(Q.length&&net!=='locked'&&!force))return;
+ return call('api',SHOP,token,'refresh').then(function(res){
+  var dayChanged=!D||D.today!==res.today;
+  D=res;saveData();fatal='';
+  if(net==='locked'&&res.licence.state!=='expired'){net='ok';flush()}
+  if(view==='loading'||dayChanged){go('home')}
+  else if(view==='home'||view==='cust')render();
+  else syncChip();
+  return true;
+ },function(e){
+  var k=errKind(e);
+  if(k==='login')return toLogin();
+  if(k==='setup'){fatal=t('setup');return render()}
+  if(k==='suspended')return stopApp('suspended');
+  if(k==='noshop')return stopApp('noshop');
+  net='off';syncChip();
+ });
+}
+
+function supportText(key,n){
+ var l=(D&&D.licence)||LS.get('licence',{})||{};
+ return t(key).replace('{n}',n==null?'':n).replace('{who}',l.supportName||'').replace('{phone}',l.supportPhone||'');
+}
+function stopApp(kind){
+ if(kind==='noshop'){
+  try{localStorage.removeItem('washbook_shop')}catch(e){}
+  view='pick';ui={code:'',bad:!!SHOP};render();return;
+ }
+ fatal=supportText('suspended');
+ render();
+}
+function loadBranches(){
+ ui.bs=null;ui.bErr=false;render();
+ call('api',SHOP,token,'branches').then(function(res){if(view==='branches'){ui.bs=res.branches;render()}},
+  function(e){if(errKind(e)==='login')return toLogin();ui.bErr=true;ui.bs=[];render()});
+}
+function switchShop(code){
+ if(code===SHOP){go('home');return}
+ var tk=token;
+ openShop(code,tk);
+}
+function openShop(code,carryToken){
+ var carryPin=carryToken?LS.get('pinh',''):'';
+ SHOP=code;
+ try{localStorage.setItem('washbook_shop',code)}catch(e){}
+ try{history.replaceState(null,'',location.pathname+'?shop='+code)}catch(e){}
+ lang=LS.get('lang',lang);token=LS.get('token',null);D=LS.get('data',null);Q=LS.get('queue',[]);
+ if(carryToken&&!token){token=carryToken;LS.set('token',token)}
+ if(carryToken){LS.set('pinh',carryPin);touchActive(true)}   // the owner stays unlocked when he switches branch
+ fatal='';net='ok';keepOpen=!!carryToken;boot();keepOpen=false;
+}
+function readOnly(){return !!(D&&D.licence&&D.licence.state==='expired')}
+function licBanner(){
+ var l=D.licence;if(!l||['warn','grace','expired'].indexOf(l.state)<0)return '';
+ var txt=l.state==='warn'?supportText('licWarn',l.days):l.state==='grace'?supportText('licGrace',Math.max(0,l.graceLeft)):supportText('licExpired');
+ var btn=isMgr()?'':'<button class="btn btn-sm '+(l.state==='warn'?'btn-outline':'btn-danger')+'" data-go="renew">'+ic('refresh-cw','sm')+t('renewal')+'</button>';
+ return '<div class="banner '+(l.state==='warn'?'b-warn':'b-bad')+' licb">'+ic(l.state==='expired'?'lock':l.state==='warn'?'clock':'triangle-alert')+'<span>'+txt+'</span>'+btn+'</div>';
+}
+function toLogin(){token=null;LS.del('token');LS.del('pinh');locked=false;view='login';ui={pin:''};render();fetchShopName()}
+
+/* ---------- lock after 5 minutes without use; the PIN is checked on the phone, so it unlocks offline too ---------- */
+var IDLE_MS=5*60*1000,AWAY_MS=2*60*1000,locked=false,keepOpen=false,hiddenAt=0;   // PIN: on every app start, after 5 min idle, or after 2 min away in another app
+function pinHash(p){var h=2166136261,str='wb:'+p;for(var i=0;i<str.length;i++){h=Math.imul(h^str.charCodeAt(i),16777619)>>>0}return h.toString(36)}
+function touchActive(force){var n=Date.now();if(force||n-(touchActive.l||0)>5000){touchActive.l=n;LS.set('active',n)}}
+function idleTooLong(){var a=LS.get('active',0);return !a||Date.now()-a>IDLE_MS}
+function lockApp(){if(!token||locked)return;locked=true;view='login';ui={pin:''};pinErr='';render()}
+function unlock(){locked=false;touchActive(true);pinErr='';checkDay();if(D)go('home');else{view='loading';render();refresh(true)}}
+
+/* ============ Brand: each shop's colour and logo ============ */
+function brand(){return (D&&D.settings&&D.settings.brand)||LS.get('brand',null)||{color:'#087FA3',logo:''}}
+function feat(k){return !!(D&&D.settings&&D.settings.features&&D.settings.features[k])}
+function hx(h){h=String(h||'#087FA3').replace('#','');if(!/^[0-9a-f]{6}$/i.test(h))h='087FA3';return [parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)]}
+function mixc(a,b,k){return a.map(function(v,i){return Math.round(v+(b[i]-v)*k)})}
+function rgb(c){return 'rgb('+c.join(',')+')'}
+function lum(c){var a=c.map(function(v){v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)});return .2126*a[0]+.7152*a[1]+.0722*a[2]}
+function applyBrand(){
+ var b=brand();if(applyBrand.k===b.color)return;applyBrand.k=b.color;
+ var c=hx(b.color),W=[255,255,255],K=[0,0,0],DK=[10,23,29],i=0;
+ while(1.05/(lum(c)+.05)<4.6&&i<24){c=mixc(c,K,.07);i++}          // white text on the brand colour must stay readable
+ var lc=mixc(c,W,.12);
+ var css=':root{--primary:'+rgb(c)+';--primary-600:'+rgb(mixc(c,K,.14))+';--primary-700:'+rgb(mixc(c,K,.3))+';--primary-deep:'+rgb(mixc(c,K,.3))+';--primary-50:'+rgb(mixc(c,W,.92))+';--primary-100:'+rgb(mixc(c,W,.8))+
+  ';--logo-drop:'+rgb(mixc(c,W,.2))+';--logo-bg:'+rgb(mixc(c,W,.86))+';--logo-win:'+rgb(mixc(c,W,.78))+'}'+
+  '@media (prefers-color-scheme: dark){:root{--primary:'+rgb(lc)+';--primary-deep:'+rgb(mixc(c,K,.35))+';--primary-600:'+rgb(mixc(lc,K,.12))+';--primary-700:'+rgb(mixc(c,W,.6))+';--primary-50:'+rgb(mixc(c,DK,.8))+';--primary-100:'+rgb(mixc(c,DK,.62))+'}}';
+ var el=document.getElementById('brandcss');if(!el){el=document.createElement('style');el.id='brandcss';document.head.appendChild(el)}
+ el.textContent=css;
+ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content',rgb(c));
+}
+function initials(n){
+ var w=String(n||'').split(/[^A-Za-z0-9ఀ-౿]+/).filter(function(x){return x&&!/^(car|cars|wash|washing|the|and|spa|centre|center|point|studio)$/i.test(x)});
+ if(!w.length)w=String(n||'W').split(/\s+/);
+ return (w.length>1?w[0].charAt(0)+w[1].charAt(0):w[0].charAt(0)).toUpperCase();
+}
+function shopName(){return (D&&D.settings&&D.settings.shopName)||LS.get('shopName','')||''}
+function brandMark(s){
+ var b=brand(),st=' style="--s:'+s+'px"';
+ if(b.logo==='car')return '<span class="bmark bm-car"'+st+'>'+logoSvg(Math.round(s*1.05))+'</span>';
+ var mono='<b>'+esc(initials(shopName()))+'</b><span class="bm-drop">'+ic('droplets','sm')+'</span>';
+ if(b.logo)return '<span class="bmark"'+st+'>'+mono+'<img src="'+esc(b.logo)+'" alt="" onerror="this.remove()"></span>';
+ return '<span class="bmark"'+st+'>'+mono+'</span>';
+}
+function buzz(p){try{if(navigator.vibrate)navigator.vibrate(p)}catch(e){}}
+
+/* ============ Vehicle types and services: groups and icons ============ */
+var VCATS=[['two','Two-wheelers','ద్విచక్ర వాహనాలు'],['three','Three-wheelers','త్రిచక్ర వాహనాలు'],['car','Cars','కార్లు'],
+ ['comm','Commercial','వాణిజ్య వాహనాలు'],['heavy','Heavy vehicles','భారీ వాహనాలు'],['other','Other','ఇతరాలు']];
+function vcat(name){
+ var n=String(name||'');
+ if(!n)return 'other';
+ if(/2\s*wheel|bike|scoot|motor\s*cycle/i.test(n))return 'two';
+ if(/3\s*wheel|auto|rickshaw/i.test(n))return 'three';
+ if(/bus|lorry|truck|tractor|harvester|tipper|jcb|heavy\s*goods|tyre/i.test(n))return 'heavy';
+ if(/goods|travel|dcm|van|tempo|pick\s*up|ace/i.test(n))return 'comm';
+ if(/car|seater|suv|jeep|bolero|sedan|hatch|innova|xuv|scorpio/i.test(n))return 'car';
+ return 'other';
+}
+function vIcon(name){
+ var n=String(name||''),k=vcat(n);
+ if(k==='two')return /scoot/i.test(n)&&!/bike/i.test(n)?'scooter':'motorbike';
+ if(k==='three')return 'auto';
+ if(k==='car')return /7\s*seat|suv|bolero|innova|xuv|scorpio|jeep/i.test(n)?'car':'car-front';
+ if(k==='comm')return /travel|van/i.test(n)?'van':'truck';
+ if(k==='heavy')return /bus/i.test(n)?'bus':/tractor|harvester/i.test(n)?'tractor':'truck';
+ return 'sparkles';
+}
+function svcIcon(s){
+ var n=(s.en||'')+' '+(s.id||'');
+ if(/vacuum/i.test(n))return 'wind';
+ if(/polish|wax|shine|coat|ceramic|teflon/i.test(n))return 'sparkles';
+ if(/foam|shampoo/i.test(n))return 'bubbles';
+ if(/spray|pressure|jet|rinse/i.test(n))return 'shower-head';
+ if(/interior|inside|seat/i.test(n))return 'armchair';
+ if(/engine|under|chassis|grease|oil/i.test(n))return 'wrench';
+ if(/tyre|tire|wheel/i.test(n))return 'circle-dot';
+ if(/outside|exterior|body/i.test(n))return 'car';
+ if(/wash|clean/i.test(n))return 'droplets';
+ return 'brush';
+}
+function catName(k){var c=VCATS.filter(function(x){return x[0]===k})[0]||VCATS[5];return lang==='te'?c[2]:c[1]}
+function payIcon(p){return {cash:'banknote',upi:'smartphone',card:'credit-card',credit:'clock'}[p]||'banknote'}
+function payPill(p){return '<span class="pay p-'+p+'">'+ic(payIcon(p),'xs')+t(p)+'</span>'}
+function time12(hm){return hm?fmtTime(hm):''}
+function emptyState(icon,title,sub){return '<div class="empty"><span class="empty-ic">'+ic(icon,'xl')+'</span><b>'+title+'</b>'+(sub?'<span>'+sub+'</span>':'')+'</div>'}
+function awayList(mo){return D.customers.filter(function(c){return c.last&&daysSince(c.last)>=mo*30}).sort(function(a,b){return daysSince(b.last)-daysSince(a.last)})}
+
+/* ============ Bottom navigation ============ */
+function navBar(){
+ if(!D||!token||locked||['home','cust','close','more','branches','exp','help','renew'].indexOf(view)<0)return '';
+ var items=isMgr()?[['home','house',t('navHome')],['wash','plus',t('wash'),1],['more','ellipsis',t('navMore')]]
+  :[['home','house',t('navHome')],['cust','users',t('cust')],['wash','plus',t('wash'),1],['close','chart-column',t('navReports')],['more','ellipsis',t('navMore')]];
+ return '<nav class="bnav" aria-label="Main">'+items.map(function(it){
+  var on=view===it[0]||(it[0]==='more'&&['branches','exp','help','renew'].indexOf(view)>=0);
+  var dis=readOnly()&&(it[0]==='wash');
+  return '<button class="bn'+(it[3]?' bn-main':'')+(on?' on':'')+'" id="nav-'+it[0]+'" data-go="'+it[0]+'"'+(on?' aria-current="page"':'')+(dis?' disabled':'')+'>'+
+   (it[3]?'<span class="bn-fab">'+ic(it[1],'lg')+'</span>':ic(it[1],'lg'))+'<span class="bn-lb">'+it[2]+'</span></button>';
+ }).join('')+'</nav>';
+}
+
+/* ============ Screens ============ */
+function langToggle(){
+ return lang==='te'?'<button class="lang" id="l-en" data-lang="en" aria-label="English">EN</button>'
+                   :'<button class="lang" id="l-te" data-lang="te" aria-label="తెలుగు">తె</button>';
+}
+function syncHtml(){
+ if(!token||!D)return '';
+ var cls='',txt=ic('cloud','sm')+ic('check','xs'),lab=t('synced');
+ if(net==='locked'){cls='off';txt=ic('lock','sm')+Q.length;lab=t('lockedChip').replace('{n}',Q.length)}
+ else if(net==='off'){cls='off';txt=ic('cloud-off','sm')+Q.length;lab=t('offline').replace('{n}',Q.length)}
+ else if(Q.length){cls='wait';txt=ic('refresh-cw','sm spin')+Q.length;lab=t('waiting').replace('{n}',Q.length)}
+ return '<button class="sync '+cls+'" id="sync" aria-live="polite" aria-label="'+esc(lab)+'" title="'+esc(lab)+'">'+txt+'</button>';
+}
+function syncChip(){var el=document.getElementById('sync');if(el)el.outerHTML=syncHtml()}
+function todayLong(){return new Date(D.today+'T00:00:00').toLocaleDateString(lang==='te'?'te-IN':'en-IN',{weekday:'long',day:'numeric',month:'long'})}
+function header(title){
+ if(!title){
+  var multi=D.branches&&D.branches.length>1;
+  var name=multi?'<button class="brandbtn" id="branchbtn" aria-expanded="'+(!!ui.bmenu)+'"><span>'+esc(D.settings.shopName)+'</span>'+ic('chevron-down','sm car')+'</button>'
+   :'<span class="hd-name">'+esc(D.settings.shopName)+'</span>';
+  var menu='';
+  if(multi&&ui.bmenu){
+   var sum=ui.bsum||{},tc=0,ts=0,have=!!ui.bsum;
+   menu='<div class="bmenu" role="listbox">'+D.branches.map(function(b){
+    var here=b.code===SHOP,n=sum[b.code];
+    if(n&&!n.error){tc+=n.cars||0;ts+=n.sales||0}
+    var line=!have?t('loading'):(!n||n.error?'—':n.cars+' '+t('cars')+' · '+rs(n.sales)+' · '+
+      (n.closed?(n.diff===0?t('closed'):t('closed')+' '+(n.diff<0?'−':'+')+rs(Math.abs(n.diff))):t('notClosed'))+
+      (n.licence&&n.licence!=='ok'?' · '+t('lic_'+n.licence):''));
+    return '<button class="bm-row'+(here?' here':'')+'" role="option" aria-selected="'+here+'" data-switch="'+esc(b.code)+'"><span class="bm-ic">'+ic('store')+'</span><span class="main"><span class="bname">'+esc(b.name)+'</span><span class="sub">'+line+'</span></span>'+(here?'<span class="tick">'+ic('check')+'</span>':'')+'</button>';
+   }).join('')+(have?'<div class="bm-row btot"><span class="main">'+t('total')+'</span><span class="num">'+tc+' '+t('cars')+' · '+rs(ts)+'</span></div>':'')+'</div>';
+  }
+  return '<header class="top hd"><div class="hd-brand">'+brandMark(42)+'<div class="hd-txt">'+name+'<span class="hd-date">'+esc(todayLong())+'</span></div></div>'+
+   '<div class="hd-act">'+syncHtml()+langToggle()+'</div></header>'+menu;
+ }
+ return '<header class="top"><button class="back" id="back" data-go="home">'+ic('chevron-left')+'<span>'+t('back').replace(/^←\s*/,'')+'</span></button><div class="hd-act">'+syncHtml()+langToggle()+'</div></header><h1 class="ptitle">'+title+'</h1>';
+}
+
+/* car-wash picture, used as a shop logo when the Shops tab says "car" */
+function logoSvg(w){
+ return '<svg class="logo" width="'+w+'" viewBox="0 0 160 112" role="img" aria-label="WashBook">'+
+  '<circle cx="80" cy="60" r="50" fill="var(--logo-bg)"/>'+
+  '<path d="M80 8c5 7 8 11 8 15a8 8 0 0 1-16 0c0-4 3-8 8-15z" fill="var(--logo-drop)"/>'+
+  '<path d="M58 20c3 4 5 7 5 9a5 5 0 0 1-10 0c0-2 2-5 5-9z" fill="var(--logo-drop)" opacity=".75"/>'+
+  '<path d="M102 20c3 4 5 7 5 9a5 5 0 0 1-10 0c0-2 2-5 5-9z" fill="var(--logo-drop)" opacity=".75"/>'+
+  '<path d="M24 82v-10c0-6 4-10 10-11l12-3 13-15c3-3 6-4 10-4h26c4 0 7 2 10 4l15 15 13 3c6 1 9 5 9 11v10c0 3-2 5-5 5H29c-3 0-5-2-5-5z" fill="var(--primary)"/>'+
+  '<path d="M55 57l10-12c1-1 3-2 5-2h10v14z" fill="var(--logo-win)"/><path d="M86 43h9c2 0 4 1 5 2l11 12H86z" fill="var(--logo-win)"/>'+
+  '<rect x="26" y="66" width="10" height="5" rx="2" fill="var(--logo-win)"/>'+
+  '<circle cx="52" cy="87" r="12" fill="var(--navy)"/><circle cx="52" cy="87" r="5" fill="var(--logo-bg)"/>'+
+  '<circle cx="110" cy="87" r="12" fill="var(--navy)"/><circle cx="110" cy="87" r="5" fill="var(--logo-bg)"/>'+
+  '<g fill="#fff" stroke="var(--logo-drop)" stroke-width="2"><circle cx="30" cy="40" r="7"/><circle cx="20" cy="54" r="4"/><circle cx="132" cy="36" r="8"/><circle cx="144" cy="52" r="4.5"/><circle cx="123" cy="20" r="4"/></g>'+
+  '</svg>';
+}
+
+/* ---------- 1. PIN ---------- */
+function loginView(){
+ var shop=shopName();
+ var p=ui.pin||'',d='';
+ for(var i=0;i<Math.max(4,p.length);i++)d+='<span class="'+(i<p.length?'on':'')+'"></span>';
+ var keys=['1','2','3','4','5','6','7','8','9','⌫','0','✓'];
+ return '<div class="login"><div class="lg-top">'+langToggle()+'</div>'+
+  '<div class="lg-brand">'+brandMark(76)+'<div class="lg-shop">'+(shop?esc(shop):'&nbsp;')+'</div><div class="lg-app">WashBook</div></div>'+
+  '<div class="lg-prompt">'+(locked?ic('lock','sm')+t('lockedPin'):t('enterPin'))+'</div>'+
+  '<div class="pindots'+(pinErr?' shake bad':'')+(ui.ok?' ok':'')+'" aria-hidden="true">'+d+'</div>'+
+  '<div class="err" role="alert">'+(pinErr?ic('circle-alert','sm')+t('wrongPin'):(ui.busy?'<span class="spinner sm"></span>'+t('loading'):''))+'</div>'+
+  '<div class="pad">'+keys.map(function(k){
+   var lab=k==='⌫'?ic('delete','lg'):k==='✓'?ic('check','lg'):k;
+   return '<button data-key="'+k+'" class="'+(k==='✓'?'okk':k==='⌫'?'del':'')+'" aria-label="'+(k==='⌫'?'delete':k==='✓'?'enter':k)+'">'+lab+'</button>'}).join('')+'</div>'+
+  '<div class="lg-ver">WashBook '+APP_VERSION+'</div></div>';
+}
+function pickView(){
+ return '<div class="login"><div class="lg-top">'+langToggle()+'</div>'+
+  '<form class="lg-pick" id="pickform"><div class="lg-brand"><span class="bmark" style="--s:76px"><b>W</b><span class="bm-drop">'+ic('droplets','sm')+'</span></span><div class="lg-shop">WashBook</div></div>'+
+  '<label class="label" for="shopcode" style="text-align:center">'+t('shopCode')+'</label>'+
+  '<input class="plate-in num" id="shopcode" style="text-align:center" placeholder="FAM278" autocomplete="off" autocapitalize="characters" maxlength="10" value="'+esc(ui.code||'')+'">'+
+  '<div class="err" role="alert">'+(ui.bad?ic('circle-alert','sm')+t('badLink'):'')+'</div>'+
+  '<button class="btn btn-primary btn-block" type="submit">'+t('open')+ic('chevron-right')+'</button></form></div>';
+}
+
+/* ---------- 5/6. Dashboard ---------- */
+function txCard(w){
+ var c=cust(w.cid)||{plate:w.plate},s0=svc(w.svc[0])||{};
+ var names=w.svc.map(svc).filter(Boolean).map(function(s){return s[lang]}).join(' + ')||w.names;
+ var side=isMgr()?payPill(w.pay):'<b class="tx-amt num">'+(w.free?'FREE':rs(w.amt))+'</b>'+payPill(w.pay);
+ var h='<div class="txw"><button class="tx" data-delask="wash:'+esc(w.id)+'"><span class="avatar">'+ic(vIcon(s0.vt))+'</span>'+
+  '<span class="tx-main"><b class="plate num">'+esc(c.plate)+'</b><span class="tx-sub">'+(c.name?esc(c.name)+' · ':'')+esc(time12(w.t))+(w.staff?' · '+esc(w.staff):'')+'</span>'+
+  '<span class="tx-svc">'+esc(names)+'</span></span><span class="tx-side">'+side+'</span></button>';
+ if(ui.del==='wash:'+w.id)h+=confirmDel('wash',w.id);
+ return h+'</div>';
+}
+function homeView(){
+ var x=totals(),ro=readOnly();
+ var list=D.washes.slice().reverse().map(txCard).join('')||emptyState('car-front',t('noWash'),isMgr()?'':t('emptyHint'));
+ var old=D.user.role==='owner'&&String(D.version||'0')!==APP_VERSION;
+ var top=header()+licBanner()+(old?'<div class="banner b-bad">'+ic('triangle-alert')+'<span>'+t('oldServer').replace('{v}',esc(D.version||'?'))+'</span></div>':'');
+ var sec='<div class="sec"><h2>'+t('recent')+'</h2>'+(D.washes.length?'<span class="sec-n num">'+D.washes.length+'</span>':'')+'</div><div class="list cards">'+list+'</div>';
+ if(isMgr()){
+  return top+'<div class="mhello">'+t('hello').replace('{n}',esc(D.user.name))+'</div>'+
+   '<button class="mbig" id="go-wash" data-go="wash" '+(ro?'disabled':'')+'><span class="mic">'+ic(ro?'lock':'car-front','xxl')+'</span>'+
+   '<span class="mtx"><span class="mlb">'+t('wash')+'</span><span class="msub">'+t('tapToAdd')+'</span></span>'+ic('chevron-right','lg')+'</button>'+
+   '<div class="mcount kpi">'+'<span class="kpi-ic">'+ic('car-front')+'</span><span class="kpi-lb">'+t('vehToday')+'</span><b class="kpi-v num">'+x.cars+'</b></div>'+sec;
+ }
+ var away=awayList(3).length;
+ var qa=function(id,icon,label,sub,primary,extra){
+  var dis=ro&&id!=='cust'&&id!=='away'&&id!=='close';
+  return '<button class="qa-card'+(primary?' qa-primary':'')+'" id="go-'+id+'" data-go="'+(id==='away'?'cust':id)+'"'+(extra||'')+(dis?' disabled':'')+'>'+
+   '<span class="qa-ic">'+ic(dis?'lock':icon,'lg')+'</span><span class="qa-lb">'+label+'</span><span class="qa-sub">'+sub+'</span></button>'};
+ return top+
+  '<div class="kpis"><div class="kpi"><span class="kpi-ic">'+ic('car-front')+'</span><span class="kpi-lb">'+t('vehWashed')+'</span><b class="kpi-v num">'+x.cars+'</b></div>'+
+  '<div class="kpi"><span class="kpi-ic k-rev">'+ic('indian-rupee')+'</span><span class="kpi-lb">'+t('revenue')+'</span><b class="kpi-v num">'+rs(x.sales)+'</b></div></div>'+
+  '<div class="qa">'+qa('wash','car-front',t('wash'),t('startWash'),1)+qa('cust','users',t('cust'),t('nCust').replace('{n}',D.customers.length))+
+  qa('close','chart-column',t('dayReport'),rs(x.sales))+
+  (feat('expenses')?qa('exp','wallet',t('exp'),rs(x.exp)):qa('away','history',t('comeBack'),t('nToCall').replace('{n}',away),0,' data-awaytab="1"'))+'</div>'+sec;
+}
+function confirmDel(kind,id){
+ return '<div class="confirm"><span>'+ic('trash-2','sm')+t('delQ')+'</span><button class="btn btn-sm btn-outline no" data-delno="1">'+t('no')+'</button><button class="btn btn-sm btn-danger yes" data-del="'+kind+':'+esc(id)+'">'+t('del')+'</button></div>';
+}
+
+/* ---------- 2/3. New wash ---------- */
+function phoneBox(){
+ var bad=ui.nphone&&!phoneOk(ui.nphone);
+ return '<div class="phonebox'+(bad?' bad':'')+'"><label class="label" for="n-phone">'+t('mobileReq')+' <span class="req">*</span></label>'+
+  '<div class="input-group">'+ic('phone')+'<input class="input num" id="n-phone" inputmode="tel" maxlength="14" placeholder="98xxxxxxxx" value="'+esc(ui.nphone||'')+'"></div>'+
+  (bad?'<span class="field-err">'+t('needPhone')+'</span>':'')+'</div>';
+}
+function washView(){
+ var h=header(t('wash')),c=ui.cid?cust(ui.cid):null;
+ var q=ui.q.trim().toUpperCase().replace(/[^A-Z0-9]/g,'');
+ // A. customer
+ h+='<section class="card wsec"><div class="wsec-h"><span class="wsec-t">'+ic('user','sm')+t('custSec')+'</span>';
+ if(c){
+  h+='<span class="badge badge-success">'+ic('user-check','xs')+t('existing')+'</span></div>'+
+   '<div class="picked"><span class="avatar">'+ic(vIcon(c.vehicle))+'</span><div class="main"><b class="plate num pk-plate">'+esc(c.plate)+'</b>'+
+   '<span class="sub">'+esc(c.name||'—')+(c.phone?' · '+esc(c.phone):'')+'</span>'+
+   '<span class="sub">'+c.visits+' '+t('visits')+' · '+t('lastVisit')+': '+ago(c.last)+'</span>'+dots(c.visits)+'</div>'+
+   '<button class="btn-icon x" id="unpick" aria-label="'+t('change')+'">'+ic('x')+'</button></div>';
+  if(!phoneOk(c.phone))h+=phoneBox();
+  if(c.due>0){
+   h+='<div class="banner b-warn duebar">'+ic('clock')+'<span>'+t('oldDue')+': <b class="num">'+rs(c.due)+'</b></span><button class="btn btn-sm btn-success collect" data-colask="'+esc(c.id)+'">'+ic('hand-coins','sm')+t('collect')+'</button></div>';
+   if(ui.col===c.id)h+='<div class="confirm go"><span>'+t('collectQ').replace('{amt}',rs(c.due))+'</span><button class="btn btn-sm btn-outline no" data-colno="1">'+t('no')+'</button><button class="btn btn-sm btn-success yes" data-col="'+esc(c.id)+'">'+t('yes')+'</button></div>';
+  }
+  if(isFree(c))h+='<div class="banner b-good">'+ic('gift')+'<span>'+t('freeNow')+'</span></div>';
+ } else {
+  var typedPhone=/^\d{10,}$/.test(q),m=[],exact=null;
+  if(q){
+   m=D.customers.filter(function(x){return normPlate(x.plate).indexOf(q)>=0||String(x.phone).indexOf(q)>=0}).slice(0,3);
+   exact=m.filter(function(x){return normPlate(x.plate)===q||(typedPhone&&String(x.phone).replace(/\D/g,'')===q)})[0];
+  }
+  h+=(q&&!exact?'<span class="badge badge-warning">'+ic('user-plus','xs')+t('newCust')+'</span>':'')+'</div>';
+  h+='<div class="input-group ig-lg">'+ic('search')+'<input class="plate-in num" id="q" placeholder="'+t('plateQ')+'" value="'+esc(ui.q)+'" autocomplete="off" autocapitalize="characters" aria-label="'+t('plateHint')+'"></div>';
+  if(q){
+   h+=m.map(function(x){return '<button class="match" data-pick="'+esc(x.id)+'"><span class="avatar sm">'+ic(vIcon(x.vehicle),'sm')+'</span><span class="main"><b class="plate num">'+esc(x.plate)+'</b>'+
+    '<span class="sub">'+esc(x.name||'—')+(x.phone?' · '+esc(x.phone):'')+' · '+ago(x.last)+'</span></span><span class="badge badge-neutral num">'+x.visits+' '+t('visits')+'</span></button>'}).join('');
+   if(!exact){
+    // a new customer: every detail must be filled before the wash can be saved
+    var showErr=ui.sel.length>0,miss=newCustMissing(q);
+    h+='<div class="newveh"><span class="nv-ic">'+ic(typedPhone?'phone':'car-front','sm')+'</span><span class="nv-txt"><span class="sub">'+(typedPhone?t('newCust')+' · '+t('mobileReq'):t('newVeh'))+'</span><b class="num">'+esc(typedPhone?q:ui.q.trim().toUpperCase())+'</b></span></div>'+
+     '<div class="hint left">'+ic('circle-alert','xs')+t('newCustAll')+'</div>';
+    h+='<div class="addf">';
+    if(typedPhone)h+='<div class="'+(showErr&&miss.plate?'bad':'')+'"><label class="label" for="n-plate">'+t('plate')+' <span class="req">*</span></label><input class="input num up" id="n-plate" placeholder="e.g. AP 31 AB 1234" autocapitalize="characters" autocomplete="off" value="'+esc(ui.nplate||'')+'">'+
+     (showErr&&miss.plate?'<span class="field-err">'+t('needPlate')+'</span>':'')+'</div>';
+    else h+=phoneBox();
+    h+='<div class="'+(showErr&&miss.name?'bad':'')+'"><label class="label" for="n-name">'+t('nameLbl')+' <span class="req">*</span></label><div class="input-group">'+ic('user')+'<input class="input" id="n-name" placeholder="'+t('nameLbl')+'" autocomplete="off" value="'+esc(ui.nname||'')+'"></div>'+
+     (showErr&&miss.name?'<span class="field-err">'+t('needName')+'</span>':'')+'</div></div>';
+   }
+  } else h+='<div class="hint">'+t('plateHint')+'</div>';
+ }
+ h+='</section>';
+ if(!D.services.length)return h+'<div class="banner b-bad">'+ic('circle-alert')+'<span>'+t('noSvc')+'</span></div>';
+ // B. vehicle type
+ var groups=vtGroups(),g=groups.length===1?groups[0]:groups.filter(function(x){return x.key===ui.vt})[0];
+ if(groups.length>1){
+  if(!g){
+   h+='<div class="sec"><h2>'+t('pickVeh')+'</h2></div>';
+   VCATS.forEach(function(k){
+    var gs=groups.filter(function(x){return vcat(x.key)===k[0]});if(!gs.length)return;
+    h+='<div class="vcat">'+catName(k[0])+'</div><div class="vgrid">'+gs.map(function(x){
+     return '<button class="vbtn" data-vt="'+esc(x.key)+'"><span class="vic">'+ic(vIcon(x.key),'lg')+'</span><span class="vn">'+esc(lang==='te'?x.te:x.en)+'</span></button>'}).join('')+'</div>';
+   });
+   return h;
+  }
+  h+='<div class="vchosen"><span class="vic">'+ic(vIcon(g.key),'lg')+'</span><span class="vc-txt"><span class="sub">'+t('vehSec')+'</span><b>'+esc(lang==='te'?g.te:g.en)+'</b></span><button class="btn btn-sm btn-outline" id="vt-change">'+t('change')+'</button></div>';
+ }
+ // C. services
+ var nsel=ui.sel.length;
+ h+='<div class="sec"><h2>'+t('svcSec')+'</h2>'+(nsel?'<span class="badge badge-info">'+t('nSel').replace('{n}',nsel)+'</span>':'')+'</div><div class="svc">'+g.list.map(function(s){
+  return '<button class="svcb" id="s-'+esc(s.id)+'" data-svc="'+esc(s.id)+'" aria-pressed="'+(ui.sel.indexOf(s.id)>=0)+'"><span class="svc-top"><span class="svc-ic">'+ic(svcIcon(s))+'</span><span class="svc-tick">'+ic('check','sm')+'</span></span>'+
+   '<span class="n">'+esc(s[lang])+'</span><span class="p num">'+rs(s.price)+'</span></button>'}).join('')+'</div>';
+ // D. total + payment, kept at the bottom of the screen
+ var free=c?isFree(c):false;
+ var sum=ui.sel.reduce(function(a,id){var s=svc(id);return a+(s?s.price:0)},0);
+ var needPhone=!phoneOk(c?c.phone:(/^\d{10,}$/.test(q)?q:ui.nphone));
+ var isNew=!c&&q.length>=3&&!D.customers.some(function(x){return normPlate(x.plate)===q||(/^\d{10,}$/.test(q)&&String(x.phone).replace(/\D/g,'')===q)});
+ var nm=isNew?newCustMissing(q):{},needDetails=isNew&&(nm.plate||nm.name);
+ var ready=nsel>0&&(c||q.length>=3)&&!needPhone&&!needDetails;
+ var hint=ready?t('payHow'):(!c&&q.length<3?t('needVeh'):(needPhone?t('needPhone'):(needDetails?t('needDetails'):t('selectSvc'))));
+ if(ui.pay&&(!ready||(free&&ui.pay!=='cash')))ui.pay=null;
+ var amt=free?0:sum,chosen=ui.pay;
+ if(ready)hint=chosen?(chosen==='credit'?t('laterCheck'):t('moneyCheck').replace('{amt}',rs(amt)).replace('{m}',t(chosen))):t('payHow');
+ var pb=function(k,dis){return '<button class="pb pb-'+k+(chosen===k?' sel':'')+'" id="pay-'+k+'" data-pay="'+k+'" aria-pressed="'+(chosen===k)+'" '+(dis?'disabled':'')+'><span class="pb-ic">'+ic(chosen===k?'circle-check':payIcon(k))+'</span><span>'+t(k)+'</span></button>'};
+ var okLab=!chosen?t('pickPay'):chosen==='credit'?t('saveLater').replace('{amt}',rs(amt)):free?t('saveFree'):t('gotPaid').replace('{amt}',rs(amt));
+ h+='<div class="paybar"><div class="total"><span class="pb-n">'+(nsel?t('nSvc').replace('{n}',nsel):t('selectSvc'))+'</span><b class="num">'+(free&&sum?'<s>'+rs(sum)+'</s> ₹0':rs(free?0:sum))+'</b></div>'+
+  '<div class="pb-hint'+(ready?' ok':'')+'">'+hint+'</div><div class="paybtns">'+pb('cash',!ready)+pb('upi',!(ready&&!free))+pb('card',!(ready&&!free))+pb('credit',!(ready&&!free))+'</div>'+
+  '<button class="btn btn-block payok'+(chosen==='credit'?' later':'')+'" id="pay-ok" '+(chosen&&ready?'':'disabled')+'>'+ic(chosen==='credit'?'clock':'check')+'<span>'+okLab+'</span></button></div>';
+ return h;
+}
+
+/* what a new customer still lacks: vehicle number (when a phone was typed) and name */
+function newCustMissing(q){
+ var typedPhone=/^\d{10,}$/.test(q);
+ return {plate:typedPhone&&normPlate(ui.nplate||'').length<4,name:String(ui.nname||'').trim().length<2};
+}
+
+/* ---------- 8. Customers ---------- */
+function custView(){
+ var h=header(t('cust')),mo=ui.months||3,away=awayList(mo);
+ h+='<div class="seg" role="group"><button id="tab-all" data-tab="all" aria-pressed="'+(ui.tab!=='away')+'">'+ic('users','sm')+t('all')+' <span class="seg-n num">'+D.customers.length+'</span></button>'+
+  '<button id="tab-away" data-tab="away" aria-pressed="'+(ui.tab==='away')+'">'+ic('history','sm')+t('away')+' <span class="cnt num">'+away.length+'</span></button></div>';
+ if(ui.tab==='away'){
+  if(ui.offer==null)ui.offer=D.settings.offerMessage||t('offerDefault');
+  h+='<div class="label">'+t('awayFor')+'</div><div class="chips">'+[1,2,3,6].map(function(m){
+   return '<button id="mo-'+m+'" data-mo="'+m+'" aria-pressed="'+(mo===m)+'">'+m+' '+t('mo')+'</button>'}).join('')+'</div>'+
+   '<div class="banner b-warn">'+ic('users')+'<span>'+t('awayCount').replace('{n}',away.length).replace('{m}',mo)+'</span></div>'+
+   '<div><label class="label" for="offer">'+t('offer')+'</label><textarea class="input area" id="offer">'+esc(ui.offer)+'</textarea></div>'+
+   sendAllHtml(away)+
+   '<div class="cards">'+(away.map(function(c){
+    var sent=offerDone(c);
+    return '<div class="ccard"><div class="cc-main"><span class="avatar">'+ic(vIcon(c.vehicle))+'</span><span class="main"><b class="plate num">'+esc(c.plate)+'</b>'+
+     '<span class="sub">'+esc(c.name||'—')+' · '+esc(c.phone)+'</span><span class="sub warn">'+ic('clock','xs')+t('lastVisit')+': '+ago(c.last)+'</span>'+
+     (sent?'<span class="sub good">'+ic('check','xs')+t('offerSentOn').replace('{d}',ago(c.offerSent))+'</span>':'')+'</span>'+
+     (phoneOk(c.phone)?'<a class="wa btn btn-sm '+(sent?'btn-outline done':'btn-wa')+'" data-cid="'+esc(c.id)+'" href="'+waLink(c)+'" target="_blank" rel="noopener">'+ic('message-circle','sm')+(sent?t('sendAgain'):t('sendWa'))+'</a>':'')+'</div></div>'}).join('')||
+    emptyState('circle-check',t('noAway')))+'</div>';
+  return h;
+ }
+ var q=ui.q.trim().toUpperCase().replace(/[^A-Z0-9]/g,'');
+ var cats={};D.customers.forEach(function(c){cats[vcat(c.vehicle)]=1});
+ var catKeys=VCATS.map(function(k){return k[0]}).filter(function(k){return cats[k]});
+ h+='<div class="input-group">'+ic('search')+'<input class="input num" id="cq" aria-label="'+t('search')+'" placeholder="'+t('search')+'" value="'+esc(ui.q)+'" autocomplete="off"></div>';
+ if(catKeys.length>1)h+='<div class="chips scroll">'+['all'].concat(catKeys).map(function(k){
+  return '<button data-vcat="'+k+'" aria-pressed="'+((ui.vcat||'all')===k)+'">'+(k==='all'?t('allTypes'):catName(k))+'</button>'}).join('')+'</div>';
+ var list=D.customers.filter(function(c){return (!q||normPlate(c.plate).indexOf(q)>=0||String(c.phone).indexOf(q)>=0||normPlate(c.name).indexOf(q)>=0)&&(!ui.vcat||ui.vcat==='all'||vcat(c.vehicle)===ui.vcat)})
+  .sort(function(a,b){var x=daysSince(a.last),y=daysSince(b.last);return (x==null?-1:x)-(y==null?-1:y)}).slice(0,200);
+ h+='<div class="cards">'+(list.map(function(c){
+  var old=c.last&&daysSince(c.last)>=90;
+  var r='<div class="ccard"><button class="cc-main" data-startwash="'+esc(c.id)+'"><span class="avatar">'+ic(vIcon(c.vehicle))+'</span><span class="main"><b class="plate num">'+esc(c.plate)+'</b>'+
+   '<span class="sub">'+esc(c.name||'—')+' · '+esc(c.phone)+'</span>'+
+   '<span class="sub'+(old?' warn':'')+'">'+ic('clock','xs')+t('lastVisit')+': '+ago(c.last)+'</span>'+dots(c.visits)+
+   (isFree(c)?'<span class="sub good">'+ic('gift','xs')+t('lastFree')+'</span>':'')+'</span>'+
+   '<span class="cc-side"><span class="visits num"><b>'+c.visits+'</b>'+t('nVisits')+'</span></span></button>';
+  if(c.due>0)r+='<div class="cc-due"><span class="badge badge-warning">'+ic('clock','xs')+t('due')+' '+rs(c.due)+'</span><button class="btn btn-sm btn-success collect" data-colask="'+esc(c.id)+'">'+ic('hand-coins','sm')+t('collect')+'</button></div>';
+  if(ui.col===c.id)r+='<div class="confirm go"><span>'+t('collectQ').replace('{amt}',rs(c.due))+'</span><button class="btn btn-sm btn-outline no" data-colno="1">'+t('no')+'</button><button class="btn btn-sm btn-success yes" data-col="'+esc(c.id)+'">'+t('yes')+'</button></div>';
+  return r+'</div>';
+ }).join('')||emptyState('search',t('noMatch')))+'</div>';
+ return h;
+}
+/* "Send to all": one customer after another; each tap opens WhatsApp with the offer typed, the owner presses Send */
+function offerDone(c){return !!(c.offerSent&&(!c.last||c.offerSent>=c.last))}
+function sendAllHtml(away){
+ if(ui.sq){
+  if(ui.si>=ui.sq.length)return '<div class="banner b-good">'+ic('circle-check')+'<span>'+t('sentAll').replace('{n}',ui.sq.length)+'</span></div><button class="btn btn-outline btn-block" id="sq-close">'+t('close2')+'</button>';
+  var c=cust(ui.sq[ui.si]);if(!c){ui.si++;return sendAllHtml(away)}
+  return '<div class="sendq card"><div class="sq-top"><b>'+ic('share-2','sm')+t('sendAll')+'</b><span class="num">'+(ui.si+1)+' / '+ui.sq.length+'</span></div>'+
+   '<div class="sq-bar"><span style="width:'+Math.round(ui.si*100/ui.sq.length)+'%"></span></div>'+
+   '<b class="plate num">'+esc(c.plate)+'</b><div class="sub">'+esc(c.name||'—')+' · '+esc(c.phone)+' · '+ago(c.last)+'</div>'+
+   '<a class="btn btn-wa btn-block wa-big" data-cid="'+esc(c.id)+'" data-seq="1" href="'+waLink(c)+'" target="_blank" rel="noopener">'+ic('message-circle')+t('sendWa')+'</a>'+
+   '<div class="sq-btns"><button class="btn btn-outline" id="sq-skip">'+t('skip')+ic('chevron-right','sm')+'</button><button class="btn btn-outline" id="sq-stop">'+t('stop')+'</button></div>'+
+   '<div class="hint">'+t('sendHow')+'</div></div>';
+ }
+ var todo=away.filter(function(c){return phoneOk(c.phone)&&!offerDone(c)});
+ return todo.length?'<button class="btn btn-wa btn-block" id="sq-start">'+ic('share-2')+t('sendAll')+' ('+todo.length+')</button>':
+  (away.length?'<div class="banner b-good">'+ic('circle-check')+'<span>'+t('allSent')+'</span></div>':'');
+}
+
+/* ---------- Expenses (shown only when switched on for the shop) ---------- */
+function expView(){
+ var h=header(t('expTitle'));
+ h+='<div class="cats">'+CATS.map(function(c){return '<button id="c-'+c.id+'" data-cat="'+c.id+'" aria-pressed="'+(ui.cat===c.id)+'"><span class="ic">'+c.ic+'</span>'+c[lang]+'</button>'}).join('')+'</div>'+
+  '<div><label class="label" for="amt">'+t('amount')+'</label><input class="plate-in num" id="amt" inputmode="numeric" placeholder="0" value="'+esc(ui.amt)+'"></div>'+
+  '<button class="btn btn-primary btn-block" id="e-save" '+(ui.cat&&+ui.amt>0?'':'disabled')+'>'+ic('check')+t('save')+'</button>';
+ var rows=D.expenses.slice().reverse().map(function(e){
+  var c=CATS.filter(function(x){return x.id===e.cat})[0]||CATS[CATS.length-1];
+  var r='<div class="txw"><button class="tx" data-delask="expense:'+esc(e.id)+'"><span class="avatar">'+ic('wallet')+'</span><span class="tx-main"><b>'+c[lang]+'</b><span class="tx-sub">'+esc(time12(e.t))+' · '+esc(e.staff)+'</span></span><span class="tx-side"><b class="tx-amt num">'+rs(e.amt)+'</b></span></button>';
+  if(ui.del==='expense:'+e.id)r+=confirmDel('expense',e.id);
+  return r+'</div>';
+ }).join('');
+ if(rows)h+='<div class="sec"><h2>'+t('today')+'</h2></div><div class="cards">'+rows+'</div>';
+ return h;
+}
+
+/* ---------- 7. Daily report ---------- */
+function closeView(){
+ var h=header(t('dayReport')),day=ui.day||D.today,isToday=day===D.today;
+ var x=isToday?localSummary():ui.sum;
+ h+='<div class="daynav"><button class="btn-icon dn-btn" id="day-prev" aria-label="previous day">'+ic('chevron-left')+'</button><div class="dn-mid">'+ic('calendar-days','sm')+'<b>'+esc(dayLabel(day))+'</b></div>'+
+  '<button class="btn-icon dn-btn" id="day-next" aria-label="next day" '+(isToday?'disabled':'')+'>'+ic('chevron-right')+'</button></div>';
+ if(!x)return h+(ui.sumErr?emptyState('cloud-off',t('needNet')):'<div class="center"><span class="spinner"></span>'+t('loading')+'</div>');
+ var total=x.cash+x.upi+x.card+x.credit,cnt={};
+ if(isToday)D.washes.forEach(function(w){cnt[w.pay]=(cnt[w.pay]||0)+1});
+ h+='<div class="dash-total"><span class="dt-lb">'+t('collections')+'</span><b class="num">'+rs(total)+'</b><span class="dt-sub">'+ic('car-front','sm')+x.cars+' '+t('cars')+'</span></div>';
+ var tileD=function(k,lab,v){return '<div class="dtile d-'+k+'"><span class="dt-ic">'+ic(payIcon(k))+'</span><span class="dlb">'+lab+'</span><b class="num">'+rs(v)+'</b>'+(isToday?'<span class="dcnt">'+(cnt[k]||0)+' '+t('cars')+'</span>':'')+'</div>'};
+ h+='<div class="sec"><h2>'+t('payBreak')+'</h2></div><div class="dgrid">'+tileD('cash',t('cash'),x.cash)+tileD('upi',t('upi'),x.upi)+tileD('card',t('card'),x.card)+tileD('credit',t('creditSales'),x.credit)+'</div>';
+ var hand=x.cash+x.collected-(feat('expenses')?x.exp:0);
+ h+='<div class="sec"><h2>'+t('adjust')+'</h2></div><div class="list sum">'+
+  '<div class="row"><span class="r-ic">'+ic('hand-coins','sm')+'</span><div class="main">'+t('collected')+'</div><div class="amt num">+ '+rs(x.collected)+'</div></div>'+
+  (feat('expenses')?'<div class="row"><span class="r-ic">'+ic('wallet','sm')+'</span><div class="main">'+t('expenses')+'</div><div class="amt num">− '+rs(x.exp)+'</div></div>':'')+
+  '<div class="row hl"><span class="r-ic">'+ic('banknote','sm')+'</span><div class="main">'+t('cashHand')+'</div><div class="amt num">'+rs(hand)+'</div></div></div>';
+ if(isToday){
+  h+='<div class="sec"><h2>'+t('transactions')+'</h2>'+(D.washes.length?'<span class="sec-n num">'+D.washes.length+'</span>':'')+'</div>';
+  h+=D.washes.length?'<div class="list tlist">'+D.washes.slice().reverse().map(function(w){
+   var c=cust(w.cid)||{plate:w.plate},items=w.svc.map(svc).filter(Boolean);
+   return '<div class="trow"><div class="tr-h"><b class="plate num">'+esc(c.plate)+'</b><span class="sub">'+esc(time12(w.t))+'</span><span class="tr-tot num">'+(w.free?'FREE':rs(w.amt))+'</span></div>'+
+    items.map(function(s){return '<div class="tr-i"><span>'+esc(s[lang])+'</span><span class="num">'+rs(s.price)+'</span></div>'}).join('')+
+    (w.free?'<div class="tr-i good"><span>'+t('freeWash')+'</span><span class="num">−'+rs(items.reduce(function(a,s){return a+s.price},0))+'</span></div>':'')+
+    '<div class="tr-f">'+payPill(w.pay)+(c.name?'<span class="sub">'+esc(c.name)+'</span>':'')+'</div></div>'}).join('')+'</div>':emptyState('car-front',t('noTx'));
+ }
+ if(x.byVehicle&&x.byVehicle.length){
+  h+='<div class="sec"><h2>'+t('byVehicle')+'</h2></div><div class="list">'+x.byVehicle.map(function(g){
+   return '<div class="row"><span class="avatar sm">'+ic(vIcon(g.vt),'sm')+'</span><div class="main"><b>'+esc(g.vt?(lang==='te'?g.vtte:g.vt):t('otherVeh'))+'</b><div class="sub">'+g.count+' '+t('cars')+'</div></div><div class="amt num">'+rs(g.amount)+'</div></div>'}).join('')+'</div>';
+ }
+ return h;
+}
+
+/* ---------- More ---------- */
+function moreView(){
+ var h=header(t('moreTitle')),l=D.licence||{};
+ h+='<div class="profile card"><span class="pf-av">'+esc(String(D.user.name||'?').charAt(0).toUpperCase())+'</span><div class="main"><b>'+esc(D.user.name)+'</b><span class="sub">'+(isMgr()?t('manager'):t('owner'))+' · '+esc(D.settings.shopName)+'</span></div>'+brandMark(36)+'</div>';
+ var row=function(id,icon,label,extra,attrs,cls){return '<button class="mrow'+(cls?' '+cls:'')+'" id="'+id+'"'+(attrs||'')+'><span class="mr-ic">'+ic(icon)+'</span><span class="main">'+label+'</span>'+(extra||ic('chevron-right','sm mr-go'))+'</button>'};
+ h+='<div class="menu card">'+
+  (!isMgr()&&D.branches&&D.branches.length>1?row('m-branches','store',t('branches'),null,' data-go="branches"'):'')+
+  (!isMgr()&&feat('expenses')?row('m-exp','wallet',t('exp'),null,' data-go="exp"'):'')+
+  row('m-lang','languages',t('language'),'<span class="mr-val">'+(lang==='te'?'తెలుగు':'English')+'</span>',' data-lang="'+(lang==='te'?'en':'te')+'"')+
+  row('refresh','refresh-cw',t('refreshData'),'')+
+  row('m-help','circle-help',t('helpT'),null,' data-go="help"')+
+  (!isMgr()?row('m-renew','refresh-cw',t('renewal'),'<span class="mr-val">'+(l.expiry?t('validTill').replace('{d}',fmtDay(String(l.expiry).slice(0,10))):'')+'</span>'+ic('chevron-right','sm mr-go'),' data-go="renew"'):'')+
+  '</div>'+
+  '<div class="menu card">'+row('logout','log-out',t('logout'),'',null,'danger logout')+'</div>'+
+  '<div class="foot"><span class="who">'+ic('user','sm')+esc(D.user.name)+'</span></div>'+
+  '<div class="ver">WashBook '+APP_VERSION+' · '+esc(D.version||'?')+'</div>';
+ return h;
+}
+
+/* ---------- Help: a short user manual inside the app ---------- */
+var HELP=[
+ {ic:'car-front',all:1,en:['Add a wash',['Tap the + New Wash button.','Type the customer\'s mobile number or vehicle number.','New customer? Type the vehicle number and name. Old customer? Tap their name.','Choose the vehicle type.','Tap every service you did. A tick shows it is chosen.','Tap how the customer paid: Cash, UPI, Card or Later.','Check the money. Then tap the green button to save.']],
+  te:['వాష్ నమోదు',['+ కొత్త వాష్ బటన్ నొక్కండి.','కస్టమర్ మొబైల్ నంబర్ లేదా వాహనం నంబర్ టైప్ చేయండి.','కొత్త కస్టమర్ అయితే వాహనం నంబర్, పేరు టైప్ చేయండి. పాత కస్టమర్ అయితే వారి పేరు నొక్కండి.','వాహనం రకం ఎంచుకోండి.','చేసిన ప్రతి సేవను నొక్కండి. ఎంచుకున్న దానికి టిక్ వస్తుంది.','కస్టమర్ ఎలా చెల్లించారో నొక్కండి: నగదు, UPI, కార్డ్ లేదా తర్వాత.','డబ్బు సరిచూసుకోండి. తర్వాత ఆకుపచ్చ బటన్ నొక్కి సేవ్ చేయండి.']]},
+ {ic:'message-circle',all:1,en:['Send the bill',['After saving, the bill opens.','Tap Send invoice on WhatsApp. WhatsApp opens with the bill typed. Press Send.','Come back to WashBook. Tap Download / share PDF, choose WhatsApp, choose the same customer, press Send.','Tap Done.']],
+  te:['బిల్లు పంపడం',['సేవ్ చేసిన తర్వాత బిల్లు కనిపిస్తుంది.','వాట్సాప్‌లో ఇన్వాయిస్ పంపండి నొక్కండి. బిల్లుతో వాట్సాప్ తెరుచుకుంటుంది. పంపు నొక్కండి.','వాష్‌బుక్‌కి తిరిగి రండి. PDF డౌన్‌లోడ్ / షేర్ నొక్కి, వాట్సాప్, అదే కస్టమర్‌ను ఎంచుకుని పంపండి.','పూర్తయింది నొక్కండి.']]},
+ {ic:'trash-2',all:1,en:['Made a mistake?',['On the home screen, tap the wrong wash.','Tap Delete.','You can delete your own entry for 15 minutes. After that, ask the owner.']],
+  te:['పొరపాటు జరిగిందా?',['హోమ్ స్క్రీన్‌లో తప్పు వాష్‌ను నొక్కండి.','తొలగించు నొక్కండి.','మీ ఎంట్రీని 15 నిమిషాల వరకు తొలగించవచ్చు. తర్వాత యజమానిని అడగండి.']]},
+ {ic:'hand-coins',owner:1,en:['Collect old dues',['Tap Customers.','Find the customer. Customers who owe money show an orange Due label.','Tap Collect, then Yes.']],
+  te:['పాత బాకీ వసూలు',['కస్టమర్లు నొక్కండి.','కస్టమర్‌ను వెతకండి. బాకీ ఉన్నవారికి నారింజ రంగు బాకీ గుర్తు ఉంటుంది.','వసూలు నొక్కి, అవును నొక్కండి.']]},
+ {ic:'history',owner:1,en:['Call back old customers',['Tap Customers, then Not coming.','Choose 1, 2, 3 or 6 months.','Tap Send to all. For each customer WhatsApp opens with your offer. Press Send, come back, and the next one is ready.']],
+  te:['పాత కస్టమర్లను పిలవడం',['కస్టమర్లు నొక్కి, రావడం లేదు నొక్కండి.','1, 2, 3 లేదా 6 నెలలు ఎంచుకోండి.','అందరికీ పంపండి నొక్కండి. ప్రతి కస్టమర్‌కు మీ ఆఫర్‌తో వాట్సాప్ తెరుచుకుంటుంది. పంపు నొక్కి తిరిగి రండి, తర్వాతి వారు సిద్ధంగా ఉంటారు.']]},
+ {ic:'chart-column',owner:1,en:['See the day\'s money',['Tap Reports at the bottom.','You see the total, and Cash, UPI, Card and Later separately.','Tap the arrows to see earlier days.']],
+  te:['రోజు డబ్బు చూడటం',['కింద రిపోర్ట్స్ నొక్కండి.','మొత్తం, మరియు నగదు, UPI, కార్డ్, తర్వాత విడిగా కనిపిస్తాయి.','ముందు రోజులు చూడటానికి బాణాలు నొక్కండి.']]},
+ {ic:'cloud-off',all:1,en:['No internet?',['Keep working. WashBook saves on the phone.','The cloud at the top turns orange with a number: entries waiting to go.','When internet comes back, they go by themselves.']],
+  te:['ఇంటర్నెట్ లేదా?',['పని కొనసాగించండి. వాష్‌బుక్ ఫోన్‌లోనే సేవ్ చేస్తుంది.','పైన మేఘం గుర్తు నారింజ రంగులో ఒక సంఖ్యతో కనిపిస్తుంది: పంపాల్సిన ఎంట్రీలు.','ఇంటర్నెట్ రాగానే అవి వాటంతట అవే వెళ్తాయి.']]},
+ {ic:'lock',all:1,en:['App asks for the PIN?',['This is normal. It locks when opened again, or after 5 minutes without use.','Type your 4-digit PIN.','Forgot the PIN? Ask the owner.']],
+  te:['PIN అడుగుతోందా?',['ఇది సాధారణం. మళ్ళీ తెరిచినప్పుడు, లేదా 5 నిమిషాలు వాడకపోతే లాక్ అవుతుంది.','మీ 4 అంకెల PIN టైప్ చేయండి.','PIN మర్చిపోయారా? యజమానిని అడగండి.']]},
+ {ic:'languages',all:1,en:['Change the language',['Tap EN or తె at the top right.']],te:['భాష మార్చడం',['పైన కుడివైపు EN లేదా తె నొక్కండి.']]}
+];
+function helpView(){
+ var h=header(t('helpT'));
+ h+='<p class="lead">'+t('helpLead')+'</p>';
+ h+=HELP.filter(function(x){return x.all||!isMgr()}).map(function(x,i){
+  var c=x[lang]||x.en;
+  return '<section class="card help"><div class="help-h"><span class="avatar">'+ic(x.ic)+'</span><b>'+c[0]+'</b></div><ol class="steps">'+c[1].map(function(s){return '<li>'+esc(s)+'</li>'}).join('')+'</ol></section>';
+ }).join('');
+ return h;
+}
+
+/* ---------- Renewal: the owner sends a ready-made request (email + WhatsApp) ---------- */
+function renewMessage(){
+ var l=D.licence||{},s=D.settings;
+ return 'Hello, please renew WashBook for 1 year.\n\nShop: '+s.shopName+' ('+SHOP+')\nOwner: '+D.user.name+(s.ownerPhone?'\nPhone: '+s.ownerPhone:'')+
+  '\nValid till: '+(l.expiry?fmtDay(String(l.expiry).slice(0,10)):'—')+'\n\nPlease send me the payment details. Thank you.';
+}
+function renewView(){
+ var h=header(t('renewal')),l=D.licence||{},days=l.days;
+ var st=l.state==='expired'?['badge-danger',t('lic_expired')]:l.state==='grace'?['badge-danger',t('lic_grace')]:l.state==='warn'?['badge-warning',t('daysLeft').replace('{n}',days)]:['badge-success',t('active')];
+ h+='<div class="card renew-st"><span class="avatar">'+ic('calendar-days')+'</span><div class="main"><span class="sub">'+t('validTillL')+'</span><b class="num">'+(l.expiry?fmtDay(String(l.expiry).slice(0,10)):'—')+'</b></div><span class="badge '+st[0]+'">'+st[1]+'</span></div>';
+ h+='<div class="sec"><h2>'+t('renewMsgT')+'</h2></div><div class="card msgprev"><pre>'+esc(renewMessage())+'</pre></div>';
+ var r=ui.renew;
+ if(r==='sent')h+='<div class="banner b-good">'+ic('circle-check')+'<span>'+t('renewSent')+'</span></div>';
+ else if(r==='fail')h+='<div class="banner b-warn">'+ic('triangle-alert')+'<span>'+t('renewFail')+'</span></div>';
+ else if(r==='limit')h+='<div class="banner b-warn">'+ic('clock')+'<span>'+t('renewLimit')+'</span></div>';
+ var wa=l.renewWhatsApp||'917675027103';
+ h+='<a class="btn btn-wa btn-block" id="renew-send" href="https://wa.me/'+esc(wa)+'?text='+encodeURIComponent(renewMessage())+'" target="_blank" rel="noopener">'+(r==='sending'?'<span class="spinner sm" style="margin:0"></span>':ic('send'))+t('renewSend')+'</a>'+
+  '<p class="hint">'+t('renewHow')+'</p>';
+ return h;
+}
+function sendRenewal(){
+ ui.renew='sending';render();buzz(15);
+ call('api',SHOP,token,'renewRequest',{message:renewMessage()}).then(function(r){ui.renew=r&&r.sent?'sent':(r&&r.reason==='limit'?'limit':'fail');if(view==='renew')render()},
+  function(){ui.renew='fail';if(view==='renew')render()});
+}
+
+/* ---------- Branches ---------- */
+function branchesView(){
+ var h=header(t('branches'));
+ if(ui.bErr)h+='<div class="banner b-bad">'+ic('circle-alert')+'<span>'+t('error')+'</span></div>';
+ if(!ui.bs)return h+'<div class="center"><span class="spinner"></span>'+t('loading')+'</div>';
+ var tot={cars:0,sales:0};
+ ui.bs.forEach(function(b){tot.cars+=b.cars||0;tot.sales+=b.sales||0});
+ h+='<div class="kpis three"><div class="kpi"><span class="kpi-lb">'+t('cars')+'</span><b class="kpi-v num">'+tot.cars+'</b></div><div class="kpi"><span class="kpi-lb">'+t('sales')+'</span><b class="kpi-v num">'+rs(tot.sales)+'</b></div><div class="kpi"><span class="kpi-lb">'+t('branches')+'</span><b class="kpi-v num">'+ui.bs.length+'</b></div></div>';
+ h+='<div class="cards">'+ui.bs.map(function(b){
+  var here=b.code===SHOP;
+  var lic=b.licence&&b.licence!=='ok'?'<span class="badge badge-danger">'+t('lic_'+b.licence)+'</span>':'';
+  var st=b.error?'':(b.closed?(b.diff===0?'<span class="badge badge-success">'+t('closed')+'</span>':'<span class="badge badge-warning">'+t('closed')+' '+(b.diff<0?'−':'+')+rs(Math.abs(b.diff))+'</span>'):'<span class="badge badge-neutral">'+t('notClosed')+'</span>');
+  return '<div class="ccard'+(here?' here':'')+'"><button class="cc-main" data-switch="'+esc(b.code)+'"><span class="avatar">'+ic('store')+'</span><span class="main"><b>'+esc(b.name)+'</b>'+
+   '<span class="sub">'+(b.error?'—':b.cars+' '+t('cars')+' · '+t('cashBox')+' '+rs(b.cash))+'</span><span class="bdg">'+lic+st+(here?'<span class="badge badge-info">'+t('here')+'</span>':'')+'</span></span>'+
+   '<span class="cc-side"><b class="num">'+(b.error?'':rs(b.sales))+'</b></span></button></div>';
+ }).join('')+'</div>';
+ return h;
+}
+
+/* ---------- 4. Invoice ---------- */
+function rewardsHtml(rc){
+ var n=D.settings.loyaltyEvery;if(!n)return '';
+ var done=rc.w.free?n:(rc.cust.visits%n),k=rc.w.free?0:(n-1)-done;
+ var bar='';for(var i=0;i<n;i++)bar+='<span class="'+(i<done?'on':'')+(i===n-1?' gift':'')+'">'+(i===n-1?ic('gift','xs'):'')+'</span>';
+ return '<div class="rewards"><div class="rw-h">'+ic('star','sm')+'<b>'+t('rewards')+'</b><span class="num">'+t('rewardsDone').replace('{k}',Math.min(done,n)).replace('{n}',n)+'</span></div>'+
+  '<div class="rw-bar">'+bar+'</div><div class="rw-msg">'+(rc.w.free?t('freeNow'):k<=0?t('rewardsNext'):t('rewardsMore').replace('{k}',k))+'</div></div>';
+}
+function receiptView(){
+ var rc=lastRc;if(!rc){view='home';return homeView()}
+ var w=rc.w,c=rc.cust,h=header(t('invoice'));
+ var paid=w.pay!=='credit';
+ h+='<div class="okstrip"><span class="ok-ic">'+ic('check')+'</span><div><b>'+t('washSaved')+'</b><span class="sub num">'+esc(w.inv)+'</span></div></div>';
+ h+='<article class="bill"><div class="bill-head">'+brandMark(48)+'<div class="bh-txt"><div class="bill-shop">'+esc(D.settings.shopName)+'</div>'+(D.settings.ownerPhone?'<span class="sub">'+ic('phone','xs')+esc(D.settings.ownerPhone)+'</span>':'')+'</div><span class="bill-tag">'+t('invoice')+'</span></div>'+
+  '<div class="bill-meta"><div><span class="label">'+t('invNo')+'</span><b class="num">'+esc(w.inv)+'</b></div><div><span class="label">'+t('dateTime')+'</span><b class="num">'+fmtDay(w.date)+', '+fmtTime(w.t)+'</b></div></div>'+
+  '<div class="bill-sec"><div><span class="label">'+ic('user','xs')+t('customer')+'</span><b>'+esc(c.name||'—')+'</b><span class="sub num">'+esc(c.phone)+'</span></div>'+
+  '<div><span class="label">'+ic(vIcon(rc.vt),'xs')+t('vehicle')+'</span><b class="num">'+esc(c.plate)+'</b><span class="sub">'+esc(lang==='te'?rc.vtte:rc.vt)+'</span></div></div>'+
+  '<div class="bill-items"><div class="bi bi-h"><span>'+t('service')+'</span><span>'+t('amountH')+'</span></div>'+rc.items.map(function(it){return '<div class="bi"><span>'+esc(lang==='te'?it.te:it.en)+'</span><span class="num">'+rs(it.price)+'</span></div>'}).join('')+
+  (w.free?'<div class="bi good"><span>'+t('freeWash')+'</span><span class="num">−'+rs(rc.items.reduce(function(a,i){return a+i.price},0))+'</span></div>':'')+'</div>'+
+  '<div class="bi tot"><span>'+t('total')+'</span><span class="num">'+rs(w.amt)+'</span></div>'+
+  '<div class="bill-pay">'+(paid?'<span class="badge badge-success">'+ic('circle-check','xs')+t('paidVia').replace('{m}',w.free?t('freeWash'):t(w.pay))+'</span>':'<span class="badge badge-warning">'+ic('clock','xs')+t('pendingLater')+'</span><span class="sub">'+t('due')+' <b class="num">'+rs(c.due)+'</b></span>')+'</div>'+
+  rewardsHtml(rc)+
+  '<div class="bill-thanks">'+t('thanks')+'</div></article>';
+ h+='<div class="actions"><a class="btn btn-wa btn-block wa-inv" target="_blank" rel="noopener" href="https://wa.me/'+waNum(c.phone)+'?text='+encodeURIComponent(invoiceText(rc))+'"><span class="stepn">1</span>'+ic('message-circle')+t('sendInvoice')+'</a>'+
+  '<button class="btn btn-navy btn-block" id="rc-pdf"><span class="stepn">2</span>'+ic('file-text')+t('sendPdf')+'</button>'+
+  '<p class="hint">'+t('pdfHint')+'</p>'+
+  '<button class="btn btn-outline btn-block" id="rc-done">'+ic('check')+t('done')+'</button></div>';
+ return h;
+}
+
+function startSendAll(){
+ var mo=ui.months||3;
+ var away=D.customers.filter(function(c){return c.last&&daysSince(c.last)>=mo*30}).sort(function(a,b){return daysSince(b.last)-daysSince(a.last)});
+ ui.sq=away.filter(function(c){return phoneOk(c.phone)&&!offerDone(c)}).map(function(c){return c.id});ui.si=0;render();
+}
+function markOfferSent(cid){
+ var c=cust(cid);if(!c)return;
+ c.offerSent=D.today;saveData();
+ enqueue('markOffer',{customerId:cid,at:Date.now()});
+}
+function waLink(c){return 'https://wa.me/'+waNum(c.phone)+'?text='+encodeURIComponent((ui.offer||'').replace(/\{name\}/g,c.name||''))}
+
+function localSummary(){
+ var x=totals(),g={};
+ D.washes.forEach(function(w){var s0=svc(w.svc[0])||{},k=s0.vt||'';var e=g[k]||(g[k]={vt:k,vtte:s0.vtte||k,ic:k?(s0.vic||'🚗'):'🧽',count:0,amount:0});e.count++;e.amount+=w.amt||0});
+ x.byVehicle=Object.keys(g).map(function(k){return g[k]}).sort(function(a,b){return b.amount-a.amount});
+ return x;
+}
+function dayLabel(d){
+ var dt=new Date(d+'T12:00:00');
+ return (d===D.today?t('today')+' · ':'')+dt.toLocaleDateString(lang==='te'?'te-IN':'en-IN',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+}
+function shiftDay(d,n){var x=new Date(d+'T12:00:00Z');x.setUTCDate(x.getUTCDate()+n);return x.toISOString().slice(0,10)}
+function loadDay(day){
+ ui.day=day;ui.sum=null;ui.sumErr=false;render();
+ if(day===D.today)return;
+ call('api',SHOP,token,'daySummary',{date:day}).then(function(r){if(view==='close'&&ui.day===day){ui.sum=r;render()}},
+  function(e){if(errKind(e)==='login')return toLogin();if(ui.day===day){ui.sumErr=true;render()}});
+}
+/* ============ Render + navigation ============ */
+function render(){
+ var app=document.getElementById('app');
+ document.documentElement.lang=lang;
+ if(fatal){app.innerHTML=emptyState('triangle-alert',esc(fatal));document.body.className='';return}
+ var html;
+ if(view==='pick')html=pickView();
+ else if(view==='login')html=loginView();
+ else if(!D)html='<div class="center"><span class="spinner"></span>'+t('loading')+'</div>';
+ else html={home:homeView,wash:washView,cust:custView,exp:expView,close:closeView,branches:branchesView,receipt:receiptView,more:moreView,help:helpView,renew:renewView}[view]();
+ if(D&&D.settings&&D.settings.brand&&JSON.stringify(D.settings.brand)!==JSON.stringify(LS.get('brand',null)))LS.set('brand',D.settings.brand);
+ applyBrand();
+ var nav=navBar();
+ var a=document.activeElement,fid=a&&a.id,pos=a&&a.selectionStart;
+ app.innerHTML=html+nav;
+ document.body.classList.toggle('has-nav',!!nav);
+ document.body.classList.toggle('has-paybar',html.indexOf('class="paybar"')>=0);
+ document.body.classList.toggle('is-login',view==='login'||view==='pick');
+ if(fid){var el=document.getElementById(fid);if(el&&el.tagName==='INPUT'){el.focus();try{el.setSelectionRange(pos,pos)}catch(e){}}}
+}
+function go(v){if(locked&&v!=='login'){return render()}view=v;ui={sel:[],q:'',cid:null,adding:false,cat:null,amt:'',tab:'all',months:3,offer:null,del:null,col:null,vcat:'all'};render();window.scrollTo(0,0)}
+
+/* ============ Actions ============ */
+function fetchShopName(){
+ if(D&&D.settings||fetchShopName.busy)return;
+ fetchShopName.busy=true;
+ call('shopInfo',SHOP).then(function(r){fetchShopName.busy=false;if(r&&r.name){LS.set('shopName',r.name);if(r.brand)LS.set('brand',r.brand);if(view==='login')render()}},
+  function(e){fetchShopName.busy=false;if(errKind(e)==='noshop')stopApp('noshop')});
+}
+function doLogin(){
+ var pin=ui.pin||'';if(pin.length<4||ui.busy)return;
+ if(locked&&token&&LS.get('pinh','')===pinHash(pin)){ui.pin='';buzz(15);return unlock()}   // same person: no internet needed
+ ui.busy=true;pinErr='';render();
+ call('login',SHOP,pin).then(function(res){
+  ui.busy=false;
+  if(!res.ok){if(res.reason==='suspended'){LS.set('licence',res.licence);return stopApp('suspended')}pinErr='1';ui.pin='';buzz([40,60,40]);return render()}
+  token=res.token;LS.set('token',token);LS.set('pinh',pinHash(pin));D=res.data;saveData();LS.set('licence',D.licence);LS.set('shopName',D.settings.shopName);pinErr='';
+  locked=false;touchActive(true);buzz(15);go('home');flush();
+ },function(e){ui.busy=false;var k=errKind(e);if(k==='setup'){fatal=t('setup');return render()}if(k==='noshop')return stopApp('noshop');toast(t('error'),true);render()});
+}
+
+function saveWash(pay){
+ if(!ui.sel.length)return;
+ var c=cust(ui.cid);
+ if(!c){
+  var raw=ui.q.trim().toUpperCase().replace(/\s+/g,' '),key=normPlate(raw);
+  if(key.length<3)return;
+  c=D.customers.filter(function(x){return normPlate(x.plate)===key||(/^\d{10,}$/.test(key)&&String(x.phone).replace(/\D/g,'')===key)})[0];
+  if(!c){
+   var isPhone=/^\d{10,}$/.test(key),miss=newCustMissing(key);
+   if(miss.plate||miss.name)return;   // new customers need all their details
+   var phone=isPhone?phoneDigits(key):phoneDigits(ui.nphone);
+   var plate=isPhone?(ui.nplate||'').trim().toUpperCase().replace(/\s+/g,' '):raw;
+   c={id:newId('C'),plate:plate,phone:phone,name:(ui.nname||'').trim(),visits:0,due:0,last:null};
+   D.customers.push(c);
+  }
+  ui.cid=c.id;
+ }
+ if(!phoneOk(c.phone)){if(!phoneOk(ui.nphone))return;c.phone=phoneDigits(ui.nphone)}
+ var free=isFree(c),amt=free?0:ui.sel.reduce(function(a,id){var s=svc(id);return a+(s?s.price:0)},0);
+ if(free)pay='cash';
+ var at=Date.now(),w={id:newId('W'),date:D.today,t:nowHM(),cid:c.id,plate:c.plate,svc:ui.sel.slice(),names:'',amt:amt,pay:pay,free:free,staff:D.user.name,inv:invoiceNo()};
+ D.washes.push(w);c.visits++;c.last=D.today;if(pay==='credit')c.due+=amt;
+ enqueue('addWash',{id:w.id,at:at,services:w.svc,pay:pay,invoice:w.inv,customer:{id:c.id,plate:c.plate,phone:c.phone,name:c.name}});
+ var items=w.svc.map(function(id){var s=svc(id)||{};return {en:s.en||'',te:s.te||s.en||'',price:s.price||0}});
+ var s0=svc(w.svc[0])||{};
+ var rc={w:w,cust:{name:c.name,phone:c.phone,plate:c.plate,visits:c.visits,due:c.due},items:items,vt:s0.vt||'',vtte:s0.vtte||s0.vt||'',vic:s0.vic||'🚗'};
+ lastRc=rc;buzz(20);go('receipt');
+}
+/* ---------- invoice ---------- */
+var lastRc=null;
+function invoiceNo(){   // e.g. PDOK-261106-07: shop letters, date (IST), wash number of the day
+ var d=D.today.replace(/-/g,'').slice(2),n=String(D.washes.length+1);
+ return (D.settings.prefix||'WB')+'-'+d+'-'+(n.length<2?'0'+n:n);
+}
+function fmtDay(d){var m=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];return d.slice(8)+'-'+m[+d.slice(5,7)-1]+'-'+d.slice(0,4)}
+function fmtTime(hm){var h=+hm.slice(0,2),m=hm.slice(3,5);return ((h%12)||12)+':'+m+(h<12?' AM':' PM')}
+function loyaltyNote(rc){
+ var n=D.settings.loyaltyEvery;if(!n)return '';
+ if(rc.w.free)return {en:'This wash is FREE – thank you for coming back!',te:'ఈ వాష్ ఉచితం – మళ్ళీ వచ్చినందుకు ధన్యవాదాలు!'};
+ var k=((n-1)-(rc.cust.visits%n)+n)%n;
+ return k===0?{en:'Your next wash is FREE!',te:'మీ తదుపరి వాష్ ఉచితం!'}
+  :{en:k+' more wash'+(k>1?'es':'')+' and the next one is FREE!',te:'ఇంకా '+k+' వాష్‌లు చేయించుకుంటే తదుపరిది ఉచితం!'};
+}
+function invoiceText(rc){
+ var w=rc.w,c=rc.cust,L=[],pad=function(s,n){s=String(s);return s.length>=n?s.slice(0,n-1)+' ':s+new Array(n-s.length+1).join(' ')};
+ L.push('🧾 *'+D.settings.shopName+'*');
+ L.push('Invoice: '+w.inv);
+ L.push('Date: '+fmtDay(w.date)+', '+fmtTime(w.t));
+ L.push('');
+ L.push('Customer: '+(c.name?c.name+' ':'')+'('+c.phone+')');
+ L.push('Vehicle: '+c.plate+(rc.vt?' · '+rc.vt:''));
+ L.push('');
+ L.push('```');
+ rc.items.forEach(function(it){L.push(pad(it.en,20)+('₹'+it.price).padStart(7))});
+ if(w.free)L.push(pad('Loyalty – FREE',20)+('-₹'+rc.items.reduce(function(a,i){return a+i.price},0)).padStart(7));
+ L.push(new Array(28).join('-'));
+ L.push(pad('TOTAL',20)+('₹'+w.amt).padStart(7));
+ L.push('```');
+ L.push('Paid by: *'+(w.free?'Free wash':({cash:'Cash',upi:'UPI',card:'Card',credit:'Pay later (due)'}[w.pay]||w.pay))+'*');
+ if(w.pay==='credit')L.push('Amount due: ₹'+c.due);
+ var ln=loyaltyNote(rc);if(ln){L.push('');L.push('⭐ '+ln.en)}
+ L.push('');
+ L.push('Thank you! Please visit again 🙏');
+ L.push('ధన్యవాదాలు! మళ్ళీ రండి 🙏');
+ return L.join('\n');
+}
+/* ---------- PDF invoice: drawn on a canvas (Telugu works), wrapped in a one-page PDF; no internet needed ---------- */
+function invoiceCanvas(rc){
+ var W=900,M=56,cv=document.createElement('canvas');cv.width=W;cv.height=2400;
+ var x=cv.getContext('2d');if(!x)return null;
+ var F='"Inter","Noto Sans Telugu","Nirmala UI",system-ui,sans-serif',w=rc.w,c=rc.cust;
+ var ink='#102D3A',mute='#4B6371',line='#E1E9EE',blue=getComputedStyle(document.documentElement).getPropertyValue('--primary').trim()||'#087FA3',green='#0E8656';
+ x.fillStyle='#fff';x.fillRect(0,0,W,cv.height);x.textBaseline='alphabetic';
+ function txt(s,X,Y,size,col,wt,al){x.font=(wt||400)+' '+size+'px '+F;x.fillStyle=col||ink;x.textAlign=al||'left';x.fillText(s,X,Y)}
+ function fit(s,size,max,wt){do{x.font=(wt||400)+' '+size+'px '+F;size-=2}while(x.measureText(s).width>max&&size>16);return size+2}
+ function hr(Y,col,dash){x.strokeStyle=col||line;x.lineWidth=2;x.setLineDash(dash?[10,8]:[]);x.beginPath();x.moveTo(M,Y);x.lineTo(W-M,Y);x.stroke();x.setLineDash([])}
+ // header band
+ x.fillStyle=blue;x.fillRect(0,0,W,170);
+ var shop=D.settings.shopName||'';
+ x.fillStyle='rgba(255,255,255,.18)';x.beginPath();if(x.roundRect)x.roundRect(M,40,90,90,24);else x.rect(M,40,90,90);x.fill();txt(initials(shop),M+45,100,40,'#fff',700,'center');
+ txt(shop,M+112,82,fit(shop,40,W-2*M-112-170,700),'#fff',700);
+ txt('INVOICE',W-M,82,30,'#fff',800,'right');
+ txt('Invoice No: '+w.inv,M+112,126,22,'rgba(255,255,255,.85)',500);txt(fmtDay(w.date)+', '+fmtTime(w.t),W-M,126,22,'rgba(255,255,255,.85)',500,'right');
+ var y=220;
+ txt('BILL TO',M,y,20,mute,700);txt('VEHICLE',W/2+10,y,20,mute,700);y+=40;
+ txt(c.name||'—',M,y,fit(c.name||'—',30,W/2-M-20,700),ink,700);txt(c.plate,W/2+10,y,fit(c.plate,30,W/2-M-20,700),ink,700);y+=38;
+ txt('Mobile: '+c.phone,M,y,24,ink);txt(rc.vt||'',W/2+10,y,fit(rc.vt||'',24,W/2-M-20),ink);y+=48;
+ // items
+ x.fillStyle='#F3F7F9';x.fillRect(M,y,W-2*M,50);txt('SERVICE',M+16,y+34,20,mute,700);txt('AMOUNT (₹)',W-M-16,y+34,20,mute,700,'right');y+=50;
+ rc.items.forEach(function(it){y+=46;txt(it.en,M+16,y,fit(it.en,26,W-2*M-200),ink);txt(it.price.toLocaleString('en-IN'),W-M-16,y,26,ink,600,'right');y+=18;hr(y)});
+ if(w.free){var all=rc.items.reduce(function(a,i){return a+i.price},0);y+=46;txt('Loyalty – free wash',M+16,y,26,green,700);txt('−'+all.toLocaleString('en-IN'),W-M-16,y,26,green,700,'right');y+=18;hr(y)}
+ y+=58;txt('TOTAL',M+16,y,34,ink,800);txt('₹'+w.amt.toLocaleString('en-IN'),W-M-16,y,38,ink,800,'right');y+=22;hr(y,ink);
+ y+=46;var pm=w.free?'Free wash':({cash:'Cash',upi:'UPI',card:'Card',credit:'Pay later'}[w.pay]||w.pay);
+ txt('Paid by: '+pm,M+16,y,26,ink,700);if(w.pay==='credit')txt('Amount due: ₹'+c.due.toLocaleString('en-IN'),W-M-16,y,26,'#B23A2E',700,'right');
+ var ln=loyaltyNote(rc);
+ if(ln){y+=40;x.fillStyle='#E3F4EA';x.fillRect(M,y,W-2*M,64);txt('★ '+ln.en,W/2,y+42,fit('★ '+ln.en,26,W-2*M-30,700),green,700,'center');y+=64}
+ y+=70;txt('Thank you! Please visit again.',W/2,y,30,ink,700,'center');y+=46;txt('ధన్యవాదాలు! మళ్ళీ రండి',W/2,y,28,mute,600,'center');
+ y+=40;hr(y,line,true);y+=36;txt(shop+(D.settings.ownerPhone?' · '+D.settings.ownerPhone:''),W/2,y,20,mute,400,'center');y+=34;
+ var out=document.createElement('canvas');out.width=W;out.height=y;var o=out.getContext('2d');o.drawImage(cv,0,0);return out;
+}
+function pdfFromJpeg(jpg,wpx,hpx){   // smallest valid PDF: one page holding one JPEG
+ var pw=420,ph=Math.round(420*hpx/wpx),parts=[],off=[],len=0;
+ function add(s){var b=typeof s==='string'?Uint8Array.from(s,function(ch){return ch.charCodeAt(0)&255}):s;parts.push(b);len+=b.length}
+ function obj(n,body){off[n]=len;add(n+' 0 obj\n');body();add('\nendobj\n')}
+ var cs='q '+pw+' 0 0 '+ph+' 0 0 cm /Im0 Do Q';
+ add('%PDF-1.4\n%\xE2\xE3\xCF\xD3\n');
+ obj(1,function(){add('<< /Type /Catalog /Pages 2 0 R >>')});
+ obj(2,function(){add('<< /Type /Pages /Kids [3 0 R] /Count 1 >>')});
+ obj(3,function(){add('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 '+pw+' '+ph+'] /Resources << /XObject << /Im0 4 0 R >> >> /Contents 5 0 R >>')});
+ obj(4,function(){add('<< /Type /XObject /Subtype /Image /Width '+wpx+' /Height '+hpx+' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length '+jpg.length+' >>\nstream\n');add(jpg);add('\nendstream')});
+ obj(5,function(){add('<< /Length '+cs.length+' >>\nstream\n'+cs+'\nendstream')});
+ var xr=len,t='xref\n0 6\n0000000000 65535 f \n';
+ for(var i=1;i<=5;i++)t+=('000000000'+off[i]).slice(-10)+' 00000 n \n';
+ add(t+'trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n'+xr+'\n%%EOF');
+ var all=new Uint8Array(len),p=0;parts.forEach(function(b){all.set(b,p);p+=b.length});return all;
+}
+function invoicePdf(rc){
+ var cv=invoiceCanvas(rc);if(!cv)return null;
+ var b=atob(cv.toDataURL('image/jpeg',0.9).split(',')[1]),jpg=new Uint8Array(b.length);
+ for(var i=0;i<b.length;i++)jpg[i]=b.charCodeAt(i);
+ return pdfFromJpeg(jpg,cv.width,cv.height);
+}
+function sharePdf(rc){
+ if(!rc)return;var bytes=invoicePdf(rc);if(!bytes){toast('PDF ✗');return}
+ var name='Invoice-'+rc.w.inv+'.pdf',file=null;
+ try{file=new File([bytes],name,{type:'application/pdf'})}catch(e){}
+ if(file&&navigator.canShare&&navigator.canShare({files:[file]})){
+  navigator.share({files:[file],title:name}).catch(function(){});return;
+ }
+ var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([bytes],{type:'application/pdf'}));a.download=name;
+ document.body.appendChild(a);a.click();a.remove();toast(t('pdfSaved'));
+}
+function saveExpense(){
+ var amt=+ui.amt;if(!ui.cat||!(amt>0))return;
+ var e={id:newId('E'),date:D.today,t:nowHM(),cat:ui.cat,amt:amt,note:'',staff:D.user.name};
+ D.expenses.push(e);
+ enqueue('addExpense',{id:e.id,at:Date.now(),category:e.cat,amount:amt});
+ toast(t('saved'));go('home');
+}
+function collect(cid){
+ var c=cust(cid);if(!c||c.due<=0)return;
+ var p={id:newId('P'),date:D.today,t:nowHM(),cid:c.id,plate:c.plate,amt:c.due,staff:D.user.name};
+ D.payments.push(p);c.due=0;
+ enqueue('collectDue',{id:p.id,at:Date.now(),customerId:c.id,amount:p.amt});
+ ui.col=null;toast(t('saved'));render();
+}
+function deleteEntry(kind,id){
+ var list=kind==='wash'?D.washes:kind==='expense'?D.expenses:D.payments,e=null;
+ for(var i=0;i<list.length;i++)if(list[i].id===id){e=list[i];list.splice(i,1);break}
+ if(!e)return;
+ if(kind==='wash'){var c=cust(e.cid);if(c){c.visits=Math.max(0,c.visits-1);if(e.pay==='credit')c.due=Math.max(0,c.due-e.amt)}}
+ if(kind==='payment'){var c2=cust(e.cid);if(c2)c2.due+=e.amt}
+ enqueue('deleteEntry',{kind:kind,id:id});
+ ui.del=null;render();
+}
+document.addEventListener('click',function(e){
+ var wa=e.target.closest&&e.target.closest('a.wa,a.wa-big');
+ if(wa&&wa.dataset.cid){
+  markOfferSent(wa.dataset.cid);
+  if(wa.dataset.seq){ui.si++;setTimeout(render,400)}else setTimeout(render,400);
+  return;   // the link itself opens WhatsApp
+ }
+ var rn=e.target.closest&&e.target.closest('#renew-send');
+ if(rn){if(ui.renew==='sending'||ui.renew==='sent'){return}setTimeout(sendRenewal,50);return}   // the link opens WhatsApp; the email goes from Google
+ var b=e.target.closest('button');if(!b)return;
+ var d=b.dataset;
+ if(d.lang){if(ui.offer===t('offerDefault'))ui.offer=null;lang=d.lang;LS.set('lang',lang);render();return}
+ if(d.key){
+  buzz(8);
+  if(d.key==='⌫')ui.pin=(ui.pin||'').slice(0,-1);
+  else if(d.key==='✓')return doLogin();
+  else if((ui.pin||'').length<8)ui.pin=(ui.pin||'')+d.key;
+  pinErr='';render();
+  if(ui.pin.length===4)setTimeout(doLogin,120);   // PINs are 4 digits: open as soon as the 4th is typed
+  return;
+ }
+ if(d.go&&isMgr()&&['home','wash','receipt','more','help'].indexOf(d.go)<0)return;
+ if(d.go){if(readOnly()&&['home','cust','branches','more','close','help','renew'].indexOf(d.go)<0){toast(t('locked'),true);return}go(d.go);if(d.awaytab){ui.tab='away';render()}if(d.go==='branches')loadBranches();return}
+ if(d.startwash){if(readOnly()){toast(t('locked'),true);return}var sc=cust(d.startwash);go('wash');ui.cid=d.startwash;if(sc&&sc.vehicle&&vtGroups().some(function(x){return x.key===sc.vehicle}))ui.vt=sc.vehicle;render();return}
+ if(d.vcat){ui.vcat=d.vcat;render();return}
+ if(d.switch){switchShop(d.switch);return}
+ if(b.id==='rc-done'){go('home');return}
+ if(b.id==='rc-pdf'){sharePdf(lastRc);return}
+ if(b.id==='sq-start'){startSendAll();return}
+ if(b.id==='sq-skip'){ui.si++;render();return}
+ if(b.id==='sq-stop'||b.id==='sq-close'){ui.sq=null;render();return}
+ if(b.id==='branchbtn'){
+  ui.bmenu=!ui.bmenu;render();
+  if(ui.bmenu)call('api',SHOP,token,'branches').then(function(res){
+   if(!ui.bmenu||view!=='home')return;var m={};res.branches.forEach(function(x){m[x.code]=x});ui.bsum=m;render();
+  },function(e){if(errKind(e)==='login')return toLogin();if(ui.bmenu){ui.bsum={};render()}});
+  return;
+ }
+ if(b.id==='sync'){flush();refresh();return}
+ if(b.id==='refresh'){flush();var pr=refresh(true);if(pr){b.disabled=true;var ri=b.querySelector('.mr-ic');if(ri)ri.innerHTML='<span class="spinner sm" style="margin:0"></span>';pr.then(function(ok){render();if(ok)toast(t('updated'));else toast(t('noNet'),true)})}return}
+ if(b.id==='logout'){var tk=token;if(tk)call('logout',SHOP,tk).catch(function(){});toLogin();return}
+ if(d.tab){ui.tab=d.tab;ui.q='';render();return}
+ if(d.mo){ui.months=+d.mo;render();return}
+ if(d.pick){ui.cid=d.pick;var pc=cust(d.pick);ui.sel=[];
+  if(pc&&pc.vehicle&&vtGroups().some(function(x){return x.key===pc.vehicle}))ui.vt=pc.vehicle;
+  render();return}
+ if(d.vt!==undefined){ui.vt=d.vt;ui.sel=[];render();return}
+ if(b.id==='vt-change'){ui.vt=null;ui.sel=[];render();return}
+ if(b.id==='unpick'){ui.cid=null;ui.sel=[];render();return}
+ if(b.id==='add'){ui.adding=true;render();return}
+ if(d.svc){var i=ui.sel.indexOf(d.svc);if(i<0)ui.sel.push(d.svc);else ui.sel.splice(i,1);render();return}
+ if(d.pay){ui.pay=d.pay;buzz(8);render();return}
+ if(b.id==='pay-ok'){if(ui.pay)saveWash(ui.pay);return}
+ if(d.cat){ui.cat=d.cat;render();return}
+ if(b.id==='e-save'){saveExpense();return}
+ if(d.delask){
+  var parts=d.delask.split(':'),kind=parts[0],id=parts.slice(1).join(':');
+  var list=kind==='wash'?D.washes:D.expenses,en=list.filter(function(x){return x.id===id})[0];
+  if(!en)return;
+  if(readOnly()){toast(t('locked'),true);return}
+  if(!canDelete(en)){toast(t('askOwner'),true);return}
+  ui.del=ui.del===d.delask?null:d.delask;render();return;
+ }
+ if(d.del){var p2=d.del.split(':');deleteEntry(p2[0],p2.slice(1).join(':'));return}
+ if(d.delno){ui.del=null;render();return}
+ if(d.colask){if(readOnly()){toast(t('locked'),true);return}ui.col=d.colask;render();return}
+ if(d.col){collect(d.col);return}
+ if(d.colno){ui.col=null;render();return}
+ if(b.id==='day-prev'){loadDay(shiftDay(ui.day||D.today,-1));return}
+ if(b.id==='day-next'){var nd=shiftDay(ui.day||D.today,1);loadDay(nd>D.today?D.today:nd);return}
+});
+document.addEventListener('input',function(e){
+ var id=e.target.id;
+ if(id==='q'){ui.q=e.target.value;render()}
+ else if(id==='n-phone'){ui.nphone=e.target.value;render()}else if(id==='n-plate'){ui.nplate=e.target.value;render()}else if(id==='n-name'){ui.nname=e.target.value;render()}
+ else if(id==='shopcode'){ui.code=e.target.value}
+ else if(id==='cq'){ui.q=e.target.value;render()}
+ else if(id==='amt'){ui.amt=e.target.value.replace(/[^\d]/g,'');render()}
+ else if(id==='offer'){ui.offer=e.target.value;
+  [].forEach.call(document.querySelectorAll('a.wa,a.wa-big'),function(a){var c=cust(a.getAttribute('data-cid'));if(c)a.setAttribute('href',waLink(c))});}
+});
+document.addEventListener('submit',function(e){
+ e.preventDefault();
+ if(e.target.id==='pickform'){var c=cleanCode(document.getElementById('shopcode').value);if(c.length>=4)openShop(c)}
+});
+document.addEventListener('keydown',function(e){
+ if(view==='login'){if(/^\d$/.test(e.key)){ui.pin=(ui.pin||'')+e.key;pinErr='';render();if(ui.pin.length===4)setTimeout(doLogin,120)}else if(e.key==='Backspace'){ui.pin=(ui.pin||'').slice(0,-1);render()}else if(e.key==='Enter')doLogin()}
+});
+document.addEventListener('visibilitychange',function(){if(document.hidden){hiddenAt=Date.now();return}
+ {if(token&&(idleTooLong()||(hiddenAt&&Date.now()-hiddenAt>AWAY_MS)))lockApp();hiddenAt=0;if(!checkDay()){flush();refresh()}}});
+['pointerdown','keydown','input','touchstart'].forEach(function(ev){document.addEventListener(ev,function(){if(token&&!locked)touchActive()},true)});
+setInterval(function(){if(token&&!locked&&idleTooLong())lockApp();checkDay()},15000);
+window.addEventListener('online',function(){flush()});
+setInterval(function(){flush();refresh()},5*60*1000);
+
+/* ============ Start ============ */
+function boot(){
+ if(APP_URL.indexOf('PASTE_')===0){fatal='Set APP_URL in index.html';return render()}
+ if(!SHOP){view='pick';ui={code:''};return render()}
+ if(!token){view='login';ui={pin:''};render();fetchShopName();return}
+ checkDay();
+ if(!keepOpen||idleTooLong()){locked=true;view='login';ui={pin:''};render();flush();refresh(!D);return}
+ if(D)go('home');else{view='loading';render()}
+ flush();refresh(!D);
+}
+boot();
+</script>
+
+<script>
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){})}
+</script>
+</body>
+</html>
