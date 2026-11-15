@@ -12,7 +12,7 @@
 <meta name="apple-mobile-web-app-title" content="WashBook">
 <meta charset="utf-8">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Telugu:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Telugu:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap">
 <style>
 /* ================= WashBook design system (v2) =================
    All colours, type, spacing, radius and shadows live here.
@@ -33,7 +33,7 @@
   /* payment methods: the same colour everywhere */
   --pay-cash:var(--success-600); --pay-upi:var(--primary); --pay-card:var(--navy); --pay-later:var(--warning);
   /* type */
-  --font:"Inter","Noto Sans Telugu","Nirmala UI",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --font:"Inter","Noto Sans Telugu","Noto Sans Devanagari","Nirmala UI",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --fs-amount:28px; --fs-title:22px; --fs-section:17px; --fs-btn:16px; --fs-body:15px; --fs-label:13px; --fs-caption:12px;
   --fw-regular:400; --fw-medium:500; --fw-semibold:600; --fw-bold:700;
   --lh:1.45; --lh-tight:1.2;
@@ -65,8 +65,8 @@
 /* ---------- base ---------- */
 html{-webkit-text-size-adjust:100%}
 body{font-size:var(--fs-body);font-weight:var(--fw-regular);line-height:var(--lh);-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
-html[lang="te"] body{line-height:1.6}                       /* Telugu needs room above and below */
-html[lang="te"] .btn,html[lang="te"] .big{line-height:1.4}
+html[lang="te"] body,html[lang="hi"] body{line-height:1.6}                       /* Telugu needs room above and below */
+html[lang="te"] .btn,html[lang="te"] .big,html[lang="hi"] .btn,html[lang="hi"] .big{line-height:1.4}
 h1{font-size:var(--fs-title);font-weight:var(--fw-bold);line-height:var(--lh-tight);letter-spacing:-.01em}
 h2{font-size:var(--fs-section);font-weight:var(--fw-semibold);color:var(--text);text-transform:none;letter-spacing:0}
 
@@ -261,7 +261,7 @@ body.is-login{background:radial-gradient(120% 60% at 50% -10%,var(--primary-100)
 .wsec{display:flex;flex-direction:column;gap:var(--sp-3)}
 .wsec-h{display:flex;align-items:center;justify-content:space-between;gap:var(--sp-2)}
 .wsec-t{display:flex;align-items:center;gap:6px;font-size:var(--fs-label);font-weight:var(--fw-semibold);color:var(--text-2);text-transform:uppercase;letter-spacing:.06em}
-html[lang="te"] .wsec-t{text-transform:none;letter-spacing:0;font-size:var(--fs-body)}
+html[lang="te"] .wsec-t,html[lang="hi"] .wsec-t{text-transform:none;letter-spacing:0;font-size:var(--fs-body)}
 .input-group.ig-lg .ico{margin-top:-10px;left:16px}
 .input-group.ig-lg .plate-in{padding-left:48px}
 .plate-in{width:100%;height:56px;padding:0 var(--sp-4);border:1px solid var(--border-strong);border-radius:var(--r-btn);background:var(--surface);font-size:20px;font-weight:var(--fw-bold);letter-spacing:.04em;text-transform:uppercase;color:var(--text);transition:border-color .15s,box-shadow .15s}
@@ -332,7 +332,7 @@ html[lang="te"] .wsec-t{text-transform:none;letter-spacing:0;font-size:var(--fs-
 .bh-txt{flex:1;min-width:0}
 .bill-shop{font-size:var(--fs-section);font-weight:var(--fw-bold);line-height:1.25;overflow-wrap:anywhere}
 .bill-tag{flex:none;font-size:var(--fs-caption);font-weight:var(--fw-semibold);letter-spacing:.1em;text-transform:uppercase;color:var(--primary);background:var(--primary-50);padding:4px 10px;border-radius:var(--r-pill)}
-html[lang="te"] .bill-tag{letter-spacing:0}
+html[lang="te"] .bill-tag,html[lang="hi"] .bill-tag{letter-spacing:0}
 .bill-meta{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-3);padding:var(--sp-3);background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r-btn)}
 .bill-meta>div,.bill-sec>div{display:flex;flex-direction:column;min-width:0}
 .bill-meta .label,.bill-sec .label{margin:0 0 2px;font-size:var(--fs-caption);display:flex;align-items:center;gap:4px}
@@ -342,7 +342,7 @@ html[lang="te"] .bill-tag{letter-spacing:0}
 .bill-items{display:flex;flex-direction:column}
 .bi{display:flex;justify-content:space-between;gap:var(--sp-3);padding:10px 0;border-bottom:1px solid var(--border);font-size:var(--fs-label)}
 .bi-h{font-size:var(--fs-caption);font-weight:var(--fw-semibold);color:var(--text-2);text-transform:uppercase;letter-spacing:.06em;padding-top:0}
-html[lang="te"] .bi-h{text-transform:none;letter-spacing:0}
+html[lang="te"] .bi-h,html[lang="hi"] .bi-h{text-transform:none;letter-spacing:0}
 .bi.good{color:var(--success-600);font-weight:var(--fw-semibold)}
 .bi.tot{align-items:baseline;border:0;padding:var(--sp-3) var(--sp-4);margin:0 calc(-1 * var(--sp-4));background:var(--primary-50);font-size:var(--fs-section);font-weight:var(--fw-semibold)}
 .bi.tot .num{font-size:var(--fs-amount);font-weight:var(--fw-bold);color:var(--text)}
@@ -506,12 +506,12 @@ body.has-paybar{padding-bottom:calc(260px + env(safe-area-inset-bottom,0px))}
 <script>
 /* ============ Fixed lists ============ */
 var CATS=[
- {id:'soap',ic:'🧴',en:'Soap / shampoo',te:'సబ్బు / షాంపూ'},
- {id:'water',ic:'💧',en:'Water',te:'నీళ్లు'},
- {id:'power',ic:'⚡',en:'Electricity',te:'కరెంట్'},
- {id:'food',ic:'🍵',en:'Tea / food',te:'టీ / భోజనం'},
- {id:'staff',ic:'👷',en:'Staff advance',te:'స్టాఫ్ అడ్వాన్స్'},
- {id:'other',ic:'📦',en:'Other',te:'ఇతరం'}
+ {id:'soap',ic:'🧴',en:'Soap / shampoo',te:'సబ్బు / షాంపూ',hi:'साबुन / शैम्पू'},
+ {id:'water',ic:'💧',en:'Water',te:'నీళ్లు',hi:'पानी'},
+ {id:'power',ic:'⚡',en:'Electricity',te:'కరెంట్',hi:'बिजली'},
+ {id:'food',ic:'🍵',en:'Tea / food',te:'టీ / భోజనం',hi:'चाय / खाना'},
+ {id:'staff',ic:'👷',en:'Staff advance',te:'స్టాఫ్ అడ్వాన్స్',hi:'स्टाफ़ एडवांस'},
+ {id:'other',ic:'📦',en:'Other',te:'ఇతరం',hi:'अन्य'}
 ];
 var T={
  en:{wash:'New Wash',cust:'Customers',exp:'Expense',close:'Close Day',today:'Today',cars:'Vehicles',sales:'Sales',cashBox:'Cash in box',
@@ -556,7 +556,7 @@ var T={
   moreTitle:'More',language:'Language',refreshData:'Refresh data',owner:'Owner',manager:'Manager',allTypes:'All',help:'Help & renewal',noAway:'Everyone has come recently',
   rewards:'WashBook Rewards',rewardsDone:'{k} / {n} washes',rewardsMore:'Complete {k} more washes to get your next wash FREE!',rewardsNext:'Your next wash is FREE!',
   needNet:'Needs internet to load this day',updated:'Up to date',newCustAll:'New customer: fill in all the details below.',needPlate:'Type the vehicle number',needName:'Type the customer\'s name',needDetails:'Fill in the new customer\'s details',noNet:'No internet. Try again later.',
-  renewal:'Renewal',helpT:'Help',helpLead:'Simple steps for everyday work. Tap the language button at the top to read in Telugu.',validTill:'till {d}',validTillL:'App valid till',
+  renewal:'Renewal',helpT:'Help',helpLead:'Simple steps for everyday work. Tap the language button at the top to change the language.',validTill:'till {d}',validTillL:'App valid till',
   renewMsgT:'Your request',renewSend:'Send renewal request',renewHow:'Tapping the button emails your request to WashBook and opens WhatsApp with the same message. Press Send in WhatsApp.',
   renewSent:'Request sent. WashBook will contact you with the payment details.',renewFail:'Email not sent (no internet). Send the WhatsApp message, or try again later.',renewLimit:'You already sent 3 requests today. WashBook will contact you.',
   daysLeft:'{n} days left',active:'Active',
@@ -604,12 +604,65 @@ var T={
   moreTitle:'మరిన్ని',language:'భాష',refreshData:'డేటా రిఫ్రెష్',owner:'యజమాని',manager:'మేనేజర్',allTypes:'అన్నీ',help:'సహాయం & రెన్యూవల్',noAway:'అందరూ ఇటీవల వచ్చారు',
   rewards:'వాష్‌బుక్ రివార్డ్స్',rewardsDone:'{k} / {n} వాష్‌లు',rewardsMore:'ఇంకా {k} వాష్‌లు పూర్తి చేస్తే తదుపరి వాష్ ఉచితం!',rewardsNext:'మీ తదుపరి వాష్ ఉచితం!',
   needNet:'ఈ రోజు చూడటానికి ఇంటర్నెట్ కావాలి',updated:'అప్‌డేట్ అయింది',newCustAll:'కొత్త కస్టమర్: కింద అన్ని వివరాలు నింపండి.',needPlate:'వాహనం నంబర్ టైప్ చేయండి',needName:'కస్టమర్ పేరు టైప్ చేయండి',needDetails:'కొత్త కస్టమర్ వివరాలు నింపండి',noNet:'ఇంటర్నెట్ లేదు. తర్వాత మళ్ళీ ప్రయత్నించండి.',
-  renewal:'రెన్యూవల్',helpT:'సహాయం',helpLead:'రోజువారీ పనికి సులభమైన దశలు. ఇంగ్లీష్‌లో చదవడానికి పైన భాష బటన్ నొక్కండి.',validTill:'{d} వరకు',validTillL:'యాప్ చెల్లుబాటు',
+  renewal:'రెన్యూవల్',helpT:'సహాయం',helpLead:'రోజువారీ పనికి సులభమైన దశలు. భాష మార్చడానికి పైన భాష బటన్ నొక్కండి.',validTill:'{d} వరకు',validTillL:'యాప్ చెల్లుబాటు',
   renewMsgT:'మీ అభ్యర్థన',renewSend:'రెన్యూవల్ అభ్యర్థన పంపండి',renewHow:'బటన్ నొక్కితే మీ అభ్యర్థన వాష్‌బుక్‌కి ఈమెయిల్‌గా వెళ్తుంది, అదే సందేశంతో వాట్సాప్ తెరుచుకుంటుంది. వాట్సాప్‌లో పంపు నొక్కండి.',
   renewSent:'అభ్యర్థన పంపబడింది. చెల్లింపు వివరాలతో వాష్‌బుక్ మిమ్మల్ని సంప్రదిస్తుంది.',renewFail:'ఈమెయిల్ వెళ్ళలేదు (ఇంటర్నెట్ లేదు). వాట్సాప్ సందేశం పంపండి, లేదా తర్వాత మళ్ళీ ప్రయత్నించండి.',renewLimit:'ఈరోజు ఇప్పటికే 3 అభ్యర్థనలు పంపారు. వాష్‌బుక్ మిమ్మల్ని సంప్రదిస్తుంది.',
   daysLeft:'{n} రోజులు మిగిలాయి',active:'చెల్లుబాటులో ఉంది',
   pickPay:'కస్టమర్ ఎలా చెల్లించారో ఎంచుకోండి',moneyCheck:'{m} ద్వారా {amt} అందిందో సరిచూసి, ఆకుపచ్చ బటన్ నొక్కండి',laterCheck:'కస్టమర్ తర్వాత చెల్లిస్తారు. సేవ్ చేయడానికి బటన్ నొక్కండి.',
-  gotPaid:'డబ్బు అందింది {amt} · సేవ్',saveLater:'తర్వాత చెల్లింపుగా సేవ్ · {amt} బాకీ',saveFree:'ఉచిత వాష్ సేవ్'}
+  gotPaid:'డబ్బు అందింది {amt} · సేవ్',saveLater:'తర్వాత చెల్లింపుగా సేవ్ · {amt} బాకీ',saveFree:'ఉచిత వాష్ సేవ్'},
+ hi:{wash:'नई वॉश',cust:'ग्राहक',exp:'खर्च',close:'दिन बंद करें',today:'आज',cars:'गाड़ियाँ',sales:'बिक्री',cashBox:'गल्ले में नकद',
+  recent:'आज की वॉश',back:'← वापस',plateQ:'गाड़ी नंबर या फ़ोन',plateHint:'गाड़ी नंबर या फ़ोन टाइप करें',newCust:'नया ग्राहक',name:'नाम (वैकल्पिक)',phone:'फ़ोन',
+  plate:'गाड़ी नंबर',visits:'बार आए',freeNow:'यह वॉश मुफ़्त है (लॉयल्टी इनाम)',pickSvc:'सर्विस चुनें',total:'कुल',payHow:'ग्राहक ने कैसे पैसे दिए, चुनें',
+  cash:'नकद',upi:'UPI',card:'कार्ड',credit:'बाद में',saved:'सेव हुआ ✓',search:'गाड़ी नंबर या फ़ोन खोजें',due:'बकाया',noWash:'आज अभी कोई वॉश नहीं',
+  expTitle:'खर्च जोड़ें',amount:'रकम (₹)',save:'सेव करें',cashSales:'नकद बिक्री',cardSales:'कार्ड बिक्री',creditSales:'बाद में भुगतान',expenses:'खर्च',
+  opening:'सुबह का छुट्टा',collected:'वसूला गया पुराना बकाया',expected:'नकद होना चाहिए',count:'गल्ले का नकद गिनें',counted:'आपने गिना',
+  match:'नकद सही है ✓',short:'नकद कम है',extra:'नकद ज़्यादा है',saveClose:'दिन बंद करके सेव करें',closedAt:'{by} ने {at} बजे दिन बंद किया',
+  copy:'रिपोर्ट कॉपी करें',copied:'कॉपी हो गया ✓',sendOwner:'मालिक को व्हाट्सऐप पर रिपोर्ट भेजें',
+  lastFree:'अगली वॉश मुफ़्त',nVisits:'बार आए',noMatch:'नहीं मिला',
+  lastVisit:'पिछली बार आए',d0:'आज',d1:'कल',dN:'{n} दिन पहले',mN:'{n} महीने पहले',m1:'1 महीना पहले',never:'नया ग्राहक',
+  all:'सभी',away:'नहीं आ रहे',awayFor:'इतने समय से नहीं आए',mo:'महीने',offer:'ऑफ़र मैसेज',sendWa:'व्हाट्सऐप पर भेजें',
+  awayCount:'{n} ग्राहक {m} महीने से नहीं आए',
+  offerDefault:'नमस्ते {name} जी! 🚗 आप काफ़ी दिनों से हमारे कार वॉश पर नहीं आए। इस हफ़्ते आइए और किसी भी वॉश पर 20% छूट पाइए। यह मैसेज दिखाएँ।',
+  enterPin:'अपना PIN डालें',wrongPin:'गलत PIN। फिर से कोशिश करें',loading:'लोड हो रहा है…',switchUser:'कर्मचारी बदलें',refresh:'रिफ़्रेश',
+  synced:'✓ सेव हुआ',waiting:'⏳ {n} भेजना बाकी',offline:'⚠ इंटरनेट नहीं · {n}',collect:'वसूलें',collectQ:'{amt} नकद मिल गए?',yes:'हाँ',no:'नहीं',
+  delQ:'यह एंट्री हटाएँ?',askOwner:'अब इसे सिर्फ़ मालिक हटा सकते हैं',shopCode:'अपनी दुकान का कोड डालें',open:'खोलें',
+  invoice:'इनवॉइस',customer:'ग्राहक',vehicle:'गाड़ी',freeWash:'लॉयल्टी – मुफ़्त वॉश',thanks:'धन्यवाद! फिर आइएगा 🙏',
+  sendInvoice:'व्हाट्सऐप पर इनवॉइस भेजें',done:'हो गया',sendPdf:'PDF डाउनलोड / शेयर करें',pdfHint:'व्हाट्सऐप चुनें, फिर इस ग्राहक की चैट',
+  pdfSaved:'PDF सेव हो गई – अपनी फ़ाइलों से भेजें',cashHand:'हाथ में नकद',byVehicle:'गाड़ी के प्रकार से',shareSum:'व्हाट्सऐप पर शेयर करें',
+  sendAll:'सबको भेजें',sendHow:'हरा बटन दबाएँ, व्हाट्सऐप में Send दबाएँ, फिर अगले ग्राहक के लिए यहाँ वापस आएँ।',skip:'छोड़ें',stop:'रुकें',close2:'बंद करें',
+  sentAll:'हो गया। {n} ग्राहकों को ऑफ़र भेजा गया।',allSent:'इस लिस्ट में सबको ऑफ़र भेजा जा चुका है।',offerSentOn:'ऑफ़र भेजा {d}',sendAgain:'फिर भेजें',
+  mobileReq:'मोबाइल नंबर',needPhone:'ग्राहक का 10 अंकों का मोबाइल नंबर डालें',logout:'लॉग आउट',optional:'वैकल्पिक',hello:'नमस्ते, {n}',
+  tapToAdd:'गाड़ी जोड़ने के लिए दबाएँ',vehToday:'आज की गाड़ियाँ',lockedPin:'लॉक है। अपना PIN डालें',
+  blindHint:'गल्ले का नकद गिनकर सेव करें। मालिक इसे जाँचेंगे।',ownerChecks:'मालिक नकद जाँचेंगे।',countedBy:'{by} ने {at} बजे गिना',
+  oldServer:'Apps Script अभी पुराने वर्शन ({v}) पर है। Apps Script में: Deploy → Manage deployments → Edit → Version: New version → Deploy.',
+  pickVeh:'गाड़ी का प्रकार चुनें',change:'बदलें',otherVeh:'अन्य सर्विस',newVeh:'नई गाड़ी',nameShort:'नाम',needVeh:'ऊपर गाड़ी नंबर टाइप करें',
+  noSvc:'कोई सर्विस चालू नहीं है। मालिक: अपनी Google Sheet के Services टैब में, जो सर्विस आप देते हैं उनके Active में Yes करें।',
+  branches:'शाखाएँ',allBranches:'सभी शाखाएँ',todayAll:'आज, सभी शाखाएँ',closed:'दिन बंद',notClosed:'अभी बंद नहीं',here:'आप यहाँ हैं',
+  lic_warn:'जल्द रिन्यू करें',lic_grace:'समय खत्म',lic_expired:'सिर्फ़ देखने के लिए',lic_suspended:'बंद है',oldDue:'पुराना बकाया',
+  setup:'यह दुकान अभी सेट नहीं हुई है। सपोर्ट से संपर्क करें।',error:'सेव नहीं हो सका',del:'हटाएँ',
+  licWarn:'सब्सक्रिप्शन {n} दिन में खत्म होगा। रिन्यू के लिए {who} {phone} पर कॉल करें।',
+  licGrace:'सब्सक्रिप्शन खत्म हो गया है। {n} दिन बाद ऐप सेव करना बंद कर देगा। रिन्यू के लिए {who} {phone} पर कॉल करें।',
+  licExpired:'सब्सक्रिप्शन खत्म हो गया है। आप देख सकते हैं, पर नई एंट्री नहीं कर सकते। रिन्यू के लिए {who} {phone} पर कॉल करें।',
+  suspended:'यह ऐप बंद कर दिया गया है। {who} {phone} पर कॉल करें।',badLink:'यह ऐप लिंक सही नहीं है।',locked:'🔒 सेव करने के लिए रिन्यू करें',
+  lockedChip:'🔒 {n} रुके हैं',navHome:'होम',navReports:'रिपोर्ट',navMore:'और',dayReport:'दैनिक रिपोर्ट',vehWashed:'धुली गाड़ियाँ',
+  revenue:'आज की कमाई',comeBack:'वापस बुलाने की लिस्ट',nToCall:'{n} नहीं आ रहे',nCust:'{n} ग्राहक',startWash:'वॉश शुरू करें',
+  emptyHint:'पहली गाड़ी जोड़ने के लिए नई वॉश दबाएँ',custSec:'ग्राहक',vehSec:'गाड़ी का प्रकार',svcSec:'सर्विस',existing:'पुराना',
+  nSel:'{n} चुने',nSvc:'{n} सर्विस चुनी गईं',selectSvc:'सर्विस चुनें',nameLbl:'ग्राहक का नाम',paidVia:'भुगतान · {m}',pendingLater:'बाकी · बाद में भुगतान',
+  service:'सर्विस',amountH:'रकम',invNo:'इनवॉइस नं.',dateTime:'तारीख और समय',washSaved:'वॉश सेव हुई',collections:'कुल वसूली',
+  payBreak:'भुगतान का ब्योरा',adjust:'नकद सारांश',transactions:'लेन-देन',noTx:'इस दिन कोई वॉश नहीं',moreTitle:'और',language:'भाषा',
+  refreshData:'डेटा रिफ़्रेश करें',owner:'मालिक',manager:'मैनेजर',allTypes:'सभी',help:'मदद और रिन्यूअल',noAway:'सब ग्राहक हाल ही में आए हैं',
+  rewards:'WashBook इनाम',rewardsDone:'{k} / {n} वॉश',rewardsMore:'{k} और वॉश करवाइए, अगली वॉश मुफ़्त!',rewardsNext:'आपकी अगली वॉश मुफ़्त है!',
+  needNet:'यह दिन देखने के लिए इंटरनेट चाहिए',updated:'अपडेटेड',newCustAll:'नया ग्राहक: नीचे सारी जानकारी भरें।',needPlate:'गाड़ी नंबर टाइप करें',
+  needName:'ग्राहक का नाम टाइप करें',needDetails:'नए ग्राहक की जानकारी भरें',noNet:'इंटरनेट नहीं है। बाद में फिर कोशिश करें।',
+  renewal:'रिन्यूअल',helpT:'मदद',helpLead:'रोज़ के काम के आसान स्टेप। भाषा बदलने के लिए ऊपर भाषा वाला बटन दबाएँ।',
+  validTill:'{d} तक',validTillL:'ऐप इस तारीख तक चालू',renewMsgT:'आपका अनुरोध',renewSend:'रिन्यूअल अनुरोध भेजें',
+  renewHow:'बटन दबाने पर आपका अनुरोध WashBook को ईमेल हो जाता है और वही मैसेज व्हाट्सऐप में खुलता है। व्हाट्सऐप में Send दबाएँ।',
+  renewSent:'अनुरोध भेज दिया गया। WashBook भुगतान की जानकारी के साथ आपसे संपर्क करेगा।',
+  renewFail:'ईमेल नहीं गया (इंटरनेट नहीं)। व्हाट्सऐप मैसेज भेजें, या बाद में फिर कोशिश करें।',
+  renewLimit:'आप आज 3 अनुरोध भेज चुके हैं। WashBook आपसे संपर्क करेगा।',daysLeft:'{n} दिन बाकी',active:'चालू',
+  pickPay:'ग्राहक ने कैसे पैसे दिए, चुनें',moneyCheck:'जाँचें कि {m} से {amt} मिल गए, फिर हरा बटन दबाएँ',
+  laterCheck:'ग्राहक बाद में पैसे देगा। सेव करने के लिए बटन दबाएँ।',gotPaid:'{amt} मिल गए · सेव करें',saveLater:'बाद में भुगतान · {amt} बाकी · सेव',
+  saveFree:'मुफ़्त वॉश सेव करें'}
 };
 
 /* ============ Shop + storage (this phone only) ============ */
@@ -617,7 +670,7 @@ var T={
    Paste your Apps Script Web app URL (ends in /exec) here.
    ========================================================= */
 var APP_URL='https://script.google.com/macros/s/AKfycbw6Tof3-7wspQdTxEFmA3SDd9DT8E4BF4QEqqMShJQ3xef7wAeFijgN_gckwtJkOMD2MQ/exec';
-var APP_VERSION='4.2';   // must match APP_VERSION in Code.gs
+var APP_VERSION='4.3';   // must match APP_VERSION in Code.gs
 
 function cleanCode(c){return String(c||'').toUpperCase().replace(/[^A-Z0-9]/g,'')}
 var SHOP=(function(){
@@ -631,11 +684,20 @@ var LS={
  set:function(k,v){try{localStorage.setItem(LS.key(k),JSON.stringify(v))}catch(e){}},
  del:function(k){try{localStorage.removeItem(LS.key(k))}catch(e){}}
 };
-var lang=LS.get('lang','te'), token=LS.get('token',null), D=LS.get('data',null), Q=LS.get('queue',[]);
+var lang=LS.get('lang',(LS.get('langs',null)||['te'])[0]), token=LS.get('token',null), D=LS.get('data',null), Q=LS.get('queue',[]);
 var view='home', ui={}, net='ok', busy=false, pinErr='', fatal='';
 
 /* ============ Small helpers ============ */
 function t(k){return (T[lang]&&T[lang][k])||T.en[k]||k}
+/* Languages: each shop gets any two of English, Telugu, Hindi (Control sheet > Shops > Languages). The first is the default. */
+var LANG_NAME={en:'English',te:'తెలుగు',hi:'हिंदी'},LANG_SHORT={en:'EN',te:'తె',hi:'हि'};
+function langs(){var l=(D&&D.settings&&D.settings.languages)||LS.get('langs',null)||['te','en'];l=l.filter(function(x){return T[x]});return l.length?l:['te','en']}
+function fixLang(){var l=langs();if(l.indexOf(lang)<0){lang=l[0];LS.set('lang',lang)}}
+function nextLang(){var l=langs(),i=l.indexOf(lang);return l[(i+1)%l.length]}
+function L(o){return (o&&(o[lang]||o.en))||''}            // a name in the current language (services, help, categories)
+function vtName(x){return (lang==='te'?x.vtte:lang==='hi'?x.vthi:'')||x.vt||''}
+function loc(){return {te:'te-IN',hi:'hi-IN'}[lang]||'en-IN'}
+function localLang(){return langs().filter(function(x){return x!=='en'})[0]||''}   // the shop's Indian language, for bills
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
 function rs(n){n=Number(n||0);return (n<0?'−':'')+'₹'+Math.abs(n).toLocaleString('en-IN')}
 /* Indian Standard Time on every phone (IST = UTC+05:30, no daylight saving), whatever the phone's own time zone */
@@ -657,15 +719,15 @@ function cust(id){for(var i=0;i<D.customers.length;i++)if(D.customers[i].id===id
 function svc(id){for(var i=0;i<D.services.length;i++)if(D.services[i].id===id)return D.services[i];return null}
 function svcNames(w){
  var ss=w.svc.map(svc).filter(Boolean);if(!ss.length)return w.names;
- var v=ss[0].vt?(lang==='te'?ss[0].vtte:ss[0].vt)+' · ':'';
- return v+ss.map(function(s){return s[lang]}).join(' + ');
+ var v=ss[0].vt?vtName(ss[0])+' · ':'';
+ return v+ss.map(L).join(' + ');
 }
 /* services grouped by vehicle type, in the order of the Services sheet */
 function vtGroups(){
  var out=[],idx={};
  D.services.forEach(function(s){
   var k=s.vt||'';
-  if(!(k in idx)){idx[k]=out.length;out.push({key:k,en:k||t('otherVeh'),te:k?(s.vtte||k):t('otherVeh'),ic:k?(s.vic||'🚗'):'🧽',list:[]})}
+  if(!(k in idx)){idx[k]=out.length;out.push({key:k,en:k||t('otherVeh'),te:k?(s.vtte||k):t('otherVeh'),hi:k?(s.vthi||k):t('otherVeh'),ic:k?(s.vic||'🚗'):'🧽',list:[]})}
   out[idx[k]].list.push(s);
  });
  return out;
@@ -877,8 +939,8 @@ function brandMark(s){
 function buzz(p){try{if(navigator.vibrate)navigator.vibrate(p)}catch(e){}}
 
 /* ============ Vehicle types and services: groups and icons ============ */
-var VCATS=[['two','Two-wheelers','ద్విచక్ర వాహనాలు'],['three','Three-wheelers','త్రిచక్ర వాహనాలు'],['car','Cars','కార్లు'],
- ['comm','Commercial','వాణిజ్య వాహనాలు'],['heavy','Heavy vehicles','భారీ వాహనాలు'],['other','Other','ఇతరాలు']];
+var VCATS=[['two','Two-wheelers','ద్విచక్ర వాహనాలు','दोपहिया'],['three','Three-wheelers','త్రిచక్ర వాహనాలు','तिपहिया'],['car','Cars','కార్లు','कारें'],
+ ['comm','Commercial','వాణిజ్య వాహనాలు','कमर्शियल'],['heavy','Heavy vehicles','భారీ వాహనాలు','भारी गाड़ियाँ'],['other','Other','ఇతరాలు','अन्य']];
 function vcat(name){
  var n=String(name||'');
  if(!n)return 'other';
@@ -911,7 +973,7 @@ function svcIcon(s){
  if(/wash|clean/i.test(n))return 'droplets';
  return 'brush';
 }
-function catName(k){var c=VCATS.filter(function(x){return x[0]===k})[0]||VCATS[5];return lang==='te'?c[2]:c[1]}
+function catName(k){var c=VCATS.filter(function(x){return x[0]===k})[0]||VCATS[5];return (lang==='te'?c[2]:lang==='hi'?c[3]:'')||c[1]}
 function payIcon(p){return {cash:'banknote',upi:'smartphone',card:'credit-card',credit:'clock'}[p]||'banknote'}
 function payPill(p){return '<span class="pay p-'+p+'">'+ic(payIcon(p),'xs')+t(p)+'</span>'}
 function time12(hm){return hm?fmtTime(hm):''}
@@ -933,8 +995,8 @@ function navBar(){
 
 /* ============ Screens ============ */
 function langToggle(){
- return lang==='te'?'<button class="lang" id="l-en" data-lang="en" aria-label="English">EN</button>'
-                   :'<button class="lang" id="l-te" data-lang="te" aria-label="తెలుగు">తె</button>';
+ var l=langs();if(l.length<2)return '';
+ var n=nextLang();return '<button class="lang" id="l-'+n+'" data-lang="'+n+'" aria-label="'+LANG_NAME[n]+'">'+LANG_SHORT[n]+'</button>';
 }
 function syncHtml(){
  if(!token||!D)return '';
@@ -945,7 +1007,7 @@ function syncHtml(){
  return '<button class="sync '+cls+'" id="sync" aria-live="polite" aria-label="'+esc(lab)+'" title="'+esc(lab)+'">'+txt+'</button>';
 }
 function syncChip(){var el=document.getElementById('sync');if(el)el.outerHTML=syncHtml()}
-function todayLong(){return new Date(D.today+'T00:00:00').toLocaleDateString(lang==='te'?'te-IN':'en-IN',{weekday:'long',day:'numeric',month:'long'})}
+function todayLong(){return new Date(D.today+'T00:00:00').toLocaleDateString(loc(),{weekday:'long',day:'numeric',month:'long'})}
 function header(title){
  if(!title){
   var multi=D.branches&&D.branches.length>1;
@@ -1013,7 +1075,7 @@ function pickView(){
 /* ---------- 5/6. Dashboard ---------- */
 function txCard(w){
  var c=cust(w.cid)||{plate:w.plate},s0=svc(w.svc[0])||{};
- var names=w.svc.map(svc).filter(Boolean).map(function(s){return s[lang]}).join(' + ')||w.names;
+ var names=w.svc.map(svc).filter(Boolean).map(L).join(' + ')||w.names;
  var side=isMgr()?payPill(w.pay):'<b class="tx-amt num">'+(w.free?'FREE':rs(w.amt))+'</b>'+payPill(w.pay);
  var h='<div class="txw"><button class="tx" data-delask="wash:'+esc(w.id)+'"><span class="avatar">'+ic(vIcon(s0.vt))+'</span>'+
   '<span class="tx-main"><b class="plate num">'+esc(c.plate)+'</b><span class="tx-sub">'+(c.name?esc(c.name)+' · ':'')+esc(time12(w.t))+(w.staff?' · '+esc(w.staff):'')+'</span>'+
@@ -1108,17 +1170,17 @@ function washView(){
    VCATS.forEach(function(k){
     var gs=groups.filter(function(x){return vcat(x.key)===k[0]});if(!gs.length)return;
     h+='<div class="vcat">'+catName(k[0])+'</div><div class="vgrid">'+gs.map(function(x){
-     return '<button class="vbtn" data-vt="'+esc(x.key)+'"><span class="vic">'+ic(vIcon(x.key),'lg')+'</span><span class="vn">'+esc(lang==='te'?x.te:x.en)+'</span></button>'}).join('')+'</div>';
+     return '<button class="vbtn" data-vt="'+esc(x.key)+'"><span class="vic">'+ic(vIcon(x.key),'lg')+'</span><span class="vn">'+esc(L(x))+'</span></button>'}).join('')+'</div>';
    });
    return h;
   }
-  h+='<div class="vchosen"><span class="vic">'+ic(vIcon(g.key),'lg')+'</span><span class="vc-txt"><span class="sub">'+t('vehSec')+'</span><b>'+esc(lang==='te'?g.te:g.en)+'</b></span><button class="btn btn-sm btn-outline" id="vt-change">'+t('change')+'</button></div>';
+  h+='<div class="vchosen"><span class="vic">'+ic(vIcon(g.key),'lg')+'</span><span class="vc-txt"><span class="sub">'+t('vehSec')+'</span><b>'+esc(L(g))+'</b></span><button class="btn btn-sm btn-outline" id="vt-change">'+t('change')+'</button></div>';
  }
  // C. services
  var nsel=ui.sel.length;
  h+='<div class="sec"><h2>'+t('svcSec')+'</h2>'+(nsel?'<span class="badge badge-info">'+t('nSel').replace('{n}',nsel)+'</span>':'')+'</div><div class="svc">'+g.list.map(function(s){
   return '<button class="svcb" id="s-'+esc(s.id)+'" data-svc="'+esc(s.id)+'" aria-pressed="'+(ui.sel.indexOf(s.id)>=0)+'"><span class="svc-top"><span class="svc-ic">'+ic(svcIcon(s))+'</span><span class="svc-tick">'+ic('check','sm')+'</span></span>'+
-   '<span class="n">'+esc(s[lang])+'</span><span class="p num">'+rs(s.price)+'</span></button>'}).join('')+'</div>';
+   '<span class="n">'+esc(L(s))+'</span><span class="p num">'+rs(s.price)+'</span></button>'}).join('')+'</div>';
  // D. total + payment, kept at the bottom of the screen
  var free=c?isFree(c):false;
  var sum=ui.sel.reduce(function(a,id){var s=svc(id);return a+(s?s.price:0)},0);
@@ -1207,12 +1269,12 @@ function sendAllHtml(away){
 /* ---------- Expenses (shown only when switched on for the shop) ---------- */
 function expView(){
  var h=header(t('expTitle'));
- h+='<div class="cats">'+CATS.map(function(c){return '<button id="c-'+c.id+'" data-cat="'+c.id+'" aria-pressed="'+(ui.cat===c.id)+'"><span class="ic">'+c.ic+'</span>'+c[lang]+'</button>'}).join('')+'</div>'+
+ h+='<div class="cats">'+CATS.map(function(c){return '<button id="c-'+c.id+'" data-cat="'+c.id+'" aria-pressed="'+(ui.cat===c.id)+'"><span class="ic">'+c.ic+'</span>'+L(c)+'</button>'}).join('')+'</div>'+
   '<div><label class="label" for="amt">'+t('amount')+'</label><input class="plate-in num" id="amt" inputmode="numeric" placeholder="0" value="'+esc(ui.amt)+'"></div>'+
   '<button class="btn btn-primary btn-block" id="e-save" '+(ui.cat&&+ui.amt>0?'':'disabled')+'>'+ic('check')+t('save')+'</button>';
  var rows=D.expenses.slice().reverse().map(function(e){
   var c=CATS.filter(function(x){return x.id===e.cat})[0]||CATS[CATS.length-1];
-  var r='<div class="txw"><button class="tx" data-delask="expense:'+esc(e.id)+'"><span class="avatar">'+ic('wallet')+'</span><span class="tx-main"><b>'+c[lang]+'</b><span class="tx-sub">'+esc(time12(e.t))+' · '+esc(e.staff)+'</span></span><span class="tx-side"><b class="tx-amt num">'+rs(e.amt)+'</b></span></button>';
+  var r='<div class="txw"><button class="tx" data-delask="expense:'+esc(e.id)+'"><span class="avatar">'+ic('wallet')+'</span><span class="tx-main"><b>'+L(c)+'</b><span class="tx-sub">'+esc(time12(e.t))+' · '+esc(e.staff)+'</span></span><span class="tx-side"><b class="tx-amt num">'+rs(e.amt)+'</b></span></button>';
   if(ui.del==='expense:'+e.id)r+=confirmDel('expense',e.id);
   return r+'</div>';
  }).join('');
@@ -1242,13 +1304,13 @@ function closeView(){
   h+=D.washes.length?'<div class="list tlist">'+D.washes.slice().reverse().map(function(w){
    var c=cust(w.cid)||{plate:w.plate},items=w.svc.map(svc).filter(Boolean);
    return '<div class="trow"><div class="tr-h"><b class="plate num">'+esc(c.plate)+'</b><span class="sub">'+esc(time12(w.t))+'</span><span class="tr-tot num">'+(w.free?'FREE':rs(w.amt))+'</span></div>'+
-    items.map(function(s){return '<div class="tr-i"><span>'+esc(s[lang])+'</span><span class="num">'+rs(s.price)+'</span></div>'}).join('')+
+    items.map(function(s){return '<div class="tr-i"><span>'+esc(L(s))+'</span><span class="num">'+rs(s.price)+'</span></div>'}).join('')+
     (w.free?'<div class="tr-i good"><span>'+t('freeWash')+'</span><span class="num">−'+rs(items.reduce(function(a,s){return a+s.price},0))+'</span></div>':'')+
     '<div class="tr-f">'+payPill(w.pay)+(c.name?'<span class="sub">'+esc(c.name)+'</span>':'')+'</div></div>'}).join('')+'</div>':emptyState('car-front',t('noTx'));
  }
  if(x.byVehicle&&x.byVehicle.length){
   h+='<div class="sec"><h2>'+t('byVehicle')+'</h2></div><div class="list">'+x.byVehicle.map(function(g){
-   return '<div class="row"><span class="avatar sm">'+ic(vIcon(g.vt),'sm')+'</span><div class="main"><b>'+esc(g.vt?(lang==='te'?g.vtte:g.vt):t('otherVeh'))+'</b><div class="sub">'+g.count+' '+t('cars')+'</div></div><div class="amt num">'+rs(g.amount)+'</div></div>'}).join('')+'</div>';
+   return '<div class="row"><span class="avatar sm">'+ic(vIcon(g.vt),'sm')+'</span><div class="main"><b>'+esc(g.vt?vtName(g):t('otherVeh'))+'</b><div class="sub">'+g.count+' '+t('cars')+'</div></div><div class="amt num">'+rs(g.amount)+'</div></div>'}).join('')+'</div>';
  }
  return h;
 }
@@ -1261,7 +1323,7 @@ function moreView(){
  h+='<div class="menu card">'+
   (!isMgr()&&D.branches&&D.branches.length>1?row('m-branches','store',t('branches'),null,' data-go="branches"'):'')+
   (!isMgr()&&feat('expenses')?row('m-exp','wallet',t('exp'),null,' data-go="exp"'):'')+
-  row('m-lang','languages',t('language'),'<span class="mr-val">'+(lang==='te'?'తెలుగు':'English')+'</span>',' data-lang="'+(lang==='te'?'en':'te')+'"')+
+  (langs().length>1?row('m-lang','languages',t('language'),'<span class="mr-val">'+LANG_NAME[lang]+'</span>',' data-lang="'+nextLang()+'"'):'')+
   row('refresh','refresh-cw',t('refreshData'),'')+
   row('m-help','circle-help',t('helpT'),null,' data-go="help"')+
   (!isMgr()?row('m-renew','refresh-cw',t('renewal'),'<span class="mr-val">'+(l.expiry?t('validTill').replace('{d}',fmtDay(String(l.expiry).slice(0,10))):'')+'</span>'+ic('chevron-right','sm mr-go'),' data-go="renew"'):'')+
@@ -1275,28 +1337,37 @@ function moreView(){
 /* ---------- Help: a short user manual inside the app ---------- */
 var HELP=[
  {ic:'car-front',all:1,en:['Add a wash',['Tap the + New Wash button.','Type the customer\'s mobile number or vehicle number.','New customer? Type the vehicle number and name. Old customer? Tap their name.','Choose the vehicle type.','Tap every service you did. A tick shows it is chosen.','Tap how the customer paid: Cash, UPI, Card or Later.','Check the money. Then tap the green button to save.']],
-  te:['వాష్ నమోదు',['+ కొత్త వాష్ బటన్ నొక్కండి.','కస్టమర్ మొబైల్ నంబర్ లేదా వాహనం నంబర్ టైప్ చేయండి.','కొత్త కస్టమర్ అయితే వాహనం నంబర్, పేరు టైప్ చేయండి. పాత కస్టమర్ అయితే వారి పేరు నొక్కండి.','వాహనం రకం ఎంచుకోండి.','చేసిన ప్రతి సేవను నొక్కండి. ఎంచుకున్న దానికి టిక్ వస్తుంది.','కస్టమర్ ఎలా చెల్లించారో నొక్కండి: నగదు, UPI, కార్డ్ లేదా తర్వాత.','డబ్బు సరిచూసుకోండి. తర్వాత ఆకుపచ్చ బటన్ నొక్కి సేవ్ చేయండి.']]},
+  te:['వాష్ నమోదు',['+ కొత్త వాష్ బటన్ నొక్కండి.','కస్టమర్ మొబైల్ నంబర్ లేదా వాహనం నంబర్ టైప్ చేయండి.','కొత్త కస్టమర్ అయితే వాహనం నంబర్, పేరు టైప్ చేయండి. పాత కస్టమర్ అయితే వారి పేరు నొక్కండి.','వాహనం రకం ఎంచుకోండి.','చేసిన ప్రతి సేవను నొక్కండి. ఎంచుకున్న దానికి టిక్ వస్తుంది.','కస్టమర్ ఎలా చెల్లించారో నొక్కండి: నగదు, UPI, కార్డ్ లేదా తర్వాత.','డబ్బు సరిచూసుకోండి. తర్వాత ఆకుపచ్చ బటన్ నొక్కి సేవ్ చేయండి.']],
+  hi:['वॉश जोड़ना', ['+ नई वॉश बटन दबाएँ।', 'ग्राहक का मोबाइल नंबर या गाड़ी नंबर टाइप करें।', 'नया ग्राहक? गाड़ी नंबर और नाम टाइप करें। पुराना ग्राहक? उसका नाम दबाएँ।', 'गाड़ी का प्रकार चुनें।', 'जो भी सर्विस की, हर एक को दबाएँ। चुनी गई सर्विस पर टिक दिखता है।', 'ग्राहक ने कैसे पैसे दिए, दबाएँ: नकद, UPI, कार्ड या बाद में।', 'पैसे जाँचें। फिर सेव करने के लिए हरा बटन दबाएँ।']]},
  {ic:'message-circle',all:1,en:['Send the bill',['After saving, the bill opens.','Tap Send invoice on WhatsApp. WhatsApp opens with the bill typed. Press Send.','Come back to WashBook. Tap Download / share PDF, choose WhatsApp, choose the same customer, press Send.','Tap Done.']],
-  te:['బిల్లు పంపడం',['సేవ్ చేసిన తర్వాత బిల్లు కనిపిస్తుంది.','వాట్సాప్‌లో ఇన్వాయిస్ పంపండి నొక్కండి. బిల్లుతో వాట్సాప్ తెరుచుకుంటుంది. పంపు నొక్కండి.','వాష్‌బుక్‌కి తిరిగి రండి. PDF డౌన్‌లోడ్ / షేర్ నొక్కి, వాట్సాప్, అదే కస్టమర్‌ను ఎంచుకుని పంపండి.','పూర్తయింది నొక్కండి.']]},
+  te:['బిల్లు పంపడం',['సేవ్ చేసిన తర్వాత బిల్లు కనిపిస్తుంది.','వాట్సాప్‌లో ఇన్వాయిస్ పంపండి నొక్కండి. బిల్లుతో వాట్సాప్ తెరుచుకుంటుంది. పంపు నొక్కండి.','వాష్‌బుక్‌కి తిరిగి రండి. PDF డౌన్‌లోడ్ / షేర్ నొక్కి, వాట్సాప్, అదే కస్టమర్‌ను ఎంచుకుని పంపండి.','పూర్తయింది నొక్కండి.']],
+  hi:['बिल भेजना', ['सेव करने के बाद बिल खुलता है।', 'व्हाट्सऐप पर इनवॉइस भेजें दबाएँ। बिल लिखा हुआ व्हाट्सऐप खुलेगा। Send दबाएँ।', 'WashBook में वापस आएँ। PDF डाउनलोड / शेयर करें दबाएँ, व्हाट्सऐप चुनें, वही ग्राहक चुनें, Send दबाएँ।', 'हो गया दबाएँ।']]},
  {ic:'trash-2',all:1,en:['Made a mistake?',['On the home screen, tap the wrong wash.','Tap Delete.','You can delete your own entry for 15 minutes. After that, ask the owner.']],
-  te:['పొరపాటు జరిగిందా?',['హోమ్ స్క్రీన్‌లో తప్పు వాష్‌ను నొక్కండి.','తొలగించు నొక్కండి.','మీ ఎంట్రీని 15 నిమిషాల వరకు తొలగించవచ్చు. తర్వాత యజమానిని అడగండి.']]},
+  te:['పొరపాటు జరిగిందా?',['హోమ్ స్క్రీన్‌లో తప్పు వాష్‌ను నొక్కండి.','తొలగించు నొక్కండి.','మీ ఎంట్రీని 15 నిమిషాల వరకు తొలగించవచ్చు. తర్వాత యజమానిని అడగండి.']],
+  hi:['गलती हो गई?', ['होम स्क्रीन पर गलत वॉश को दबाएँ।', 'हटाएँ दबाएँ।', 'अपनी एंट्री आप 15 मिनट तक हटा सकते हैं। उसके बाद मालिक से कहें।']]},
  {ic:'hand-coins',owner:1,en:['Collect old dues',['Tap Customers.','Find the customer. Customers who owe money show an orange Due label.','Tap Collect, then Yes.']],
-  te:['పాత బాకీ వసూలు',['కస్టమర్లు నొక్కండి.','కస్టమర్‌ను వెతకండి. బాకీ ఉన్నవారికి నారింజ రంగు బాకీ గుర్తు ఉంటుంది.','వసూలు నొక్కి, అవును నొక్కండి.']]},
+  te:['పాత బాకీ వసూలు',['కస్టమర్లు నొక్కండి.','కస్టమర్‌ను వెతకండి. బాకీ ఉన్నవారికి నారింజ రంగు బాకీ గుర్తు ఉంటుంది.','వసూలు నొక్కి, అవును నొక్కండి.']],
+  hi:['पुराना बकाया वसूलना', ['ग्राहक दबाएँ।', 'ग्राहक को खोजें। जिन पर पैसे बाकी हैं, उन पर नारंगी बकाया लेबल दिखता है।', 'वसूलें दबाएँ, फिर हाँ।']]},
  {ic:'history',owner:1,en:['Call back old customers',['Tap Customers, then Not coming.','Choose 1, 2, 3 or 6 months.','Tap Send to all. For each customer WhatsApp opens with your offer. Press Send, come back, and the next one is ready.']],
-  te:['పాత కస్టమర్లను పిలవడం',['కస్టమర్లు నొక్కి, రావడం లేదు నొక్కండి.','1, 2, 3 లేదా 6 నెలలు ఎంచుకోండి.','అందరికీ పంపండి నొక్కండి. ప్రతి కస్టమర్‌కు మీ ఆఫర్‌తో వాట్సాప్ తెరుచుకుంటుంది. పంపు నొక్కి తిరిగి రండి, తర్వాతి వారు సిద్ధంగా ఉంటారు.']]},
+  te:['పాత కస్టమర్లను పిలవడం',['కస్టమర్లు నొక్కి, రావడం లేదు నొక్కండి.','1, 2, 3 లేదా 6 నెలలు ఎంచుకోండి.','అందరికీ పంపండి నొక్కండి. ప్రతి కస్టమర్‌కు మీ ఆఫర్‌తో వాట్సాప్ తెరుచుకుంటుంది. పంపు నొక్కి తిరిగి రండి, తర్వాతి వారు సిద్ధంగా ఉంటారు.']],
+  hi:['पुराने ग्राहकों को वापस बुलाना', ['ग्राहक दबाएँ, फिर नहीं आ रहे।', '1, 2, 3 या 6 महीने चुनें।', 'सबको भेजें दबाएँ। हर ग्राहक के लिए आपके ऑफ़र के साथ व्हाट्सऐप खुलेगा। Send दबाएँ, वापस आएँ, अगला ग्राहक तैयार होगा।']]},
  {ic:'chart-column',owner:1,en:['See the day\'s money',['Tap Reports at the bottom.','You see the total, and Cash, UPI, Card and Later separately.','Tap the arrows to see earlier days.']],
-  te:['రోజు డబ్బు చూడటం',['కింద రిపోర్ట్స్ నొక్కండి.','మొత్తం, మరియు నగదు, UPI, కార్డ్, తర్వాత విడిగా కనిపిస్తాయి.','ముందు రోజులు చూడటానికి బాణాలు నొక్కండి.']]},
+  te:['రోజు డబ్బు చూడటం',['కింద రిపోర్ట్స్ నొక్కండి.','మొత్తం, మరియు నగదు, UPI, కార్డ్, తర్వాత విడిగా కనిపిస్తాయి.','ముందు రోజులు చూడటానికి బాణాలు నొక్కండి.']],
+  hi:['दिन की कमाई देखना', ['नीचे रिपोर्ट दबाएँ।', 'कुल रकम, और नकद, UPI, कार्ड और बाद में अलग-अलग दिखते हैं।', 'पिछले दिन देखने के लिए तीर दबाएँ।']]},
  {ic:'cloud-off',all:1,en:['No internet?',['Keep working. WashBook saves on the phone.','The cloud at the top turns orange with a number: entries waiting to go.','When internet comes back, they go by themselves.']],
-  te:['ఇంటర్నెట్ లేదా?',['పని కొనసాగించండి. వాష్‌బుక్ ఫోన్‌లోనే సేవ్ చేస్తుంది.','పైన మేఘం గుర్తు నారింజ రంగులో ఒక సంఖ్యతో కనిపిస్తుంది: పంపాల్సిన ఎంట్రీలు.','ఇంటర్నెట్ రాగానే అవి వాటంతట అవే వెళ్తాయి.']]},
+  te:['ఇంటర్నెట్ లేదా?',['పని కొనసాగించండి. వాష్‌బుక్ ఫోన్‌లోనే సేవ్ చేస్తుంది.','పైన మేఘం గుర్తు నారింజ రంగులో ఒక సంఖ్యతో కనిపిస్తుంది: పంపాల్సిన ఎంట్రీలు.','ఇంటర్నెట్ రాగానే అవి వాటంతట అవే వెళ్తాయి.']],
+  hi:['इंटरनेट नहीं है?', ['काम करते रहें। WashBook फ़ोन में ही सेव करता है।', 'ऊपर बादल का निशान नारंगी हो जाता है और एक नंबर दिखता है: भेजने वाली एंट्री।', 'इंटरनेट आने पर वे अपने आप चली जाती हैं।']]},
  {ic:'lock',all:1,en:['App asks for the PIN?',['This is normal. It locks when opened again, or after 5 minutes without use.','Type your 4-digit PIN.','Forgot the PIN? Ask the owner.']],
-  te:['PIN అడుగుతోందా?',['ఇది సాధారణం. మళ్ళీ తెరిచినప్పుడు, లేదా 5 నిమిషాలు వాడకపోతే లాక్ అవుతుంది.','మీ 4 అంకెల PIN టైప్ చేయండి.','PIN మర్చిపోయారా? యజమానిని అడగండి.']]},
- {ic:'languages',all:1,en:['Change the language',['Tap EN or తె at the top right.']],te:['భాష మార్చడం',['పైన కుడివైపు EN లేదా తె నొక్కండి.']]}
+  te:['PIN అడుగుతోందా?',['ఇది సాధారణం. మళ్ళీ తెరిచినప్పుడు, లేదా 5 నిమిషాలు వాడకపోతే లాక్ అవుతుంది.','మీ 4 అంకెల PIN టైప్ చేయండి.','PIN మర్చిపోయారా? యజమానిని అడగండి.']],
+  hi:['ऐप PIN माँग रहा है?', ['यह सामान्य है। ऐप दोबारा खोलने पर, या 5 मिनट इस्तेमाल न करने पर लॉक हो जाता है।', 'अपना 4 अंकों का PIN टाइप करें।', 'PIN भूल गए? मालिक से पूछें।']]},
+ {ic:'languages',all:1,en:['Change the language',['Tap {a} at the top right.']],te:['భాష మార్చడం',['పైన కుడివైపు {a} నొక్కండి.']],
+  hi:['भाषा बदलना', ['ऊपर दाईं ओर {a} बटन दबाएँ।']]}
 ];
 function helpView(){
  var h=header(t('helpT'));
  h+='<p class="lead">'+t('helpLead')+'</p>';
- h+=HELP.filter(function(x){return x.all||!isMgr()}).map(function(x,i){
-  var c=x[lang]||x.en;
+ h+=HELP.filter(function(x){return (x.all||!isMgr())&&(x.ic!=='languages'||langs().length>1)}).map(function(x,i){
+  var c=x[lang]||x.en;if(x.ic==='languages')c=[c[0],[c[1][0].replace('{a}',langs().map(function(k){return LANG_SHORT[k]}).join(' / '))]];
   return '<section class="card help"><div class="help-h"><span class="avatar">'+ic(x.ic)+'</span><b>'+c[0]+'</b></div><ol class="steps">'+c[1].map(function(s){return '<li>'+esc(s)+'</li>'}).join('')+'</ol></section>';
  }).join('');
  return h;
@@ -1373,8 +1444,8 @@ function receiptView(){
  h+='<article class="bill"><div class="bill-head">'+brandMark(48)+'<div class="bh-txt"><div class="bill-shop">'+esc(D.settings.shopName)+'</div>'+(D.settings.ownerPhone?'<span class="sub">'+ic('phone','xs')+esc(D.settings.ownerPhone)+'</span>':'')+'</div><span class="bill-tag">'+t('invoice')+'</span></div>'+
   '<div class="bill-meta"><div><span class="label">'+t('invNo')+'</span><b class="num">'+esc(w.inv)+'</b></div><div><span class="label">'+t('dateTime')+'</span><b class="num">'+fmtDay(w.date)+', '+fmtTime(w.t)+'</b></div></div>'+
   '<div class="bill-sec"><div><span class="label">'+ic('user','xs')+t('customer')+'</span><b>'+esc(c.name||'—')+'</b><span class="sub num">'+esc(c.phone)+'</span></div>'+
-  '<div><span class="label">'+ic(vIcon(rc.vt),'xs')+t('vehicle')+'</span><b class="num">'+esc(c.plate)+'</b><span class="sub">'+esc(lang==='te'?rc.vtte:rc.vt)+'</span></div></div>'+
-  '<div class="bill-items"><div class="bi bi-h"><span>'+t('service')+'</span><span>'+t('amountH')+'</span></div>'+rc.items.map(function(it){return '<div class="bi"><span>'+esc(lang==='te'?it.te:it.en)+'</span><span class="num">'+rs(it.price)+'</span></div>'}).join('')+
+  '<div><span class="label">'+ic(vIcon(rc.vt),'xs')+t('vehicle')+'</span><b class="num">'+esc(c.plate)+'</b><span class="sub">'+esc(vtName(rc))+'</span></div></div>'+
+  '<div class="bill-items"><div class="bi bi-h"><span>'+t('service')+'</span><span>'+t('amountH')+'</span></div>'+rc.items.map(function(it){return '<div class="bi"><span>'+esc(L(it))+'</span><span class="num">'+rs(it.price)+'</span></div>'}).join('')+
   (w.free?'<div class="bi good"><span>'+t('freeWash')+'</span><span class="num">−'+rs(rc.items.reduce(function(a,i){return a+i.price},0))+'</span></div>':'')+'</div>'+
   '<div class="bi tot"><span>'+t('total')+'</span><span class="num">'+rs(w.amt)+'</span></div>'+
   '<div class="bill-pay">'+(paid?'<span class="badge badge-success">'+ic('circle-check','xs')+t('paidVia').replace('{m}',w.free?t('freeWash'):t(w.pay))+'</span>':'<span class="badge badge-warning">'+ic('clock','xs')+t('pendingLater')+'</span><span class="sub">'+t('due')+' <b class="num">'+rs(c.due)+'</b></span>')+'</div>'+
@@ -1401,13 +1472,13 @@ function waLink(c){return 'https://wa.me/'+waNum(c.phone)+'?text='+encodeURIComp
 
 function localSummary(){
  var x=totals(),g={};
- D.washes.forEach(function(w){var s0=svc(w.svc[0])||{},k=s0.vt||'';var e=g[k]||(g[k]={vt:k,vtte:s0.vtte||k,ic:k?(s0.vic||'🚗'):'🧽',count:0,amount:0});e.count++;e.amount+=w.amt||0});
+ D.washes.forEach(function(w){var s0=svc(w.svc[0])||{},k=s0.vt||'';var e=g[k]||(g[k]={vt:k,vtte:s0.vtte||k,vthi:s0.vthi||k,ic:k?(s0.vic||'🚗'):'🧽',count:0,amount:0});e.count++;e.amount+=w.amt||0});
  x.byVehicle=Object.keys(g).map(function(k){return g[k]}).sort(function(a,b){return b.amount-a.amount});
  return x;
 }
 function dayLabel(d){
  var dt=new Date(d+'T12:00:00');
- return (d===D.today?t('today')+' · ':'')+dt.toLocaleDateString(lang==='te'?'te-IN':'en-IN',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+ return (d===D.today?t('today')+' · ':'')+dt.toLocaleDateString(loc(),{weekday:'short',day:'numeric',month:'short',year:'numeric'});
 }
 function shiftDay(d,n){var x=new Date(d+'T12:00:00Z');x.setUTCDate(x.getUTCDate()+n);return x.toISOString().slice(0,10)}
 function loadDay(day){
@@ -1419,7 +1490,7 @@ function loadDay(day){
 /* ============ Render + navigation ============ */
 function render(){
  var app=document.getElementById('app');
- document.documentElement.lang=lang;
+ fixLang();document.documentElement.lang=lang;
  if(fatal){app.innerHTML=emptyState('triangle-alert',esc(fatal));document.body.className='';return}
  var html;
  if(view==='pick')html=pickView();
@@ -1427,6 +1498,7 @@ function render(){
  else if(!D)html='<div class="center"><span class="spinner"></span>'+t('loading')+'</div>';
  else html={home:homeView,wash:washView,cust:custView,exp:expView,close:closeView,branches:branchesView,receipt:receiptView,more:moreView,help:helpView,renew:renewView}[view]();
  if(D&&D.settings&&D.settings.brand&&JSON.stringify(D.settings.brand)!==JSON.stringify(LS.get('brand',null)))LS.set('brand',D.settings.brand);
+ if(D&&D.settings&&D.settings.languages&&JSON.stringify(D.settings.languages)!==JSON.stringify(LS.get('langs',null)))LS.set('langs',D.settings.languages);
  applyBrand();
  var nav=navBar();
  var a=document.activeElement,fid=a&&a.id,pos=a&&a.selectionStart;
@@ -1442,7 +1514,7 @@ function go(v){if(locked&&v!=='login'){return render()}view=v;ui={sel:[],q:'',ci
 function fetchShopName(){
  if(D&&D.settings||fetchShopName.busy)return;
  fetchShopName.busy=true;
- call('shopInfo',SHOP).then(function(r){fetchShopName.busy=false;if(r&&r.name){LS.set('shopName',r.name);if(r.brand)LS.set('brand',r.brand);if(view==='login')render()}},
+ call('shopInfo',SHOP).then(function(r){fetchShopName.busy=false;if(r&&r.name){LS.set('shopName',r.name);if(r.brand)LS.set('brand',r.brand);if(r.languages){LS.set('langs',r.languages);fixLang()}if(view==='login')render()}},
   function(e){fetchShopName.busy=false;if(errKind(e)==='noshop')stopApp('noshop')});
 }
 function doLogin(){
@@ -1480,9 +1552,9 @@ function saveWash(pay){
  var at=Date.now(),w={id:newId('W'),date:D.today,t:nowHM(),cid:c.id,plate:c.plate,svc:ui.sel.slice(),names:'',amt:amt,pay:pay,free:free,staff:D.user.name,inv:invoiceNo()};
  D.washes.push(w);c.visits++;c.last=D.today;if(pay==='credit')c.due+=amt;
  enqueue('addWash',{id:w.id,at:at,services:w.svc,pay:pay,invoice:w.inv,customer:{id:c.id,plate:c.plate,phone:c.phone,name:c.name}});
- var items=w.svc.map(function(id){var s=svc(id)||{};return {en:s.en||'',te:s.te||s.en||'',price:s.price||0}});
+ var items=w.svc.map(function(id){var s=svc(id)||{};return {en:s.en||'',te:s.te||s.en||'',hi:s.hi||s.en||'',price:s.price||0}});
  var s0=svc(w.svc[0])||{};
- var rc={w:w,cust:{name:c.name,phone:c.phone,plate:c.plate,visits:c.visits,due:c.due},items:items,vt:s0.vt||'',vtte:s0.vtte||s0.vt||'',vic:s0.vic||'🚗'};
+ var rc={w:w,cust:{name:c.name,phone:c.phone,plate:c.plate,visits:c.visits,due:c.due},items:items,vt:s0.vt||'',vtte:s0.vtte||s0.vt||'',vthi:s0.vthi||s0.vt||'',vic:s0.vic||'🚗'};
  lastRc=rc;buzz(20);go('receipt');
 }
 /* ---------- invoice ---------- */
@@ -1495,11 +1567,12 @@ function fmtDay(d){var m=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep',
 function fmtTime(hm){var h=+hm.slice(0,2),m=hm.slice(3,5);return ((h%12)||12)+':'+m+(h<12?' AM':' PM')}
 function loyaltyNote(rc){
  var n=D.settings.loyaltyEvery;if(!n)return '';
- if(rc.w.free)return {en:'This wash is FREE – thank you for coming back!',te:'ఈ వాష్ ఉచితం – మళ్ళీ వచ్చినందుకు ధన్యవాదాలు!'};
+ if(rc.w.free)return {en:'This wash is FREE – thank you for coming back!',te:'ఈ వాష్ ఉచితం – మళ్ళీ వచ్చినందుకు ధన్యవాదాలు!',hi:'यह वॉश मुफ़्त है – दोबारा आने के लिए धन्यवाद!'};
  var k=((n-1)-(rc.cust.visits%n)+n)%n;
- return k===0?{en:'Your next wash is FREE!',te:'మీ తదుపరి వాష్ ఉచితం!'}
-  :{en:k+' more wash'+(k>1?'es':'')+' and the next one is FREE!',te:'ఇంకా '+k+' వాష్‌లు చేయించుకుంటే తదుపరిది ఉచితం!'};
+ return k===0?{en:'Your next wash is FREE!',te:'మీ తదుపరి వాష్ ఉచితం!',hi:'आपकी अगली वॉश मुफ़्त है!'}
+  :{en:k+' more wash'+(k>1?'es':'')+' and the next one is FREE!',te:'ఇంకా '+k+' వాష్‌లు చేయించుకుంటే తదుపరిది ఉచితం!',hi:'बस '+k+' और वॉश, फिर अगली मुफ़्त!'};
 }
+var THANKS={te:'ధన్యవాదాలు! మళ్ళీ రండి',hi:'धन्यवाद! फिर आइएगा'};
 function invoiceText(rc){
  var w=rc.w,c=rc.cust,L=[],pad=function(s,n){s=String(s);return s.length>=n?s.slice(0,n-1)+' ':s+new Array(n-s.length+1).join(' ')};
  L.push('🧾 *'+D.settings.shopName+'*');
@@ -1520,14 +1593,14 @@ function invoiceText(rc){
  var ln=loyaltyNote(rc);if(ln){L.push('');L.push('⭐ '+ln.en)}
  L.push('');
  L.push('Thank you! Please visit again 🙏');
- L.push('ధన్యవాదాలు! మళ్ళీ రండి 🙏');
+ if(THANKS[localLang()])L.push(THANKS[localLang()]+' 🙏');
  return L.join('\n');
 }
 /* ---------- PDF invoice: drawn on a canvas (Telugu works), wrapped in a one-page PDF; no internet needed ---------- */
 function invoiceCanvas(rc){
  var W=900,M=56,cv=document.createElement('canvas');cv.width=W;cv.height=2400;
  var x=cv.getContext('2d');if(!x)return null;
- var F='"Inter","Noto Sans Telugu","Nirmala UI",system-ui,sans-serif',w=rc.w,c=rc.cust;
+ var F='"Inter","Noto Sans Telugu","Noto Sans Devanagari","Nirmala UI",system-ui,sans-serif',w=rc.w,c=rc.cust;
  var ink='#102D3A',mute='#4B6371',line='#E1E9EE',blue=getComputedStyle(document.documentElement).getPropertyValue('--primary').trim()||'#087FA3',green='#0E8656';
  x.fillStyle='#fff';x.fillRect(0,0,W,cv.height);x.textBaseline='alphabetic';
  function txt(s,X,Y,size,col,wt,al){x.font=(wt||400)+' '+size+'px '+F;x.fillStyle=col||ink;x.textAlign=al||'left';x.fillText(s,X,Y)}
@@ -1553,7 +1626,7 @@ function invoiceCanvas(rc){
  txt('Paid by: '+pm,M+16,y,26,ink,700);if(w.pay==='credit')txt('Amount due: ₹'+c.due.toLocaleString('en-IN'),W-M-16,y,26,'#B23A2E',700,'right');
  var ln=loyaltyNote(rc);
  if(ln){y+=40;x.fillStyle='#E3F4EA';x.fillRect(M,y,W-2*M,64);txt('★ '+ln.en,W/2,y+42,fit('★ '+ln.en,26,W-2*M-30,700),green,700,'center');y+=64}
- y+=70;txt('Thank you! Please visit again.',W/2,y,30,ink,700,'center');y+=46;txt('ధన్యవాదాలు! మళ్ళీ రండి',W/2,y,28,mute,600,'center');
+ y+=70;txt('Thank you! Please visit again.',W/2,y,30,ink,700,'center');if(THANKS[localLang()]){y+=46;txt(THANKS[localLang()],W/2,y,28,mute,600,'center')}
  y+=40;hr(y,line,true);y+=36;txt(shop+(D.settings.ownerPhone?' · '+D.settings.ownerPhone:''),W/2,y,20,mute,400,'center');y+=34;
  var out=document.createElement('canvas');out.width=W;out.height=y;var o=out.getContext('2d');o.drawImage(cv,0,0);return out;
 }
