@@ -692,7 +692,7 @@ function t(k){return (T[lang]&&T[lang][k])||T.en[k]||k}
 /* Languages: each shop gets any two of English, Telugu, Hindi (Control sheet > Shops > Languages). The first is the default. */
 var LANG_NAME={en:'English',te:'తెలుగు',hi:'हिंदी'},LANG_SHORT={en:'EN',te:'తె',hi:'हि'};
 function langs(){var l=(D&&D.settings&&D.settings.languages)||LS.get('langs',null)||['te','en'];l=l.filter(function(x){return T[x]});return l.length?l:['te','en']}
-function fixLang(){var l=langs();if(l.indexOf(lang)<0){lang=l[0];LS.set('lang',lang)}}
+function fixLang(){var l=langs();if(l.indexOf(lang)<0||LS.get('lang',null)===null)lang=l[0]}   // the shop's first language until the user picks one
 function nextLang(){var l=langs(),i=l.indexOf(lang);return l[(i+1)%l.length]}
 function L(o){return (o&&(o[lang]||o.en))||''}            // a name in the current language (services, help, categories)
 function vtName(x){return (lang==='te'?x.vtte:lang==='hi'?x.vthi:'')||x.vt||''}

@@ -1,7 +1,9 @@
 {
+  "id": "./",
   "name": "WashBook",
   "short_name": "WashBook",
-  "description": "Car wash daily book",
+  "description": "Car wash daily book: washes, customers, bills and day-end cash",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
