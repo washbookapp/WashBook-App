@@ -482,6 +482,7 @@ body.has-paybar{padding-bottom:calc(260px + env(safe-area-inset-bottom,0px))}
 .renew-st{display:flex;align-items:center;gap:var(--sp-3)}.renew-st b{font-size:var(--fs-section)}
 .msgprev{background:var(--surface-2)}
 .msgprev pre{margin:0;white-space:pre-wrap;font:inherit;font-size:var(--fs-body);line-height:1.55;color:var(--text)}
+.lic-wa{color:inherit;font-weight:700;text-decoration:underline;white-space:nowrap}
 .licb{align-items:center;flex-wrap:wrap}.licb .btn{flex:none}
 
 /* ================= Touch areas: every control reacts to at least 48 x 48 px ================= */
@@ -543,10 +544,10 @@ var T={
   newVeh:'New vehicle',nameShort:'name',needVeh:'Type the vehicle number above',noSvc:'No services are ON. Owner: in your Google Sheet, Services tab, set Active to Yes for the services you offer.',
   branches:'Branches',allBranches:'All branches',todayAll:'Today, all branches',closed:'Day closed',notClosed:'Not closed yet',here:'You are here',lic_warn:'Renew soon',lic_grace:'Expired',lic_expired:'Read-only',lic_suspended:'Switched off',total:'Total',
   oldDue:'Old due',setup:'This shop is not set up yet. Contact support.',error:'Could not save',del:'Delete',
-  licWarn:'Subscription ends in {n} days. Call {who} {phone} to renew.',
-  licGrace:'Subscription has ended. The app stops saving in {n} days. Call {who} {phone} to renew.',
-  licExpired:'Subscription has ended. You can look, but not add new entries. Call {who} {phone} to renew.',
-  suspended:'This app is switched off. Call {who} {phone}.',badLink:'This app link is not correct.',
+  licWarn:'Your subscription is going to end in {n} days. To renew, send a WhatsApp message to {phone}.',licWarn1:'Your subscription is going to end tomorrow. To renew, send a WhatsApp message to {phone}.',
+  licGrace:'Your subscription has ended. The app will stop saving in {n} days. To renew, send a WhatsApp message to {phone}.',
+  licExpired:'Your subscription has ended. You can view, but not add new entries. To renew, send a WhatsApp message to {phone}.',
+  suspended:'This app is switched off. Send a WhatsApp message to {phone}.',badLink:'This app link is not correct.',
   locked:'🔒 Renew to save',lockedChip:'🔒 {n} waiting',
   navHome:'Home',navReports:'Reports',navMore:'More',dayReport:'Daily report',vehWashed:'Vehicles washed',revenue:"Today's revenue",
   comeBack:'Come-back list',nToCall:'{n} not coming',nCust:'{n} customers',startWash:'Start a wash',emptyHint:'Tap New Wash to add the first vehicle',
@@ -591,10 +592,10 @@ var T={
   newVeh:'కొత్త వాహనం',nameShort:'పేరు',needVeh:'పైన వాహనం నంబర్ టైప్ చేయండి',noSvc:'ఏ సర్వీస్ ON లో లేదు. ఓనర్: Google Sheet లో Services ట్యాబ్‌లో, మీ సర్వీసులకు Active = Yes పెట్టండి.',
   branches:'బ్రాంచ్‌లు',allBranches:'అన్ని బ్రాంచ్‌లు',todayAll:'ఈరోజు, అన్ని బ్రాంచ్‌లు',closed:'రోజు ముగిసింది',notClosed:'ఇంకా ముగియలేదు',here:'మీరు ఇక్కడ ఉన్నారు',lic_warn:'త్వరలో రెన్యూ',lic_grace:'గడువు ముగిసింది',lic_expired:'చూడటానికి మాత్రమే',lic_suspended:'ఆపివేయబడింది',total:'మొత్తం',
   oldDue:'పాత బాకీ',setup:'ఈ షాప్ ఇంకా సెటప్ కాలేదు. సపోర్ట్‌ను సంప్రదించండి.',error:'సేవ్ కాలేదు',del:'తొలగించు',
-  licWarn:'సబ్‌స్క్రిప్షన్ {n} రోజుల్లో ముగుస్తుంది. రెన్యూ కోసం {who} {phone}కి కాల్ చేయండి.',
-  licGrace:'సబ్‌స్క్రిప్షన్ ముగిసింది. {n} రోజుల తర్వాత యాప్ సేవ్ చేయదు. రెన్యూ కోసం {who} {phone}కి కాల్ చేయండి.',
-  licExpired:'సబ్‌స్క్రిప్షన్ ముగిసింది. చూడవచ్చు, కానీ కొత్తవి రాయలేరు. రెన్యూ కోసం {who} {phone}కి కాల్ చేయండి.',
-  suspended:'ఈ యాప్ ఆపివేయబడింది. {who} {phone}కి కాల్ చేయండి.',badLink:'ఈ యాప్ లింక్ సరైనది కాదు.',
+  licWarn:'మీ సబ్‌స్క్రిప్షన్ {n} రోజుల్లో ముగుస్తుంది. రెన్యూ చేయడానికి {phone}కి WhatsApp మెసేజ్ పంపండి.',licWarn1:'మీ సబ్‌స్క్రిప్షన్ రేపు ముగుస్తుంది. రెన్యూ చేయడానికి {phone}కి WhatsApp మెసేజ్ పంపండి.',
+  licGrace:'మీ సబ్‌స్క్రిప్షన్ ముగిసింది. {n} రోజుల తర్వాత యాప్ సేవ్ చేయదు. రెన్యూ చేయడానికి {phone}కి WhatsApp మెసేజ్ పంపండి.',
+  licExpired:'మీ సబ్‌స్క్రిప్షన్ ముగిసింది. చూడవచ్చు, కానీ కొత్తవి రాయలేరు. రెన్యూ చేయడానికి {phone}కి WhatsApp మెసేజ్ పంపండి.',
+  suspended:'ఈ యాప్ ఆపివేయబడింది. {phone}కి WhatsApp మెసేజ్ పంపండి.',badLink:'ఈ యాప్ లింక్ సరైనది కాదు.',
   locked:'🔒 రెన్యూ చేయండి',lockedChip:'🔒 {n} ఆగాయి',
   navHome:'హోమ్',navReports:'రిపోర్ట్స్',navMore:'మరిన్ని',dayReport:'రోజు రిపోర్ట్',vehWashed:'వాష్ అయిన వాహనాలు',revenue:'ఈరోజు ఆదాయం',
   comeBack:'తిరిగి రాని వారు',nToCall:'{n} మంది రావడం లేదు',nCust:'{n} కస్టమర్లు',startWash:'వాష్ మొదలుపెట్టండి',emptyHint:'మొదటి వాహనం కోసం కొత్త వాష్ నొక్కండి',
@@ -640,10 +641,10 @@ var T={
   branches:'शाखाएँ',allBranches:'सभी शाखाएँ',todayAll:'आज, सभी शाखाएँ',closed:'दिन बंद',notClosed:'अभी बंद नहीं',here:'आप यहाँ हैं',
   lic_warn:'जल्द रिन्यू करें',lic_grace:'समय खत्म',lic_expired:'सिर्फ़ देखने के लिए',lic_suspended:'बंद है',oldDue:'पुराना बकाया',
   setup:'यह दुकान अभी सेट नहीं हुई है। सपोर्ट से संपर्क करें।',error:'सेव नहीं हो सका',del:'हटाएँ',
-  licWarn:'सब्सक्रिप्शन {n} दिन में खत्म होगा। रिन्यू के लिए {who} {phone} पर कॉल करें।',
-  licGrace:'सब्सक्रिप्शन खत्म हो गया है। {n} दिन बाद ऐप सेव करना बंद कर देगा। रिन्यू के लिए {who} {phone} पर कॉल करें।',
-  licExpired:'सब्सक्रिप्शन खत्म हो गया है। आप देख सकते हैं, पर नई एंट्री नहीं कर सकते। रिन्यू के लिए {who} {phone} पर कॉल करें।',
-  suspended:'यह ऐप बंद कर दिया गया है। {who} {phone} पर कॉल करें।',badLink:'यह ऐप लिंक सही नहीं है।',locked:'🔒 सेव करने के लिए रिन्यू करें',
+  licWarn:'आपका सब्सक्रिप्शन {n} दिन में खत्म होने वाला है। रिन्यू करने के लिए {phone} पर WhatsApp मैसेज भेजें।',licWarn1:'आपका सब्सक्रिप्शन कल खत्म होने वाला है। रिन्यू करने के लिए {phone} पर WhatsApp मैसेज भेजें।',
+  licGrace:'आपका सब्सक्रिप्शन खत्म हो गया है। {n} दिन बाद ऐप सेव करना बंद कर देगा। रिन्यू करने के लिए {phone} पर WhatsApp मैसेज भेजें।',
+  licExpired:'आपका सब्सक्रिप्शन खत्म हो गया है। आप देख सकते हैं, पर नई एंट्री नहीं कर सकते। रिन्यू करने के लिए {phone} पर WhatsApp मैसेज भेजें।',
+  suspended:'यह ऐप बंद कर दिया गया है। {phone} पर WhatsApp मैसेज भेजें।',badLink:'यह ऐप लिंक सही नहीं है।',locked:'🔒 सेव करने के लिए रिन्यू करें',
   lockedChip:'🔒 {n} रुके हैं',navHome:'होम',navReports:'रिपोर्ट',navMore:'और',dayReport:'दैनिक रिपोर्ट',vehWashed:'धुली गाड़ियाँ',
   revenue:'आज की कमाई',comeBack:'वापस बुलाने की लिस्ट',nToCall:'{n} नहीं आ रहे',nCust:'{n} ग्राहक',startWash:'वॉश शुरू करें',
   emptyHint:'पहली गाड़ी जोड़ने के लिए नई वॉश दबाएँ',custSec:'ग्राहक',vehSec:'गाड़ी का प्रकार',svcSec:'सर्विस',existing:'पुराना',
@@ -890,8 +891,10 @@ function openShop(code,carryToken){
 function readOnly(){return !!(D&&D.licence&&D.licence.state==='expired')}
 function licBanner(){
  var l=D.licence;if(!l||['warn','grace','expired'].indexOf(l.state)<0)return '';
- var txt=l.state==='warn'?supportText('licWarn',l.days):l.state==='grace'?supportText('licGrace',Math.max(0,l.graceLeft)):supportText('licExpired');
+ var txt=l.state==='warn'?supportText(l.days<=1?'licWarn1':'licWarn',l.days):l.state==='grace'?supportText('licGrace',Math.max(0,l.graceLeft)):supportText('licExpired');
  var btn=isMgr()?'':'<button class="btn btn-sm '+(l.state==='warn'?'btn-outline':'btn-danger')+'" data-go="renew">'+ic('refresh-cw','sm')+t('renewal')+'</button>';
+ var ph=String(l.supportPhone||''),dg=ph.replace(/\D/g,'');
+ if(dg.length>=10)txt=esc(txt).replace(esc(ph),'<a class="lic-wa" href="https://wa.me/'+(dg.length===10?'91'+dg:dg)+'" target="_blank" rel="noopener">'+esc(ph)+'</a>');
  return '<div class="banner '+(l.state==='warn'?'b-warn':'b-bad')+' licb">'+ic(l.state==='expired'?'lock':l.state==='warn'?'clock':'triangle-alert')+'<span>'+txt+'</span>'+btn+'</div>';
 }
 function toLogin(){token=null;LS.del('token');LS.del('pinh');locked=false;view='login';ui={pin:''};render();fetchShopName()}
