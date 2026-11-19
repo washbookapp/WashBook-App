@@ -235,6 +235,23 @@ body.is-login{background:radial-gradient(120% 60% at 50% -10%,var(--primary-100)
 .sec-n{min-width:24px;height:24px;padding:0 8px;border-radius:var(--r-pill);background:var(--sunk);color:var(--text-2);font-size:var(--fs-caption);font-weight:var(--fw-semibold);display:inline-grid;place-items:center}
 .cards{display:flex;flex-direction:column;gap:var(--sp-2)}
 .txw{display:flex;flex-direction:column}
+/* online bookings */
+.bk{display:flex;flex-direction:column;gap:var(--sp-2);padding:var(--sp-3);background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--primary);border-radius:var(--r-card);box-shadow:var(--sh-1)}
+.bk.st-pending{border-left-color:var(--warning)}.bk.st-done{border-left-color:var(--success);opacity:.8}
+.bk-top{display:grid;grid-template-columns:auto 1fr auto;gap:var(--sp-3);align-items:center}
+.bk-time{min-width:58px;padding:6px 4px;border-radius:12px;background:var(--primary-50);color:var(--primary-700);text-align:center;line-height:1.15}
+.bk-time b{display:block;font-size:var(--fs-btn);font-weight:var(--fw-bold)}.bk-time span{font-size:var(--fs-caption);font-weight:var(--fw-semibold)}
+.st-pending .bk-time{background:var(--warning-50);color:var(--warning)}
+.bk-acts{display:flex;gap:var(--sp-2);flex-wrap:wrap;justify-content:flex-end}
+.bk-acts .btn{flex:1 1 auto;min-width:0}.bk-acts .btn-icon{flex:none}
+.bk-day{margin:var(--sp-3) 0 var(--sp-1);font-size:var(--fs-label);font-weight:var(--fw-semibold);color:var(--text-2)}
+.bk-link{display:flex;flex-direction:column;gap:var(--sp-2)}
+.bk-url{font-size:var(--fs-caption);color:var(--text-2);overflow-wrap:anywhere;padding:var(--sp-2) var(--sp-3);background:var(--sunk);border-radius:10px}
+.bkstrip{display:flex;flex-direction:column;gap:var(--sp-2)}.bkstrip>#go-bookings{align-self:flex-start}
+.bkmsg{align-items:center;flex-wrap:wrap}.bkmsg>span{flex:1 1 160px}.bkmsg .btn{flex:1 1 100%}
+.bk-from{display:flex;align-items:center;gap:6px;font-size:var(--fs-label);font-weight:var(--fw-semibold);color:var(--primary-700);background:var(--primary-50);border-radius:var(--r-pill);padding:6px 12px;align-self:flex-start}
+.btn-icon.wa-ic{color:var(--wa)}
+.mr-badge{min-width:22px;height:22px;padding:0 7px;border-radius:var(--r-pill);background:var(--warning);color:#fff;font-size:var(--fs-caption);font-weight:var(--fw-bold);display:inline-grid;place-items:center}
 .tx{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:var(--sp-3);width:100%;padding:var(--sp-3);text-align:left;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);box-shadow:var(--sh-1);color:var(--text)}
 .avatar{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;flex:none;background:var(--primary-50);color:var(--primary)}
 .avatar.sm{width:36px;height:36px;border-radius:10px}
@@ -515,7 +532,7 @@ var CATS=[
  {id:'other',ic:'📦',en:'Other',te:'ఇతరం',hi:'अन्य'}
 ];
 var T={
- en:{wash:'New Wash',cust:'Customers',exp:'Expense',close:'Close Day',today:'Today',cars:'Vehicles',sales:'Sales',cashBox:'Cash in box',
+ en:{bookings:'Bookings',bkToday:'Today\'s bookings',bkAll:'All bookings',bkNone:'No bookings yet',bkNoneSub:'Share your booking link so customers can book a time online.',bkPending:'Waiting',bkConfirmed:'Confirmed',bkDone:'Done',accept:'Accept',reject:'Reject',cancelBk:'Cancel booking',cancelQ:'Cancel this booking?',startBk:'Start wash',bkLink:'Your booking link',bkLinkSub:'Customers open this link to book a day and time.',shareLink:'Share on WhatsApp',copyLink:'Copy link',newBooking:'New booking!',nPending:'{n} waiting for you',tellCust:'Tell the customer on WhatsApp',bkFrom:'Booking · {t}',bkMsgOk:'Hello {name}, your car wash booking at {shop} is confirmed for {day}, {time}. Vehicle: {plate}. See you! 🚗',bkMsgNo:'Hello {name}, sorry, {shop} cannot take your booking for {day}, {time}. Please book another time: {link}',bkMsgShare:'Book your car wash at {shop} online 🚗 Choose a day and time here: {link}',moreBk:'{n} more upcoming',bkAccepted:'Booking accepted',bkRejected:'Booking rejected',bkCancelled:'Booking cancelled',tomorrow:'Tomorrow',plan:'Plan',wash:'New Wash',cust:'Customers',exp:'Expense',close:'Close Day',today:'Today',cars:'Vehicles',sales:'Sales',cashBox:'Cash in box',
   recent:"Today's washes",back:'← Back',plateQ:'Vehicle number or phone',plateHint:'Type vehicle number or phone',newCust:'New customer',name:'Name (optional)',phone:'Phone',
   plate:'Vehicle number',visits:'visits',freeNow:'This wash is FREE (loyalty reward)',pickSvc:'Choose service',total:'Total',payHow:'Tap how the customer paid',
   cash:'Cash',upi:'UPI',card:'Card',credit:'Later',saved:'Saved ✓',search:'Search vehicle number or phone',due:'Due',noWash:'No washes yet today',
@@ -563,7 +580,7 @@ var T={
   daysLeft:'{n} days left',active:'Active',
   pickPay:'Choose how the customer paid',moneyCheck:'Check you received {amt} by {m}, then tap the green button',laterCheck:'The customer will pay later. Tap the button to save.',
   gotPaid:'Payment received {amt} · Save',saveLater:'Save as pay later · {amt} due',saveFree:'Save free wash'},
- te:{wash:'కొత్త వాష్',cust:'కస్టమర్లు',exp:'ఖర్చు',close:'రోజు ముగింపు',today:'ఈరోజు',cars:'వాహనాలు',sales:'అమ్మకాలు',cashBox:'పెట్టెలో నగదు',
+ te:{bookings:'బుకింగ్‌లు',bkToday:'నేటి బుకింగ్‌లు',bkAll:'అన్ని బుకింగ్‌లు',bkNone:'ఇంకా బుకింగ్‌లు లేవు',bkNoneSub:'కస్టమర్లు ఆన్‌లైన్‌లో టైమ్ బుక్ చేసుకోవడానికి మీ బుకింగ్ లింక్ షేర్ చేయండి.',bkPending:'వేచి ఉంది',bkConfirmed:'కన్ఫర్మ్',bkDone:'పూర్తయింది',accept:'ఒప్పుకోండి',reject:'వద్దు',cancelBk:'బుకింగ్ రద్దు',cancelQ:'ఈ బుకింగ్ రద్దు చేయాలా?',startBk:'వాష్ మొదలుపెట్టండి',bkLink:'మీ బుకింగ్ లింక్',bkLinkSub:'కస్టమర్లు ఈ లింక్ తెరిచి రోజు, టైమ్ బుక్ చేసుకుంటారు.',shareLink:'WhatsApp లో షేర్',copyLink:'లింక్ కాపీ',newBooking:'కొత్త బుకింగ్!',nPending:'{n} మీ కోసం వేచి ఉన్నాయి',tellCust:'కస్టమర్‌కి WhatsApp లో చెప్పండి',bkFrom:'బుకింగ్ · {t}',bkMsgOk:'నమస్తే {name} గారు, {shop} లో మీ కార్ వాష్ బుకింగ్ {day}, {time} కి కన్ఫర్మ్ అయింది. వాహనం: {plate}. రండి! 🚗',bkMsgNo:'నమస్తే {name} గారు, క్షమించండి, {day}, {time} కి {shop} లో బుకింగ్ తీసుకోలేము. దయచేసి వేరే టైమ్ బుక్ చేయండి: {link}',bkMsgShare:'{shop} లో మీ కార్ వాష్ ఆన్‌లైన్‌లో బుక్ చేసుకోండి 🚗 రోజు, టైమ్ ఇక్కడ ఎంచుకోండి: {link}',moreBk:'ఇంకా {n} రాబోయే బుకింగ్‌లు',bkAccepted:'బుకింగ్ ఒప్పుకున్నారు',bkRejected:'బుకింగ్ వద్దన్నారు',bkCancelled:'బుకింగ్ రద్దయింది',tomorrow:'రేపు',plan:'ప్లాన్',wash:'కొత్త వాష్',cust:'కస్టమర్లు',exp:'ఖర్చు',close:'రోజు ముగింపు',today:'ఈరోజు',cars:'వాహనాలు',sales:'అమ్మకాలు',cashBox:'పెట్టెలో నగదు',
   recent:'ఈరోజు వాష్‌లు',back:'← వెనక్కి',plateQ:'వాహనం నంబర్ లేదా ఫోన్',plateHint:'వాహనం నంబర్ లేదా ఫోన్ టైప్ చేయండి',newCust:'కొత్త కస్టమర్',name:'పేరు (అవసరం లేదు)',phone:'ఫోన్',
   plate:'వాహనం నంబర్',visits:'సార్లు',freeNow:'ఈ వాష్ ఉచితం (లాయల్టీ)',pickSvc:'సర్వీస్ ఎంచుకోండి',total:'మొత్తం',payHow:'కస్టమర్ ఎలా చెల్లించారో నొక్కండి',
   cash:'నగదు',upi:'UPI',card:'కార్డు',credit:'తర్వాత',saved:'సేవ్ అయింది ✓',search:'వాహనం నంబర్ లేదా ఫోన్ వెతకండి',due:'బాకీ',noWash:'ఈరోజు ఇంకా వాష్‌లు లేవు',
@@ -611,7 +628,7 @@ var T={
   daysLeft:'{n} రోజులు మిగిలాయి',active:'చెల్లుబాటులో ఉంది',
   pickPay:'కస్టమర్ ఎలా చెల్లించారో ఎంచుకోండి',moneyCheck:'{m} ద్వారా {amt} అందిందో సరిచూసి, ఆకుపచ్చ బటన్ నొక్కండి',laterCheck:'కస్టమర్ తర్వాత చెల్లిస్తారు. సేవ్ చేయడానికి బటన్ నొక్కండి.',
   gotPaid:'డబ్బు అందింది {amt} · సేవ్',saveLater:'తర్వాత చెల్లింపుగా సేవ్ · {amt} బాకీ',saveFree:'ఉచిత వాష్ సేవ్'},
- hi:{wash:'नई वॉश',cust:'ग्राहक',exp:'खर्च',close:'दिन बंद करें',today:'आज',cars:'गाड़ियाँ',sales:'बिक्री',cashBox:'गल्ले में नकद',
+ hi:{bookings:'बुकिंग',bkToday:'आज की बुकिंग',bkAll:'सभी बुकिंग',bkNone:'अभी कोई बुकिंग नहीं',bkNoneSub:'ग्राहक ऑनलाइन समय बुक कर सकें, इसके लिए अपना बुकिंग लिंक शेयर करें।',bkPending:'इंतज़ार में',bkConfirmed:'कन्फ़र्म',bkDone:'हो गया',accept:'मंज़ूर करें',reject:'मना करें',cancelBk:'बुकिंग रद्द करें',cancelQ:'यह बुकिंग रद्द करें?',startBk:'वॉश शुरू करें',bkLink:'आपका बुकिंग लिंक',bkLinkSub:'ग्राहक यह लिंक खोलकर दिन और समय बुक करते हैं।',shareLink:'WhatsApp पर शेयर करें',copyLink:'लिंक कॉपी करें',newBooking:'नई बुकिंग!',nPending:'{n} आपके इंतज़ार में',tellCust:'ग्राहक को WhatsApp पर बताएँ',bkFrom:'बुकिंग · {t}',bkMsgOk:'नमस्ते {name} जी, {shop} पर आपकी कार वॉश बुकिंग {day}, {time} के लिए कन्फ़र्म है। गाड़ी: {plate}। आपका इंतज़ार रहेगा! 🚗',bkMsgNo:'नमस्ते {name} जी, माफ़ कीजिए, {shop} पर {day}, {time} की बुकिंग नहीं हो सकती। कृपया कोई और समय बुक करें: {link}',bkMsgShare:'{shop} पर अपनी कार वॉश ऑनलाइन बुक करें 🚗 दिन और समय यहाँ चुनें: {link}',moreBk:'{n} और आने वाली बुकिंग',bkAccepted:'बुकिंग मंज़ूर',bkRejected:'बुकिंग मना की गई',bkCancelled:'बुकिंग रद्द हुई',tomorrow:'कल',plan:'प्लान',wash:'नई वॉश',cust:'ग्राहक',exp:'खर्च',close:'दिन बंद करें',today:'आज',cars:'गाड़ियाँ',sales:'बिक्री',cashBox:'गल्ले में नकद',
   recent:'आज की वॉश',back:'← वापस',plateQ:'गाड़ी नंबर या फ़ोन',plateHint:'गाड़ी नंबर या फ़ोन टाइप करें',newCust:'नया ग्राहक',name:'नाम (वैकल्पिक)',phone:'फ़ोन',
   plate:'गाड़ी नंबर',visits:'बार आए',freeNow:'यह वॉश मुफ़्त है (लॉयल्टी इनाम)',pickSvc:'सर्विस चुनें',total:'कुल',payHow:'ग्राहक ने कैसे पैसे दिए, चुनें',
   cash:'नकद',upi:'UPI',card:'कार्ड',credit:'बाद में',saved:'सेव हुआ ✓',search:'गाड़ी नंबर या फ़ोन खोजें',due:'बकाया',noWash:'आज अभी कोई वॉश नहीं',
@@ -671,7 +688,7 @@ var T={
    Paste your Apps Script Web app URL (ends in /exec) here.
    ========================================================= */
 var APP_URL='https://script.google.com/macros/s/AKfycbw6Tof3-7wspQdTxEFmA3SDd9DT8E4BF4QEqqMShJQ3xef7wAeFijgN_gckwtJkOMD2MQ/exec';
-var APP_VERSION='4.3';   // must match APP_VERSION in Code.gs
+var APP_VERSION='4.4';   // must match APP_VERSION in Code.gs
 
 function cleanCode(c){return String(c||'').toUpperCase().replace(/[^A-Z0-9]/g,'')}
 var SHOP=(function(){
@@ -843,7 +860,7 @@ function refresh(force){
   D=res;saveData();fatal='';
   if(net==='locked'&&res.licence.state!=='expired'){net='ok';flush()}
   if(view==='loading'||dayChanged){go('home')}
-  else if(view==='home'||view==='cust')render();
+  else if(view==='home'||view==='cust'||view==='bookings')render();
   else syncChip();
   return true;
  },function(e){
@@ -985,11 +1002,11 @@ function awayList(mo){return D.customers.filter(function(c){return c.last&&daysS
 
 /* ============ Bottom navigation ============ */
 function navBar(){
- if(!D||!token||locked||['home','cust','close','more','branches','exp','help','renew'].indexOf(view)<0)return '';
+ if(!D||!token||locked||['home','cust','close','more','branches','exp','help','renew','bookings'].indexOf(view)<0)return '';
  var items=isMgr()?[['home','house',t('navHome')],['wash','plus',t('wash'),1],['more','ellipsis',t('navMore')]]
   :[['home','house',t('navHome')],['cust','users',t('cust')],['wash','plus',t('wash'),1],['close','chart-column',t('navReports')],['more','ellipsis',t('navMore')]];
  return '<nav class="bnav" aria-label="Main">'+items.map(function(it){
-  var on=view===it[0]||(it[0]==='more'&&['branches','exp','help','renew'].indexOf(view)>=0);
+  var on=view===it[0]||(it[0]==='more'&&['branches','exp','help','renew','bookings'].indexOf(view)>=0);
   var dis=readOnly()&&(it[0]==='wash');
   return '<button class="bn'+(it[3]?' bn-main':'')+(on?' on':'')+'" id="nav-'+it[0]+'" data-go="'+it[0]+'"'+(on?' aria-current="page"':'')+(dis?' disabled':'')+'>'+
    (it[3]?'<span class="bn-fab">'+ic(it[1],'lg')+'</span>':ic(it[1],'lg'))+'<span class="bn-lb">'+it[2]+'</span></button>';
@@ -1091,7 +1108,7 @@ function homeView(){
  var list=D.washes.slice().reverse().map(txCard).join('')||emptyState('car-front',t('noWash'),isMgr()?'':t('emptyHint'));
  var old=D.user.role==='owner'&&String(D.version||'0')!==APP_VERSION;
  var top=header()+licBanner()+(old?'<div class="banner b-bad">'+ic('triangle-alert')+'<span>'+t('oldServer').replace('{v}',esc(D.version||'?'))+'</span></div>':'');
- var sec='<div class="sec"><h2>'+t('recent')+'</h2>'+(D.washes.length?'<span class="sec-n num">'+D.washes.length+'</span>':'')+'</div><div class="list cards">'+list+'</div>';
+ var sec=bookingStrip()+'<div class="sec"><h2>'+t('recent')+'</h2>'+(D.washes.length?'<span class="sec-n num">'+D.washes.length+'</span>':'')+'</div><div class="list cards">'+list+'</div>';
  if(isMgr()){
   return top+'<div class="mhello">'+t('hello').replace('{n}',esc(D.user.name))+'</div>'+
    '<button class="mbig" id="go-wash" data-go="wash" '+(ro?'disabled':'')+'><span class="mic">'+ic(ro?'lock':'car-front','xxl')+'</span>'+
@@ -1110,6 +1127,89 @@ function homeView(){
   qa('close','chart-column',t('dayReport'),rs(x.sales))+
   (feat('expenses')?qa('exp','wallet',t('exp'),rs(x.exp)):qa('away','history',t('comeBack'),t('nToCall').replace('{n}',away),0,' data-awaytab="1"'))+'</div>'+sec;
 }
+/* ---------- online bookings (Pro plan) ---------- */
+function bkList(){return (D&&D.bookings)||[]}
+function bkSort(a,b){return (a.date+a.t)<(b.date+b.t)?-1:1}
+function bkDay(d){if(d===D.today)return t('today');if(d===shiftDay(D.today,1))return t('tomorrow');return new Date(d+'T12:00:00').toLocaleDateString(loc(),{weekday:'short',day:'numeric',month:'short'})}
+function bkLink(){return location.origin+location.pathname.replace(/[^/]*$/,'')+'book.html?shop='+SHOP}
+function bkMsg(key,b){return t(key).replace('{name}',b.name||'').replace('{shop}',D.settings.shopName).replace('{day}',bkDay(b.date)).replace('{time}',fmtTime(b.t)).replace('{plate}',b.plate).replace('{link}',bkLink())}
+function bkWa(key,b){return 'https://wa.me/'+waNum(b.phone)+'?text='+encodeURIComponent(bkMsg(key,b))}
+function bkCard(b){
+ var st=b.status,today=b.date===D.today,ro=readOnly(),busy=ui.bkbusy===b.id;
+ var badge=st==='pending'?'<span class="badge badge-warning">'+ic('hourglass','xs')+t('bkPending')+'</span>':st==='done'?'<span class="badge badge-success">'+ic('check','xs')+t('bkDone')+'</span>':'<span class="badge badge-info">'+ic('calendar-check','xs')+t('bkConfirmed')+'</span>';
+ var tm=fmtTime(b.t).split(' ');
+ var names=b.svc.map(svc).filter(Boolean).map(L).join(' + ')||b.names;
+ var h='<div class="bk st-'+st+'" id="bk-'+esc(b.id)+'"><div class="bk-top"><span class="bk-time"><b class="num">'+tm[0]+'</b><span>'+(tm[1]||'')+'</span></span>'+
+  '<span class="tx-main"><b class="plate num">'+esc(b.plate)+'</b><span class="tx-sub">'+esc(b.name)+' · '+esc(b.phone)+(today?'':' · '+esc(bkDay(b.date)))+'</span><span class="tx-svc">'+esc(names)+(b.amt?' · '+rs(b.amt):'')+'</span></span>'+badge+'</div>';
+ if(st==='pending')h+='<div class="bk-acts"><button class="btn btn-sm btn-outline" data-bkact="reject:'+esc(b.id)+'"'+(busy||ro?' disabled':'')+'>'+ic('x','sm')+t('reject')+'</button><button class="btn btn-sm btn-success" data-bkact="accept:'+esc(b.id)+'"'+(busy||ro?' disabled':'')+'>'+ic('check','sm')+t('accept')+'</button></div>';
+ else if(st==='confirmed'){
+  h+='<div class="bk-acts"><a class="btn btn-sm btn-outline btn-icon wa-ic" href="'+esc(bkWa('bkMsgOk',b))+'" target="_blank" rel="noopener" aria-label="WhatsApp">'+ic('message-circle')+'</a>'+
+   '<button class="btn btn-sm btn-outline btn-icon" data-bkask="'+esc(b.id)+'" aria-label="'+t('cancelBk')+'"'+(busy||ro?' disabled':'')+'>'+ic('trash-2')+'</button>'+
+   (today?'<button class="btn btn-sm btn-primary" data-bkstart="'+esc(b.id)+'"'+(ro?' disabled':'')+'>'+ic('car-front','sm')+t('startBk')+'</button>':'')+'</div>';
+  if(ui.bkdel===b.id)h+='<div class="confirm"><span>'+ic('trash-2','sm')+t('cancelQ')+'</span><button class="btn btn-sm btn-outline no" data-bkno="1">'+t('no')+'</button><button class="btn btn-sm btn-danger yes" data-bkact="cancel:'+esc(b.id)+'">'+t('cancelBk')+'</button></div>';
+ }
+ return h+'</div>';
+}
+function bkMsgBanner(){
+ if(!ui.bkmsg)return '';
+ return '<div class="banner b-good bkmsg">'+ic('message-circle')+'<span>'+esc(ui.bkmsg.label)+'</span><a class="btn btn-sm btn-wa" href="'+esc(ui.bkmsg.href)+'" target="_blank" rel="noopener" data-bkmsgdone="1">'+ic('send','sm')+t('tellCust')+'</a></div>';
+}
+function bookingStrip(){
+ if(!feat('booking'))return '';
+ var all=bkList().slice().sort(bkSort),today=all.filter(function(b){return b.date===D.today}),later=all.filter(function(b){return b.date>D.today});
+ var waitingLater=later.filter(function(b){return b.status==='pending'});
+ var shown=today.concat(waitingLater),pend=all.filter(function(b){return b.status==='pending'}).length;
+ var h=bkMsgBanner()+'<div class="sec"><h2>'+t('bkToday')+'</h2>'+(pend?'<span class="badge badge-warning">'+t('nPending').replace('{n}',pend)+'</span>':'')+(today.length?'<span class="sec-n num">'+today.length+'</span>':'')+'</div>';
+ h+=shown.length?'<div class="list cards">'+shown.map(bkCard).join('')+'</div>':'';
+ var more=later.length-waitingLater.length;
+ h+='<button class="btn btn-sm btn-outline" id="go-bookings" data-go="bookings">'+ic('calendar-days','sm')+(more>0?t('moreBk').replace('{n}',more):t('bkAll'))+ic('chevron-right','sm')+'</button>';
+ return '<div class="bkstrip">'+h+'</div>';
+}
+function bookingsView(){
+ var h=header(t('bookings'))+bkMsgBanner(),all=bkList().slice().sort(bkSort),link=bkLink();
+ h+='<div class="card bk-link"><b>'+ic('share-2','sm')+' '+t('bkLink')+'</b><span class="sub">'+t('bkLinkSub')+'</span><span class="bk-url" id="bk-url">'+esc(link)+'</span>'+
+  '<div class="bk-acts"><button class="btn btn-sm btn-outline" id="bk-copy">'+ic('file-text','sm')+t('copyLink')+'</button>'+
+  '<a class="btn btn-sm btn-wa" href="https://wa.me/?text='+encodeURIComponent(t('bkMsgShare').replace('{shop}',D.settings.shopName).replace('{link}',link))+'" target="_blank" rel="noopener">'+ic('message-circle','sm')+t('shareLink')+'</a></div></div>';
+ if(!all.length)return h+emptyState('calendar-days',t('bkNone'),t('bkNoneSub'));
+ var day='';
+ all.forEach(function(b){if(b.date!==day){day=b.date;h+='<div class="bk-day">'+esc(bkDay(day))+'</div>'}h+=bkCard(b)+'<div style="height:8px"></div>'});
+ return h;
+}
+function bookAct(act,id){
+ if(ui.bkbusy)return;ui.bkbusy=id;ui.bkdel=null;render();
+ var b=bkList().filter(function(x){return x.id===id})[0];
+ call('api',SHOP,token,'bookAct',{id:id,act:act}).then(function(res){
+  ui.bkbusy=null;replaceIn(D.bookings,res.booking);
+  D.bookings=D.bookings.filter(function(x){return x.status==='pending'||x.status==='confirmed'||x.status==='done'});saveData();
+  var lab=t(act==='accept'?'bkAccepted':act==='reject'?'bkRejected':'bkCancelled')+' · '+(b?b.plate:'');
+  if(b&&(act==='reject'||act==='cancel'))ui.bkmsg={id:id,label:lab,href:bkWa('bkMsgNo',b)};
+  if(act==='accept'&&b)ui.bkmsg={id:id,label:lab,href:bkWa('bkMsgOk',res.booking)};
+  buzz(15);toast(t(act==='accept'?'bkAccepted':act==='reject'?'bkRejected':'bkCancelled'));render();
+ },function(e){ui.bkbusy=null;if(errKind(e)==='login')return toLogin();toast(t('noNet'),true);render()});
+}
+function startFromBooking(id){
+ var b=bkList().filter(function(x){return x.id===id})[0];if(!b)return;
+ go('wash');ui.booking=id;
+ var key=normPlate(b.plate),c=D.customers.filter(function(x){return normPlate(x.plate)===key})[0]||D.customers.filter(function(x){return phoneDigits(x.phone)===phoneDigits(b.phone)&&phoneOk(b.phone)})[0];
+ if(c)ui.cid=c.id;else{ui.q=b.plate;ui.nphone=b.phone;ui.nname=b.name}
+ if(b.vt&&vtGroups().some(function(x){return x.key===b.vt}))ui.vt=b.vt;
+ ui.sel=b.svc.filter(function(sid){return !!svc(sid)});
+ render();
+}
+var bkSeen=null;
+function beep(){try{var A=window.AudioContext||window.webkitAudioContext;if(!A)return;var a=beep.c||(beep.c=new A()),o=a.createOscillator(),g=a.createGain();o.frequency.value=880;g.gain.setValueAtTime(.15,a.currentTime);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+.5);o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+.5)}catch(e){}}
+function pollBookings(){
+ if(!feat('booking')||!token||locked||document.hidden||ui.bkbusy)return;
+ call('api',SHOP,token,'bookings').then(function(res){
+  var old={};(bkList()).forEach(function(b){old[b.id]=1});
+  var fresh=res.bookings.filter(function(b){return !old[b.id]});
+  D.bookings=res.bookings;saveData();
+  if(fresh.length&&bkSeen){buzz([60,40,60]);beep();toast(t('newBooking'))}
+  bkSeen=true;
+  var a=document.activeElement;if((view==='home'||view==='bookings')&&!(a&&a.tagName==='INPUT'))render();
+ },function(){});
+}
+setInterval(pollBookings,60000);
 function confirmDel(kind,id){
  return '<div class="confirm"><span>'+ic('trash-2','sm')+t('delQ')+'</span><button class="btn btn-sm btn-outline no" data-delno="1">'+t('no')+'</button><button class="btn btn-sm btn-danger yes" data-del="'+kind+':'+esc(id)+'">'+t('del')+'</button></div>';
 }
@@ -1123,6 +1223,8 @@ function phoneBox(){
 }
 function washView(){
  var h=header(t('wash')),c=ui.cid?cust(ui.cid):null;
+ var fromBk=ui.booking&&bkList().filter(function(x){return x.id===ui.booking})[0];
+ if(fromBk)h+='<span class="bk-from">'+ic('calendar-check','sm')+t('bkFrom').replace('{t}',fmtTime(fromBk.t))+'</span>';
  var q=ui.q.trim().toUpperCase().replace(/[^A-Z0-9]/g,'');
  // A. customer
  h+='<section class="card wsec"><div class="wsec-h"><span class="wsec-t">'+ic('user','sm')+t('custSec')+'</span>';
@@ -1325,6 +1427,7 @@ function moreView(){
  var row=function(id,icon,label,extra,attrs,cls){return '<button class="mrow'+(cls?' '+cls:'')+'" id="'+id+'"'+(attrs||'')+'><span class="mr-ic">'+ic(icon)+'</span><span class="main">'+label+'</span>'+(extra||ic('chevron-right','sm mr-go'))+'</button>'};
  h+='<div class="menu card">'+
   (!isMgr()&&D.branches&&D.branches.length>1?row('m-branches','store',t('branches'),null,' data-go="branches"'):'')+
+  (feat('booking')?row('m-bookings','calendar-check',t('bookings'),(function(){var n=bkList().filter(function(b){return b.status==='pending'}).length;return (n?'<span class="mr-badge num">'+n+'</span>':'')+ic('chevron-right','sm mr-go')})(),' data-go="bookings"'):'')+
   (!isMgr()&&feat('expenses')?row('m-exp','wallet',t('exp'),null,' data-go="exp"'):'')+
   (langs().length>1?row('m-lang','languages',t('language'),'<span class="mr-val">'+LANG_NAME[lang]+'</span>',' data-lang="'+nextLang()+'"'):'')+
   row('refresh','refresh-cw',t('refreshData'),'')+
@@ -1339,6 +1442,9 @@ function moreView(){
 
 /* ---------- Help: a short user manual inside the app ---------- */
 var HELP=[
+ {ic:'calendar-check',all:1,feat:'booking',en:['Online bookings',['Customers book a day and time on your booking link. Share it from More → Bookings.','New bookings show on the Home screen. If your shop accepts bookings first, tap Accept or Reject.','When the customer comes, tap Start wash. Everything is filled in. Take the payment as usual.','Tap the WhatsApp button to send the customer a confirmation or a reminder.']],
+  te:['ఆన్‌లైన్ బుకింగ్‌లు',['కస్టమర్లు మీ బుకింగ్ లింక్‌లో రోజు, టైమ్ బుక్ చేసుకుంటారు. More → బుకింగ్‌లు నుండి లింక్ షేర్ చేయండి.','కొత్త బుకింగ్‌లు హోమ్ స్క్రీన్‌లో కనిపిస్తాయి. షాప్ ఒప్పుకోవాల్సి ఉంటే, ఒప్పుకోండి లేదా వద్దు నొక్కండి.','కస్టమర్ వచ్చాక వాష్ మొదలుపెట్టండి నొక్కండి. అన్నీ నింపి ఉంటాయి. మామూలుగా డబ్బు తీసుకోండి.','కన్ఫర్మేషన్ లేదా రిమైండర్ పంపడానికి WhatsApp బటన్ నొక్కండి.']],
+  hi:['ऑनलाइन बुकिंग',['ग्राहक आपके बुकिंग लिंक पर दिन और समय बुक करते हैं। लिंक और → बुकिंग से शेयर करें।','नई बुकिंग होम स्क्रीन पर दिखती है। अगर दुकान पहले मंज़ूरी देती है, तो मंज़ूर करें या मना करें दबाएँ।','ग्राहक आने पर वॉश शुरू करें दबाएँ। सब पहले से भरा होगा। पैसे हमेशा की तरह लें।','ग्राहक को कन्फ़र्मेशन या याद दिलाने के लिए WhatsApp बटन दबाएँ।']]},
  {ic:'car-front',all:1,en:['Add a wash',['Tap the + New Wash button.','Type the customer\'s mobile number or vehicle number.','New customer? Type the vehicle number and name. Old customer? Tap their name.','Choose the vehicle type.','Tap every service you did. A tick shows it is chosen.','Tap how the customer paid: Cash, UPI, Card or Later.','Check the money. Then tap the green button to save.']],
   te:['వాష్ నమోదు',['+ కొత్త వాష్ బటన్ నొక్కండి.','కస్టమర్ మొబైల్ నంబర్ లేదా వాహనం నంబర్ టైప్ చేయండి.','కొత్త కస్టమర్ అయితే వాహనం నంబర్, పేరు టైప్ చేయండి. పాత కస్టమర్ అయితే వారి పేరు నొక్కండి.','వాహనం రకం ఎంచుకోండి.','చేసిన ప్రతి సేవను నొక్కండి. ఎంచుకున్న దానికి టిక్ వస్తుంది.','కస్టమర్ ఎలా చెల్లించారో నొక్కండి: నగదు, UPI, కార్డ్ లేదా తర్వాత.','డబ్బు సరిచూసుకోండి. తర్వాత ఆకుపచ్చ బటన్ నొక్కి సేవ్ చేయండి.']],
   hi:['वॉश जोड़ना', ['+ नई वॉश बटन दबाएँ।', 'ग्राहक का मोबाइल नंबर या गाड़ी नंबर टाइप करें।', 'नया ग्राहक? गाड़ी नंबर और नाम टाइप करें। पुराना ग्राहक? उसका नाम दबाएँ।', 'गाड़ी का प्रकार चुनें।', 'जो भी सर्विस की, हर एक को दबाएँ। चुनी गई सर्विस पर टिक दिखता है।', 'ग्राहक ने कैसे पैसे दिए, दबाएँ: नकद, UPI, कार्ड या बाद में।', 'पैसे जाँचें। फिर सेव करने के लिए हरा बटन दबाएँ।']]},
@@ -1369,7 +1475,7 @@ var HELP=[
 function helpView(){
  var h=header(t('helpT'));
  h+='<p class="lead">'+t('helpLead')+'</p>';
- h+=HELP.filter(function(x){return (x.all||!isMgr())&&(x.ic!=='languages'||langs().length>1)}).map(function(x,i){
+ h+=HELP.filter(function(x){return (x.all||!isMgr())&&(x.ic!=='languages'||langs().length>1)&&(!x.feat||feat(x.feat))}).map(function(x,i){
   var c=x[lang]||x.en;if(x.ic==='languages')c=[c[0],[c[1][0].replace('{a}',langs().map(function(k){return LANG_SHORT[k]}).join(' / '))]];
   return '<section class="card help"><div class="help-h"><span class="avatar">'+ic(x.ic)+'</span><b>'+c[0]+'</b></div><ol class="steps">'+c[1].map(function(s){return '<li>'+esc(s)+'</li>'}).join('')+'</ol></section>';
  }).join('');
@@ -1383,7 +1489,7 @@ function renewMessage(){
  var till=(+from.slice(0,4)+1)+from.slice(4);                       // one year after the current end date (or today, if already ended)
  var name=D.user.name&&!/^owner$/i.test(D.user.name)?D.user.name:'';
  var L=['WashBook – Renewal Request','','Dear WashBook Team,','','Please renew my WashBook app for 1 year.','',
-  'Shop name: '+s.shopName,'Shop code: '+SHOP];
+  'Shop name: '+s.shopName,'Shop code: '+SHOP,'Plan: '+(s.plan||'Basic')];
  if(name)L.push('Owner: '+name);
  if(s.ownerPhone)L.push('Mobile: '+s.ownerPhone);
  L.push('Valid till: '+(exp?fmtDay(exp):'—'),'Renew till: '+fmtDay(till),'',
@@ -1499,7 +1605,7 @@ function render(){
  if(view==='pick')html=pickView();
  else if(view==='login')html=loginView();
  else if(!D)html='<div class="center"><span class="spinner"></span>'+t('loading')+'</div>';
- else html={home:homeView,wash:washView,cust:custView,exp:expView,close:closeView,branches:branchesView,receipt:receiptView,more:moreView,help:helpView,renew:renewView}[view]();
+ else html={home:homeView,wash:washView,cust:custView,exp:expView,close:closeView,branches:branchesView,receipt:receiptView,more:moreView,help:helpView,renew:renewView,bookings:bookingsView}[view]();
  if(D&&D.settings&&D.settings.brand&&JSON.stringify(D.settings.brand)!==JSON.stringify(LS.get('brand',null)))LS.set('brand',D.settings.brand);
  if(D&&D.settings&&D.settings.languages&&JSON.stringify(D.settings.languages)!==JSON.stringify(LS.get('langs',null)))LS.set('langs',D.settings.languages);
  applyBrand();
@@ -1554,7 +1660,9 @@ function saveWash(pay){
  if(free)pay='cash';
  var at=Date.now(),w={id:newId('W'),date:D.today,t:nowHM(),cid:c.id,plate:c.plate,svc:ui.sel.slice(),names:'',amt:amt,pay:pay,free:free,staff:D.user.name,inv:invoiceNo()};
  D.washes.push(w);c.visits++;c.last=D.today;if(pay==='credit')c.due+=amt;
- enqueue('addWash',{id:w.id,at:at,services:w.svc,pay:pay,invoice:w.inv,customer:{id:c.id,plate:c.plate,phone:c.phone,name:c.name}});
+ var bkid=ui.booking||'';
+ if(bkid)bkList().forEach(function(x){if(x.id===bkid)x.status='done'});
+ enqueue('addWash',{id:w.id,at:at,services:w.svc,pay:pay,invoice:w.inv,booking:bkid||undefined,customer:{id:c.id,plate:c.plate,phone:c.phone,name:c.name}});
  var items=w.svc.map(function(id){var s=svc(id)||{};return {en:s.en||'',te:s.te||s.en||'',hi:s.hi||s.en||'',price:s.price||0}});
  var s0=svc(w.svc[0])||{};
  var rc={w:w,cust:{name:c.name,phone:c.phone,plate:c.plate,visits:c.visits,due:c.due},items:items,vt:s0.vt||'',vtte:s0.vtte||s0.vt||'',vthi:s0.vthi||s0.vt||'',vic:s0.vic||'🚗'};
@@ -1689,6 +1797,8 @@ function deleteEntry(kind,id){
  ui.del=null;render();
 }
 document.addEventListener('click',function(e){
+ var bm=e.target.closest&&e.target.closest('a[data-bkmsgdone]');
+ if(bm){setTimeout(function(){ui.bkmsg=null;render()},600);return}
  var wa=e.target.closest&&e.target.closest('a.wa,a.wa-big');
  if(wa&&wa.dataset.cid){
   markOfferSent(wa.dataset.cid);
@@ -1709,10 +1819,15 @@ document.addEventListener('click',function(e){
   if(ui.pin.length===4)setTimeout(doLogin,120);   // PINs are 4 digits: open as soon as the 4th is typed
   return;
  }
- if(d.go&&isMgr()&&['home','wash','receipt','more','help'].indexOf(d.go)<0)return;
- if(d.go){if(readOnly()&&['home','cust','branches','more','close','help','renew'].indexOf(d.go)<0){toast(t('locked'),true);return}go(d.go);if(d.awaytab){ui.tab='away';render()}if(d.go==='branches')loadBranches();return}
+ if(d.go&&isMgr()&&['home','wash','receipt','more','help','bookings'].indexOf(d.go)<0)return;
+ if(d.go){if(readOnly()&&['home','cust','branches','more','close','help','renew','bookings'].indexOf(d.go)<0){toast(t('locked'),true);return}go(d.go);if(d.awaytab){ui.tab='away';render()}if(d.go==='branches')loadBranches();return}
  if(d.startwash){if(readOnly()){toast(t('locked'),true);return}var sc=cust(d.startwash);go('wash');ui.cid=d.startwash;if(sc&&sc.vehicle&&vtGroups().some(function(x){return x.key===sc.vehicle}))ui.vt=sc.vehicle;render();return}
  if(d.vcat){ui.vcat=d.vcat;render();return}
+ if(d.bkact){var ba=d.bkact.split(':');bookAct(ba[0],ba.slice(1).join(':'));return}
+ if(d.bkask){ui.bkdel=ui.bkdel===d.bkask?null:d.bkask;render();return}
+ if(d.bkno){ui.bkdel=null;render();return}
+ if(d.bkstart){if(readOnly()){toast(t('locked'),true);return}startFromBooking(d.bkstart);return}
+ if(b.id==='bk-copy'){var u=bkLink();(navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(function(){toast(t('copied'))},function(){var el=document.getElementById('bk-url');if(el){var r=document.createRange();r.selectNodeContents(el);var sl=getSelection();sl.removeAllRanges();sl.addRange(r)}});return}
  if(d.switch){switchShop(d.switch);return}
  if(b.id==='rc-done'){go('home');return}
  if(b.id==='rc-pdf'){sharePdf(lastRc);return}
