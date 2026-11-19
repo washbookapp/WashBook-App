@@ -544,7 +544,7 @@ var T={
   lastVisit:'Last visit',d0:'Today',d1:'Yesterday',dN:'{n} days ago',mN:'{n} months ago',m1:'1 month ago',never:'New customer',
   all:'All',away:'Not coming',awayFor:'Not come for',mo:'months',offer:'Offer message',sendWa:'Send on WhatsApp',
   awayCount:'{n} customers have not come for {m} months',
-  offerDefault:'Hello {name}! We miss you at our car wash 🚗 Come back this week and get 20% OFF any wash. Show this message.',
+  offerDefault:'Dear {name},\n\nWe hope you are doing well. It has been a while since your last visit to {shop}, and we would love to see you again.\n\nAs a thank-you, we are offering you 20% off any wash this week. Just show this message at the counter.\n\nWarm regards,\nTeam {shop}',
   enterPin:'Enter your PIN',wrongPin:'Wrong PIN. Try again',loading:'Loading…',switchUser:'Change worker',refresh:'Refresh',
   synced:'✓ Saved',waiting:'⏳ {n} to send',offline:'⚠ No internet · {n}',
   collect:'Collect',collectQ:'Received {amt} cash?',yes:'Yes',no:'No',delQ:'Delete this entry?',askOwner:'Only the owner can delete this now',
@@ -592,7 +592,7 @@ var T={
   lastVisit:'చివరిసారి వచ్చింది',d0:'ఈరోజు',d1:'నిన్న',dN:'{n} రోజుల క్రితం',mN:'{n} నెలల క్రితం',m1:'1 నెల క్రితం',never:'కొత్త కస్టమర్',
   all:'అందరూ',away:'రావడం లేదు',awayFor:'ఇన్ని నెలలుగా రాలేదు',mo:'నెలలు',offer:'ఆఫర్ మెసేజ్',sendWa:'వాట్సాప్‌లో పంపండి',
   awayCount:'{n} కస్టమర్లు {m} నెలలుగా రాలేదు',
-  offerDefault:'నమస్తే {name} గారు! 🚗 చాలా రోజులైంది మీరు మా కార్ వాష్‌కి రాలేదు. ఈ వారం వస్తే ఏ వాష్ మీదైనా 20% తగ్గింపు. ఈ మెసేజ్ చూపించండి.',
+  offerDefault:'ప్రియమైన {name} గారికి,\n\nమీరు బాగున్నారని ఆశిస్తున్నాం. మీరు {shop} కి వచ్చి చాలా రోజులైంది. మిమ్మల్ని మళ్ళీ కలవాలని ఎదురుచూస్తున్నాం.\n\nమా కృతజ్ఞతగా, ఈ వారం ఏ వాష్ మీదైనా మీకు 20% తగ్గింపు ఇస్తున్నాం. కౌంటర్‌లో ఈ మెసేజ్ చూపిస్తే చాలు.\n\nధన్యవాదాలతో,\n{shop} టీమ్',
   enterPin:'మీ PIN నమోదు చేయండి',wrongPin:'PIN తప్పు. మళ్ళీ ప్రయత్నించండి',loading:'లోడ్ అవుతోంది…',switchUser:'వర్కర్ మార్చు',refresh:'రిఫ్రెష్',
   synced:'✓ సేవ్',waiting:'⏳ {n} పంపాలి',offline:'⚠ ఇంటర్నెట్ లేదు · {n}',
   collect:'వసూలు',collectQ:'{amt} నగదు అందిందా?',yes:'అవును',no:'కాదు',delQ:'ఈ ఎంట్రీ తొలగించాలా?',askOwner:'ఇప్పుడు ఓనర్ మాత్రమే తొలగించగలరు',
@@ -640,7 +640,7 @@ var T={
   lastVisit:'पिछली बार आए',d0:'आज',d1:'कल',dN:'{n} दिन पहले',mN:'{n} महीने पहले',m1:'1 महीना पहले',never:'नया ग्राहक',
   all:'सभी',away:'नहीं आ रहे',awayFor:'इतने समय से नहीं आए',mo:'महीने',offer:'ऑफ़र मैसेज',sendWa:'व्हाट्सऐप पर भेजें',
   awayCount:'{n} ग्राहक {m} महीने से नहीं आए',
-  offerDefault:'नमस्ते {name} जी! 🚗 आप काफ़ी दिनों से हमारे कार वॉश पर नहीं आए। इस हफ़्ते आइए और किसी भी वॉश पर 20% छूट पाइए। यह मैसेज दिखाएँ।',
+  offerDefault:'प्रिय {name} जी,\n\nआशा है आप कुशल होंगे। {shop} पर आपको आए काफ़ी समय हो गया है, और हम आपसे फिर मिलना चाहेंगे।\n\nधन्यवाद के रूप में, इस हफ़्ते किसी भी वॉश पर हम आपको 20% छूट दे रहे हैं। बस काउंटर पर यह मैसेज दिखाएँ।\n\nसादर,\nटीम {shop}',
   enterPin:'अपना PIN डालें',wrongPin:'गलत PIN। फिर से कोशिश करें',loading:'लोड हो रहा है…',switchUser:'कर्मचारी बदलें',refresh:'रिफ़्रेश',
   synced:'✓ सेव हुआ',waiting:'⏳ {n} भेजना बाकी',offline:'⚠ इंटरनेट नहीं · {n}',collect:'वसूलें',collectQ:'{amt} नकद मिल गए?',yes:'हाँ',no:'नहीं',
   delQ:'यह एंट्री हटाएँ?',askOwner:'अब इसे सिर्फ़ मालिक हटा सकते हैं',shopCode:'अपनी दुकान का कोड डालें',open:'खोलें',
@@ -1578,9 +1578,10 @@ function markOfferSent(cid){
  enqueue('markOffer',{customerId:cid,at:Date.now()});
 }
 /* The come-back offer: the built-in wording follows the app language; a shop's own wording (Settings > offerMessage) is kept as typed. */
-function stdOffer(m){m=String(m||'').replace(/\s+/g,' ').trim();return !m||Object.keys(T).some(function(k){return T[k].offerDefault&&T[k].offerDefault.replace(/\s+/g,' ').trim()===m})}
+var OLD_OFFERS=['Hello {name}! We miss you at our car wash 🚗 Come back this week and get 20% OFF any wash. Show this message.','నమస్తే {name} గారు! 🚗 చాలా రోజులైంది మీరు మా కార్ వాష్\u200cకి రాలేదు. ఈ వారం వస్తే ఏ వాష్ మీదైనా 20% తగ్గింపు. ఈ మెసేజ్ చూపించండి.','नमस्ते {name} जी! 🚗 आप काफ़ी दिनों से हमारे कार वॉश पर नहीं आए। इस हफ़्ते आइए और किसी भी वॉश पर 20% छूट पाइए। यह मैसेज दिखाएँ।'];   // earlier built-in wording, still treated as 'not customised'
+function stdOffer(m){var sp=function(x){return String(x||'').replace(/\s+/g,' ').trim()};m=sp(m);return !m||OLD_OFFERS.some(function(o){return sp(o)===m})||Object.keys(T).some(function(k){return T[k].offerDefault&&sp(T[k].offerDefault)===m})}
 function offerText(){var m=D.settings.offerMessage||'';return stdOffer(m)?t('offerDefault'):m}
-function waLink(c){return 'https://wa.me/'+waNum(c.phone)+'?text='+encodeURIComponent((ui.offer||'').replace(/\{name\}/g,c.name||''))}
+function waLink(c){return 'https://wa.me/'+waNum(c.phone)+'?text='+encodeURIComponent((ui.offer||'').replace(/\{name\}/g,c.name||'').replace(/\{shop\}/g,D.settings.shopName||''))}
 
 function localSummary(){
  var x=totals(),g={};
